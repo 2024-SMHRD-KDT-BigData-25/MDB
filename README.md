@@ -13,10 +13,10 @@ ex1. 팀장) (생성) com.smhrd.controller.ex1 : 예제 파일 생성 <br>
 ex2. 팀장) (생성) com.smhrd.controller.loginController : login 기능 추가 / (수정) com.smhrd.controller.logoutController : logout 기능 오류 수정
          
 <br>
-PUSH할 때 꼭 말하기 (*언제 올리는 거든 간에 꼭 바로!!! 전체 카톡에 보고)
-매일 아침 9시에 깃헙에 올라와 있는 코드 내려받고 작업 시작하기
+ - PUSH할 때 꼭 말하기 (*언제 올리는 거든 간에 꼭 바로!!! 전체 카톡에 보고) <br>
+ - 매일 아침 9시에 깃헙에 올라와 있는 코드 내려받고 작업 시작하기
 
-
+<br>
 사용 중에 불편함 있으면 말해주세요~~ 수정하면서 더 나은 표기법/협업 방식 찾아봅시다 
  
 ## 중제목
