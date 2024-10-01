@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace  : mapper의 식별자 -->
+<mapper namespace="MemberMapper">
+	<!-- MavenMember 타입은 우리가 임의로 만들어낸 것이므로 mybatis에서 자동으로 인식할 수 없으므로 경로를 입력해줌 -->
+	<insert id="insert" parameterType="com.smhrd.model.MavenMember" >
+		insert into mavenmember values (#{id}, #{pw}, #{nickname})
+	</insert>
+	
+	<select id="login" parameterType="com.smhrd.model.MavenMember" resultType="com.smhrd.model.MavenMember">
+		select * from mavenmember where id=#{id} and pw=#{pw}
+	</select>
+</mapper>
