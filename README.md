@@ -7,8 +7,7 @@
    - 생성 - 파일 생성(생성하고 코드도 작성한 경우에도 생성에 포함)
    - 삭제 - 파일 삭제
 <br>
-한 번에 하나 생성/수정/삭제를 원칙으로 하되 파일 두 개를 만졌을 경우 전부 작성 <br>
-초반이라 만들 파일 많은 경우 + 혼자서만 작업하는 경우엔 그냥 한 번에 하시고 적당히 적어주세요 (ex. db 파일 작성 등)<br> <br>
+한 번에 하나 생성/수정/삭제를 원칙으로 하되 파일 두 개를 만졌을 경우 전부 작성 <br> <br>
 ex1. 팀장) (생성) com.smhrd.controller.ex1 : 예제 파일 생성 <br>
 ex2. 팀장) (생성) com.smhrd.controller.loginController : login 기능 추가 / (수정) com.smhrd.controller.logoutController : logout 기능 오류 수정
          
