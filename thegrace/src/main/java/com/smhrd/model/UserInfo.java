@@ -45,4 +45,12 @@ public class UserInfo {
     // 가입출처 
     private String join_source;
 
+	public UserInfo(String user_email, String user_pw) {
+		super();
+		this.user_email = user_email;
+		this.user_pw = user_pw;
+	}
+
+    
+    
 }
