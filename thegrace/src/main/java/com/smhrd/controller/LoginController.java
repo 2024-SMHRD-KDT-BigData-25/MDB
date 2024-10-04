@@ -12,7 +12,7 @@ import com.mysql.cj.Session;
 import com.smhrd.model.MavenMember;
 import com.smhrd.model.MemberDAO;
 
-@WebServlet("/LoginController")
+@WebServlet("/Login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
