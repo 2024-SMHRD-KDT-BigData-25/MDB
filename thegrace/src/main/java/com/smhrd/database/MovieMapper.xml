@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace  : mapper의 식별자 -->
+<mapper namespace="MovieMapper">
+	<!-- 우리가 임의로 만들어낸 객체를 이용할 경우 mybatis에서 자동으로 인식할 수 없으므로 경로를 입력해줌 -->
+
+</mapper>

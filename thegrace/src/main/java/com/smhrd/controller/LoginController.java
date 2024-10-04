@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.mysql.cj.Session;
-import com.smhrd.model.MavenMember;
-import com.smhrd.model.MemberDAO;
+import com.smhrd.model.UserInfo;
+import com.smhrd.model.MovieDAO;
 
 @WebServlet("/Login")
 public class LoginController extends HttpServlet {

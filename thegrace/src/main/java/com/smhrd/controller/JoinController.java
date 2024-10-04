@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.smhrd.model.MavenMember;
-import com.smhrd.model.MemberDAO;
+import com.smhrd.model.UserInfo;
+import com.smhrd.model.MovieDAO;
 
 @WebServlet("/Join")
 public class JoinController extends HttpServlet {
