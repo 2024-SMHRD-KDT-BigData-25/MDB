@@ -4,19 +4,38 @@
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
   <title>Regal Admin</title>
   <!-- base:css -->
   <link rel="stylesheet" href="resources/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../../vendors/feather/feather.css">
-  <link rel="stylesheet" href="../../vendors/base/vendor.bundle.base.css">
+  <link rel="stylesheet" href="resources/vendors/feather/feather.css">
+  <link rel="stylesheet" href="resources/vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="resources/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="../../images/favicon.png" />
+  <link rel="shortcut icon" href="resources/images/favicon.png" />
+  <style>
+    /* 추가된 CSS */
+    h4.font-weight-light {
+      color: black; /* 텍스트 색상을 검정색으로 설정 */
+    }
+    
+    .mdi {
+      color: #2f2f2f; /* 아이콘 색상을 #2f2f2f로 변경 */
+    }
+    
+    .auth-form-btn {
+      background-color: #2f2f2f; /* 로그인 버튼 색상 */
+      color: white; /* 버튼 텍스트 색상 */
+    }
+    
+    .form-check-input {
+      display: inline-block; /* 체크박스 표시 */
+      width: auto;
+      margin: 0 10px 0 0; /* 체크박스와 레이블 간의 간격 */
+    }
+  </style>
 </head>
 
 <body>
@@ -29,72 +48,60 @@
               <div class="brand-logo">
                 <img src="../../images/logo-dark.svg" alt="logo">
               </div>
-              <h4>New here?</h4>
-              <h6 class="font-weight-light">Join us today! It takes only few steps</h6>
+              <h4 class="font-weight-light">영화의 감상을 기록하고 바라보고 공유하는 특별한 경험을 시작하세요</h4>
               <form class="pt-3" action="Join">
                 <div class="form-group">
-                  <label>Username</label>
+                  <label>USER EMAIL</label>
                   <div class="input-group">
                     <div class="input-group-prepend bg-transparent">
                       <span class="input-group-text bg-transparent border-right-0">
-                        <i class="mdi mdi-account-outline text-primary"></i>
+                        <i class="mdi mdi-account-outline"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control form-control-lg border-left-0" placeholder="Username">
+                    <input type="text" class="form-control form-control-lg border-left-0" placeholder="로그인 email 입력" required>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label>Email</label>
+                  <label>PASSWORD</label>
                   <div class="input-group">
                     <div class="input-group-prepend bg-transparent">
                       <span class="input-group-text bg-transparent border-right-0">
-                        <i class="mdi mdi-email-outline text-primary"></i>
+                        <i class="mdi mdi-lock-outline"></i>
                       </span>
                     </div>
-                    <input type="email" class="form-control form-control-lg border-left-0" placeholder="Email">
+                    <input type="password" class="form-control form-control-lg border-left-0" placeholder="pw입력" required>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label>Country</label>
-                  <select class="form-control form-control-lg" id="exampleFormControlSelect2">
-                    <option>Country</option>
-                    <option>United States of America</option>
-                    <option>United Kingdom</option>
-                    <option>India</option>
-                    <option>Germany</option>
-                    <option>Argentina</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Password</label>
+                  <label>NICKNAME</label>
                   <div class="input-group">
                     <div class="input-group-prepend bg-transparent">
                       <span class="input-group-text bg-transparent border-right-0">
-                        <i class="mdi mdi-lock-outline text-primary"></i>
+                        <i class="mdi mdi-account-outline"></i>
                       </span>
                     </div>
-                    <input type="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password">                        
+                    <input type="text" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="nick 입력" required>                        
                   </div>
                 </div>
                 <div class="mb-4">
                   <div class="form-check">
+                    <input type="checkbox" class="form-check-input" required>
                     <label class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
-                      I agree to all Terms & Conditions
+                      약관에 동의 하시겠습니까?
                     </label>
                   </div>
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn" href="../../index.html">SIGN UP</a>
+                  <button type="submit" class="btn btn-block btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
-                  Already have an account? <a href="login.html" class="text-primary">Login</a>
+                  이미 회원이시라면  <a href="login.html" class="text-primary">Login</a>
                 </div>
               </form>
             </div>
           </div>
           <div class="col-lg-6 register-half-bg d-flex flex-row">
-            <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2020  All rights reserved.</p>
+            <p class="text-white font-weight-medium text-center flex-grow align-self-end"> CinemaTografo 2024 All rights reserved.</p>
           </div>
         </div>
       </div>
