@@ -20,8 +20,6 @@ public class JoinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 요청 파라미터 받기 (아이디, 비밀번호, 닉네임 -> 한글(인코딩))
-		request.setCharacterEncoding("utf-8");
 		
 		// MultipartRequest => COS 라이브러리 추가
 		
@@ -33,22 +31,20 @@ public class JoinController extends HttpServlet {
 		MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 		
 		
-		String user_email = request.getParameter("user_email");
-		String user_pw = request.getParameter("user_pw");
-		String nick = request.getParameter("nick");
-		String best_mv = request.getParameter("best_mv");
-		String pos_color = request.getParameter("pos_color");
-		String neg_color = request.getParameter("neg_color");
+		String user_email = multi.getParameter("user_email");
+		String user_pw = multi.getParameter("user_pw");
+		String nick = multi.getParameter("nick");
+		String best_mv = multi.getParameter("best_mv");
+		String pos_color = multi.getParameter("pos_color");
+		String neg_color = multi.getParameter("neg_color");
 		String pf_img = multi.getFilesystemName("pf_img");
 		Date join_date = new Date(System.currentTimeMillis());
-		String join_source = request.getParameter("join_source");
-		String best_rev = request.getParameter("best_rev");
+		String join_source = multi.getParameter("join_source");
+		String best_rev = multi.getParameter("best_rev");
 		
-		// 서버에 저장 - JDBC사용 가능하지만 더 사용하기 쉽고 명확한 
+		// 서버에 저장 
 		UserInfo joinMember = new UserInfo(user_email, user_pw, nick, best_mv, pos_color, neg_color, pf_img, join_date, join_source, best_rev);
 		
-		// myBatis DB 연동 프레임 워크 사용해서 테이블에 값 저장하기
-		// => 3가지 방법 : DAO(*), @(Annotation), Mapper Interface
 		MovieDAO dao = new MovieDAO();
 		int res = dao.join(joinMember);
 		
