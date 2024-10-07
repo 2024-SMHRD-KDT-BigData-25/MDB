@@ -23,9 +23,6 @@ public class UserInfo {
 
     // 인생영화 
     private String best_mv;
-    
-    // 인생영화 한줄평
-    private String best_mvrev;
 
     // 긍정 색상 
     private String pos_color;
@@ -35,22 +32,20 @@ public class UserInfo {
 
     // 프로필 사진 
     private String pf_img;
-
-    // 회원 포인트 
-    private Double user_point;
-
+    
     // 가입 일자 
     private Date join_date;
-
+    
     // 가입출처 
     private String join_source;
+    
+    // 가입출처 
+    private String best_rev;
 
 	public UserInfo(String user_email, String user_pw) {
 		super();
 		this.user_email = user_email;
 		this.user_pw = user_pw;
 	}
-
-    
     
 }
