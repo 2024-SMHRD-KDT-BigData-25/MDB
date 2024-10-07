@@ -18245,11 +18245,11 @@ button.bg-dark:focus {
 }
 
 .text-primary {
-  color: #ec37fc !important;
+  color: #fa5858 !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
-  color: #d103e3 !important;
+  color: #fa5858 !important;
 }
 
 .text-secondary {
@@ -20254,7 +20254,7 @@ code {
   width: 18px;
   height: 18px;
   border-radius: 2px;
-  border: solid #ec37fc;
+  border: solid #FA5858;
   border-width: 2px;
   -webkit-transition: all;
   -moz-transition: all;
@@ -20289,7 +20289,7 @@ code {
 }
 
 .form-check .form-check-label input[type="checkbox"]:checked + .input-helper:before {
-  background: #ec37fc;
+  background: #FA5858;
   border-width: 0;
 }
 
