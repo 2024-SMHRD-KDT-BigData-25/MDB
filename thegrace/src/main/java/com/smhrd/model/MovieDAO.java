@@ -13,12 +13,22 @@ public class MovieDAO {
 	
 	SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSessionFactory();
 	
-	// 로그인(select) 기능(메서드)
+	// UserInfo 메서드 모음
+	// 1. 로그인(select) 기능(메서드)
 	public UserInfo login(UserInfo m) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		// 반환값 T ? => 임의읙 객체로 반환값을 나중에 우리가 지정한 형태로 받을 수 있음
 		UserInfo res = sqlSession.selectOne("MovieMapper.login", m);
 		sqlSession.close();
+		return res;
+	}
+	
+	// 2. 회원가입 기능
+	public int join(UserInfo m) {
+		// openSession(true) -> 오토커밋 기능 on
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int res = sqlSession.insert("MovieMapper.join", m);
+		sqlSession.close(); // session의 자원 반환
 		return res;
 	}
 	
