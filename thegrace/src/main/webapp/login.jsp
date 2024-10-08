@@ -120,8 +120,9 @@
                         <i class="mdi mdi-account-outline"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control form-control-lg border-left-0" name="user_email" id="input_email" placeholder="로그인 email 입력">
+                    <input type="text" class="form-control form-control-lg border-left-0" name="user_email" id="input_email" placeholder="로그인 email 입력"> <br>
                   </div>
+                  	<p id="email_warning" style="display:none; color:red;">아이디(이메일)을 입력해주세요.</p>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword">PASSWORD</label>
@@ -131,8 +132,9 @@
                         <i class="mdi mdi-lock-outline"></i>
                       </span>
                     </div>
-                    <input type="password" class="form-control form-control-lg border-left-0" name="user_pw" id="input_pw" placeholder="PW입력">
+                    <input type="password" class="form-control form-control-lg border-left-0" name="user_pw" id="input_pw" placeholder="PW입력"> <br>
                   </div>
+                  	<p id="password_warning" style="display:none; color:red;">비밀번호를 입력해주세요.</p>
                 </div>
                 <div class="my-2">
                   <div class="remember-me-container">
@@ -147,7 +149,7 @@
                   </div>
                 </div>
                 <div class="my-3">
-                  <a class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn" href="../../index.html">LOGIN</a>
+                  <a class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn" href="../../index.html"><input id="login_btn" type="submit" value="login"></a>
                 </div>
                 <div class="mb-2 d-flex">
                   <button type="button" class="btn btn-kakao auth-form-btn mr-1">
