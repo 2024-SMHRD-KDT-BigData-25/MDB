@@ -30,6 +30,15 @@ public class MovieDAO {
 		int res = sqlSession.insert("MovieMapper.join", m);
 		sqlSession.close(); // session의 자원 반환
 		return res;
+		
+	}
+	// 네이버 회원가입 기능
+	public int naverJoin(UserInfo m) {
+		// openSession(true) -> 오토커밋 기능 on
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int res = sqlSession.insert("MovieMapper.naverJoin", m);
+		sqlSession.close(); // session의 자원 반환
+		return res;
 	}
 	
 	public String followerCnt(String user_email) {

@@ -11,6 +11,10 @@
 		insert into user_info values (#{user_email}, #{user_pw}, #{nick}, #{join_date}, #{join_source})
 	</insert>
 	
+	<insert id="naverJoin" parameterType="com.smhrd.model.UserInfo">
+		insert into user_info(user_email, nick, pf_img) values (#{user_email}, #{nick}, #{pf_img})
+	</insert>
+	
 	<select id="followerCnt" parameterType="String" resultType="String">
 		select count(*) as follower_cnt from following_info where followee=#{user_email}
 	</select>
