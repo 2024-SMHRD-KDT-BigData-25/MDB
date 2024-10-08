@@ -97,7 +97,7 @@
                     </div>
                     <input type="text" name = "user_email" id="user_email" class="form-control form-control-lg border-left-0" placeholder="로그인 email 입력" required>
                   </div>
-                  <div id="EmailCheck"></div>
+                  <div id="EmailCheckResult"></div>
                 </div>
                 <p id="joinedemail_warning" style="display:none; color:red;">이미 가입된 이메일입니다.</p>
                 <div class="form-group">

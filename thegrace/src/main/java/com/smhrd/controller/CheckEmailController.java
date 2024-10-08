@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.smhrd.model.MovieDAO;
 import com.smhrd.model.UserInfo;
 
-@WebServlet("/CheckEmail")
+@WebServlet("/checkEmail")
 public class CheckEmailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
