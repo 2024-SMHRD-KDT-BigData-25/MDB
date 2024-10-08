@@ -93,7 +93,7 @@
                 <img src="resources/images/logo_black.png" alt="logo">
               </div>
               <br><br><br><br><br>
-              <form class="pt-3" action="Login" method="post">
+              <form class="pt-3" action="Login" method="post" id="loginForm">
                 <div class="form-group">
                   <label for="exampleInputEmail">USER EMAIL</label>
                   <div class="input-group">
@@ -103,6 +103,7 @@
                       </span>
                     </div>
                     <input type="text" class="form-control form-control-lg border-left-0" name="user_email" id="input_email" placeholder="로그인 email 입력">
+                  	<p id="email-warning" style="display:none; color:red;">아이디(이메일)을 입력해주세요.</p>
                   </div>
                 </div>
                 <div class="form-group">
@@ -114,6 +115,7 @@
                       </span>
                     </div>
                     <input type="password" class="form-control form-control-lg border-left-0" name="user_pw" id="input_pw" placeholder="PW입력">
+                  	<p id="password-warning" style="display:none; color:red;">비밀번호를 입력해주세요.</p>
                   </div>
                 </div>
                 <div class="my-2">

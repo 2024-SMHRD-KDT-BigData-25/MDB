@@ -8,7 +8,7 @@
 	</select>
 	
 	<insert id="join" parameterType="com.smhrd.model.UserInfo" >
-		insert into user_info values (#{user_email}, #{user_pw}, #{nick}, #{join_date}, #{join_source})
+		insert into user_info(user_email, user_pw, nick, join_date, join_source) values (#{user_email}, #{user_pw}, #{nick}, #{join_date}, #{join_source})
 	</insert>
 	
 	<insert id="naverJoin" parameterType="com.smhrd.model.UserInfo">

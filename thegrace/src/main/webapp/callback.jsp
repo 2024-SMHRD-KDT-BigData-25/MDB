@@ -1,5 +1,5 @@
 
-<%@page import="org.json.JSONObject"%>
+<%@page import="org.json.*"%>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.net.URL" %>
