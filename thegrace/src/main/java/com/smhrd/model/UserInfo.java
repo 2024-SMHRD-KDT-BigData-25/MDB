@@ -56,6 +56,13 @@ public class UserInfo {
 		this.join_date = join_date;
 		this.join_source = join_source;
 	}
+	// 네이버 로그인 회원을 위한 VO
+	public UserInfo(String user_email, String nick, String pf_img) {
+		super();
+		this.user_email = user_email;
+		this.nick = nick;
+		this.pf_img = pf_img;
+	}
 	
     
 }
