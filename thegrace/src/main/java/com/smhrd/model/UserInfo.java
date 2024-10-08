@@ -47,5 +47,15 @@ public class UserInfo {
 		this.user_email = user_email;
 		this.user_pw = user_pw;
 	}
+
+	public UserInfo(String user_email, String user_pw, String nick, Date join_date, String join_source) {
+		super();
+		this.user_email = user_email;
+		this.user_pw = user_pw;
+		this.nick = nick;
+		this.join_date = join_date;
+		this.join_source = join_source;
+	}
+	
     
 }

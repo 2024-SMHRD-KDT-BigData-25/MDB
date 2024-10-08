@@ -21,29 +21,16 @@ public class JoinController extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// MultipartRequest => COS 라이브러리 추가
+		request.setCharacterEncoding("UTF-8");
 		
-		//(request, 파일저장경로, 최대파일크기, 인코딩타입, 파일이름생성규칙)
-		ServletContext context = request.getServletContext();
-		String uploadPath = context.getRealPath("upload");
-		int maxSize = 500*1024*1024; //5MB
-		
-		MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
-		
-		
-		String user_email = multi.getParameter("user_email");
-		String user_pw = multi.getParameter("user_pw");
-		String nick = multi.getParameter("nick");
-		String best_mv = multi.getParameter("best_mv");
-		String pos_color = multi.getParameter("pos_color");
-		String neg_color = multi.getParameter("neg_color");
-		String pf_img = multi.getFilesystemName("pf_img");
+		String user_email = request.getParameter("user_email");
+		String user_pw = request.getParameter("user_pw");
+		String nick = request.getParameter("nick");
 		Date join_date = new Date(System.currentTimeMillis());
-		String join_source = multi.getParameter("join_source");
-		String best_rev = multi.getParameter("best_rev");
+		String join_source = "cinemagrafo";
 		
 		// 서버에 저장 
-		UserInfo joinMember = new UserInfo(user_email, user_pw, nick, best_mv, pos_color, neg_color, pf_img, join_date, join_source, best_rev);
+		UserInfo joinMember = new UserInfo(user_email, user_pw, nick, join_date, join_source);
 		
 		MovieDAO dao = new MovieDAO();
 		int res = dao.join(joinMember);
@@ -51,7 +38,7 @@ public class JoinController extends HttpServlet {
 		// 회원가입 성공 (res>0) => index.jsp / 실패 => join.html
 		if(res>0) {
 			System.out.println("회원가입 성공");
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("index.html");
 		} else {
 			System.out.println("회원가입 실패");
 			response.sendRedirect("join.html");
