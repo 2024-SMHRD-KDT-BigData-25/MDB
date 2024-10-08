@@ -8,7 +8,7 @@
 	</select>
 	
 	<insert id="join" parameterType="com.smhrd.model.UserInfo" >
-		insert into user_info values (#{user_email}, #{user_pw}, #{nick}, #{best_mv}, #{pos_color}, #{neg_color}, #{pf_img}, #{join_date}, #{join_source}, #{best_rev})
+		insert into user_info values (#{user_email}, #{user_pw}, #{nick}, #{join_date}, #{join_source})
 	</insert>
 	
 	<select id="followerCnt" parameterType="String" resultType="String">
