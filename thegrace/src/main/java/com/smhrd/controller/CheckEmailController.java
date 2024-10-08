@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.smhrd.model.MovieDAO;
+import com.smhrd.model.UserInfo;
 
 @WebServlet("/CheckEmail")
 public class CheckEmailController extends HttpServlet {
@@ -29,7 +30,7 @@ public class CheckEmailController extends HttpServlet {
         // JSON 파싱하여 user_email 얻기
         Gson gson = new Gson();
         EmailRequest emailRequest = gson.fromJson(sb.toString(), EmailRequest.class);
-        String user_email = emailRequest.getUsername();
+        String user_email = emailRequest.getUser_email();
 
         // 이메일 사용 가능 여부 체크 (여기서 실제 로직을 구현)
         boolean isAvailable = checkEmailAvailability(user_email);
@@ -40,20 +41,21 @@ public class CheckEmailController extends HttpServlet {
         response.getWriter().write("{\"available\":" + isAvailable + "}");
     }
 
-    private boolean checkEmailAvailability(String username) {
-        // 이메일 사용 가능 여부를 확인하는 로직 구현 (예: 데이터베이스 확인)
-        return true; // 예시: 사용 가능할 경우 true, 그렇지 않으면 false 반환
+    private boolean checkEmailAvailability(String user_email) {
+		MovieDAO dao = new MovieDAO();
+		Boolean res = dao.checkEmail(user_email);
+        return res; // 예시: 사용 가능할 경우 true, 그렇지 않으면 false 반환
     }
 
     // JSON 요청을 파싱하기 위한 내부 클래스
     private class EmailRequest {
-        private String username;
+        private String user_email;
 
-        public String getUsername() {
-            return username;
+        public String getUser_email() {
+            return user_email;
         }
 
-        public void setUsername(String username) {
-            this.username = username;	}
+        public void setUser_email(String user_email) {
+            this.user_email = user_email;	}
     }
 }

@@ -15,7 +15,7 @@ function checkJoinedEmail() {
             url: '/checkEmail',  // 아이디 체크를 위한 서버 엔드포인트
             type: 'POST',      // POST 방식으로 요청
             contentType: 'application/json', // 요청 데이터 타입 설정
-            data: JSON.stringify({ username: user_email }), // JSON 형식으로 데이터 전송
+            data: JSON.stringify({ user_email: user_email }), // JSON 형식으로 데이터 전송
             success: function(response) {
                 // 서버의 응답을 기반으로 결과 표시
                 if (response.available) {
