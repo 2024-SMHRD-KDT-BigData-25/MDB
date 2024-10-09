@@ -4,26 +4,6 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>CINEM@GRAFO</title>
-  <!-- base:css -->
-  <link rel="stylesheet" href="resources/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="resources/vendors/feather/feather.css">
-  <link rel="stylesheet" href="resources/vendors/base/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <link rel="stylesheet" href="resources/vendors/flag-icon-css/css/flag-icon.min.css"/>
-  <link rel="stylesheet" href="resources/vendors/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="resources/vendors/jquery-bar-rating/fontawesome-stars-o.css">
-  <link rel="stylesheet" href="resources/vendors/jquery-bar-rating/fontawesome-stars.css">
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="resources/css/style.css">
-  <link rel="stylesheet" href="resources/css/fonts.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="resources/images/favicon.png" />
   <style>
     .review-card {
       border: 1px solid #ddd;
@@ -32,23 +12,28 @@
       margin: 10px 0;
       background-color: #f9f9f9;
     }
+    
     .review-header {
       display: flex;
       align-items: center;
       margin-bottom: 5px;
     }
+    
     .review-header img {
       border-radius: 50%;
       width: 40px;
       height: 40px;
       margin-right: 10px;
     }
+    
     .review-title {
       font-weight: bold;
     }
+    
     .reviews-section {
       padding-left: 20px; /* 왼쪽 여백 추가 */
     }
+    
     .additional-reviews-section {
       padding-left: 20px; /* 추가 리뷰 섹션 왼쪽 여백 */
     }
@@ -59,7 +44,9 @@
 	
 	body {
 		font-family: 'S-CoreDream-3Light', sans-serif;
+		background-color: #f4f7fa;
 	}
+
     
   </style>
 </head>
@@ -74,7 +61,7 @@
       	<%@ include file="sidebar.jsp" %>
       
       <!-- partial -->
-      <div class="main-panel">
+      <div class="main-panel" >
         <div class="content-wrapper" style="padding:80px;">
         	  <h2 style="text-align: center;">이번 주의 영화</h2> <!-- 제목 중앙 정렬 -->
               <div>
