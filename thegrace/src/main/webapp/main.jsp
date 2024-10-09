@@ -4,45 +4,8 @@
 <html lang="en">
 
 <head>
-  <style>
-    .review-card {
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 10px;
-      margin: 10px 0;
-      background-color: #f9f9f9;
-    }
-    
-    .review-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 5px;
-    }
-    
-    .review-header img {
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      margin-right: 10px;
-    }
-    
-    .review-title {
-      font-weight: bold;
-    }
-    
-    .reviews-section {
-      padding-left: 20px; /* 왼쪽 여백 추가 */
-    }
-    
-    .additional-reviews-section {
-      padding-left: 20px; /* 추가 리뷰 섹션 왼쪽 여백 */
-    }
-    
-    .brand-logo-mini img {
-		padding: 5px; /* mini logo 크기 조정 */
-	} 
-    
-  </style>
+<meta charset="UTF-8">
+<title>CINEM@GRAFO</title>
 </head>
 <body>
   <div class="container-scroller">

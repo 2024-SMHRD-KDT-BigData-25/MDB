@@ -52,7 +52,7 @@
                   <i class="icon-search"></i>
                 </span>
               </div>
-              <form action="search">
+              <form action="searchResult.jsp">
               	<input type="text" class="form-control" name="search" placeholder="리뷰가 궁금한 영화를 검색해 보세요!" size=50 aria-label="search" aria-describedby="search">
 			  </form>            
             </div>
