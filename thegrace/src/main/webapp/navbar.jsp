@@ -23,6 +23,15 @@
   <link rel="stylesheet" href="resources/css/fonts.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="resources/images/favicon.png" />
+  
+  <style>
+  	body {
+		font-family: 'S-CoreDream-3Light', sans-serif;
+		background-color: #f4f7fa;
+	}
+	
+  </style>
+  
 </head>
 <body>
 	    <!-- partial:partials/_navbar.html -->
@@ -43,7 +52,9 @@
                   <i class="icon-search"></i>
                 </span>
               </div>
-              <input type="text" class="form-control" placeholder="리뷰가 궁금한 영화를 검색해 보세요!" size=50 aria-label="search" aria-describedby="search">
+              <form action="search">
+              	<input type="text" class="form-control" name="search" placeholder="리뷰가 궁금한 영화를 검색해 보세요!" size=50 aria-label="search" aria-describedby="search">
+			  </form>            
             </div>
           </li>
         </ul>

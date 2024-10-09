@@ -41,12 +41,6 @@
     .brand-logo-mini img {
 		padding: 5px; /* mini logo 크기 조정 */
 	} 
-	
-	body {
-		font-family: 'S-CoreDream-3Light', sans-serif;
-		background-color: #f4f7fa;
-	}
-
     
   </style>
 </head>
