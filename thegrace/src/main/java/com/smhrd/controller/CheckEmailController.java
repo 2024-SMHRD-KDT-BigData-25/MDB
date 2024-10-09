@@ -31,6 +31,7 @@ public class CheckEmailController extends HttpServlet {
         Gson gson = new Gson();
         EmailRequest emailRequest = gson.fromJson(sb.toString(), EmailRequest.class);
         String user_email = emailRequest.getUser_email();
+        System.out.println(user_email);
 
         // 이메일 사용 가능 여부 체크 (여기서 실제 로직을 구현)
         boolean isAvailable = checkEmailAvailability(user_email);
