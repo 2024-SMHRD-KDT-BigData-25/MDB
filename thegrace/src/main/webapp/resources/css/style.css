@@ -19008,7 +19008,7 @@ code {
 }
 
 .footer a {
-  color: #ec37fc;
+  color: #2f2f2f;
   font-size: inherit;
 }
 
@@ -20749,7 +20749,7 @@ dl li {
   width: 10px;
   height: 10px;
   border-radius: 100%;
-  background: #ec37fc;
+  background: #2f2f2f;
   z-index: 1;
 }
 
@@ -20783,7 +20783,7 @@ dl li {
   height: 15px;
   left: -30px;
   top: 0;
-  border: 4px solid #ec37fc;
+  border: 4px solid #2f2f2f;
   margin-right: 15px;
   z-index: 2;
   background: #ffffff;
@@ -20838,7 +20838,7 @@ dl li {
   font-size: 20px;
   width: 40px;
   text-align: left;
-  color: #ec37fc;
+  color: #2f2f2f;
 }
 
 .icon-in-bg {
@@ -20872,7 +20872,7 @@ dl li {
   border-radius: 5px;
   line-height: 2.812rem;
   text-align: center;
-  background: #ec37fc;
+  background: #2f2f2f;
 }
 
 .icon-box-primary i {
@@ -21299,7 +21299,7 @@ dl li {
 }
 
 .toggle-switch input:checked + .toggle-slider {
-  background-color: #ec37fc;
+  background-color: #2f2f2f;
 }
 
 .toggle-switch input:checked + .toggle-slider:before {
@@ -21422,7 +21422,7 @@ dl li {
 .br-theme-bars-reversed .br-widget a.br-active,
 .br-theme-bars-horizontal .br-widget a.br-selected,
 .br-theme-bars-horizontal .br-widget a.br-active {
-  background-color: #ec37fc;
+  background-color: #2f2f2f;
 }
 
 .br-theme-bars-square .br-widget a {
@@ -21431,8 +21431,8 @@ dl li {
 }
 
 .br-theme-bars-square .br-widget a.br-selected, .br-theme-bars-square .br-widget a.br-active {
-  border-color: #ec37fc;
-  color: #ec37fc;
+  border-color: #2f2f2f;
+  color: #2f2f2f;
 }
 
 .br-theme-bars-movie .br-widget .br-current-rating,
@@ -21462,7 +21462,7 @@ dl li {
 
 /* Select2 */
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background: #ec37fc;
+  background: #2f2f2f;
 }
 
 .select2-container--default .select2-selection--single,
@@ -21577,12 +21577,12 @@ dl li {
 .tt-suggestion:hover {
   cursor: pointer;
   color: #ffffff;
-  background-color: #ec37fc;
+  background-color: #2f2f2f;
 }
 
 .tt-suggestion .tt-cursor {
   color: #ffffff;
-  background-color: #ec37fc;
+  background-color: #2f2f2f;
 }
 
 .tt-suggestion p {
@@ -21754,7 +21754,7 @@ dl li {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 60px);
-  background: #ec37fc;
+  background: #2f2f2f;
   font-family: "Karla", sans-serif;
   font-weight: normal;
   padding: 0;
@@ -21876,7 +21876,7 @@ dl li {
 
 .sidebar .nav .nav-item .nav-link[aria-expanded="true"] {
   background: rgba(255, 255, 255, 0.4);
-  border-top: 1px solid #ec37fc;
+  border-top: 1px solid #2f2f2f;
   border-radius: 4px;
 }
 
@@ -21906,11 +21906,11 @@ dl li {
 }
 
 .sidebar .nav .nav-item.active + .nav-item .nav-link {
-  border-top: 1px solid #ec37fc;
+  border-top: 1px solid #2f2f2f;
 }
 
 .sidebar .nav .nav-item:first-child .nav-link {
-  border-top: 1px solid #ec37fc;
+  border-top: 1px solid #2f2f2f;
 }
 
 .sidebar .nav:not(.sub-menu) {
@@ -21925,7 +21925,7 @@ dl li {
   background: rgba(255, 255, 255, 0.4);
   color: #fff;
   border-radius: 4px;
-  border-top: 1px solid #ec37fc;
+  border-top: 1px solid #2f2f2f;
 }
 
 .sidebar .nav:not(.sub-menu) > .nav-item:hover > .nav-link i.menu-arrow {
@@ -21937,7 +21937,7 @@ dl li {
 }
 
 .sidebar .nav:not(.sub-menu) > .nav-item:hover + .nav-item .nav-link {
-  border-top: 1px solid #ec37fc;
+  border-top: 1px solid #2f2f2f;
 }
 
 .sidebar .nav.sub-menu {
@@ -21961,7 +21961,7 @@ dl li {
   font-size: 0.875rem;
   line-height: 1;
   height: auto;
-  border-top: 1px solid #ec37fc;
+  border-top: 1px solid #2f2f2f;
   margin: 0;
 }
 
@@ -21995,7 +21995,7 @@ dl li {
 }
 
 .sidebar .nav.sub-menu .nav-item:first-child .nav-link {
-  border-top: 1px solid #ec37fc;
+  border-top: 1px solid #2f2f2f;
 }
 
 .sidebar .user-profile {
@@ -22046,7 +22046,7 @@ dl li {
 }
 
 .navbar .navbar-brand-wrapper {
-  background: #ec37fc;
+  background: #2f2f2f;
   transition: width 0.25s ease, background 0.25s ease;
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
@@ -22073,7 +22073,6 @@ dl li {
 .navbar .navbar-brand-wrapper .navbar-brand img {
   width: calc(240px - 130px);
   max-width: 100%;
-  height: 20px;
   margin: auto;
   vertical-align: middle;
 }
