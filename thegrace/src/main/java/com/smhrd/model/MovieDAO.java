@@ -41,6 +41,20 @@ public class MovieDAO {
 		return res;
 	}
 	
+	// 4. 아이디 중복 확인 기능
+	public boolean checkEmail(String user_email) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		// 반환값 T ? => 임의읙 객체로 반환값을 나중에 우리가 지정한 형태로 받을 수 있음
+		UserInfo res = sqlSession.selectOne("MovieMapper.checkEmail", user_email);
+		System.out.println(res);
+		sqlSession.close();
+		if( res==null ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public String followerCnt(String user_email) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		String res = sqlSession.selectOne("MovieMapper.followerCnt", user_email);

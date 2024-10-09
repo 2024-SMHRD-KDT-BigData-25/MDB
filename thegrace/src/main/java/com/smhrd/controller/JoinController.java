@@ -29,6 +29,8 @@ public class JoinController extends HttpServlet {
 		Date join_date = new Date(System.currentTimeMillis());
 		String join_source = "cinemagrafo";
 		
+		System.out.println(user_email + user_pw + nick + join_date + join_source);
+		
 		// 서버에 저장 
 		UserInfo joinMember = new UserInfo(user_email, user_pw, nick, join_date, join_source);
 		

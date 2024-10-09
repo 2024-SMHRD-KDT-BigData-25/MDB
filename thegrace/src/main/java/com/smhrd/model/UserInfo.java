@@ -33,14 +33,14 @@ public class UserInfo {
     // 프로필 사진 
     private String pf_img;
     
-    // 가입 일자 
-    private Date join_date;
-    
     // 가입출처 
     private String join_source;
     
     // 가입출처 
     private String best_rev;
+    
+    // 가입 일자 
+    private Date join_date;
 
 	public UserInfo(String user_email, String user_pw) {
 		super();
