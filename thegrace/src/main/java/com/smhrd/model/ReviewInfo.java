@@ -37,4 +37,16 @@ public class ReviewInfo {
 
     // 긍정 부정 
     private String pos_neg;
+    
+    public ReviewInfo(String mv_cd, String user_email, Double mv_rating, String review_content, Date view_dt, String open_yn, String review_img, String pos_neg) {
+		super();
+		this.mv_cd = mv_cd;
+		this.user_email = user_email;
+		this.mv_rating = mv_rating;
+		this.review_content = review_content;
+		this.view_dt = view_dt;
+		this.open_yn = open_yn;
+		this.review_img = review_img;
+		this.pos_neg = pos_neg;
+		}
 }

@@ -82,5 +82,14 @@ public class MovieDAO {
 		return res;
 		
 	}
+	
+	// 리뷰입력하기
+	public int reviewWrite(ReviewInfo m) {
+		// openSession(true) -> 오토커밋 기능 on
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int res = sqlSession.insert("MovieMapper.reviewWrite", m);
+		sqlSession.close(); // session의 자원 반환
+		return res;
+		   }
 
 }
