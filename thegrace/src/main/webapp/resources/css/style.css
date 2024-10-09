@@ -21722,6 +21722,7 @@ dl li {
 
 .main-panel {
   transition: width 0.25s ease, margin 0.25s ease;
+  margin-left: 240px;
   width: calc(100% - 240px);
   min-height: calc(100vh - 60px);
   display: -webkit-flex;
@@ -21753,6 +21754,8 @@ dl li {
 
 /* Sidebar */
 .sidebar {
+  position: fixed;
+  
   min-height: calc(100vh - 60px);
   background: #2f2f2f;
   font-family: "Karla", sans-serif;
