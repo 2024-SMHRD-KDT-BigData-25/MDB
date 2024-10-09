@@ -97,7 +97,7 @@
                     </div>
                     <input type="text" name = "user_email" id="user_email" class="form-control form-control-lg border-left-0" placeholder="로그인 email 입력" required>
                   </div>
-                  <div id="EmailCheckResult"></div>
+                  <div id="emailCheckResult"></div>
                 </div>
                 <p id="joinedemail_warning" style="display:none; color:red;">이미 가입된 이메일입니다.</p>
                 <div class="form-group">
@@ -110,6 +110,7 @@
                     </div>
                     <input type="password" name = "user_pw" id="user_pw" class="form-control form-control-lg border-left-0" placeholder="pw입력" required>
                   </div>
+                  <div id="pwCheckResult"></div>
                 </div>
                 <div class="form-group">
                   <label>NICKNAME</label>
@@ -121,6 +122,7 @@
                     </div>
                     <input type="text" name = "nick" id="nick" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="nick 입력" required>                        
                   </div>
+                  <div id="nickCheckResult"></div>
                 </div>
                 <div class="mb-4">
                   <div class="form-check">
@@ -131,7 +133,7 @@
                   </div>
                 </div>
                 <div class="mt-3 mb-2">
-                  <button type="submit" class="btn btn-block btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
+                  <button type="submit" class="btn btn-block btn-lg font-weight-medium auth-form-btn" id="joinBtn">SIGN UP</button>
                 </div>
                 <div class="mb-2 d-flex">
                   <a href="#"><button type="button" class="btn btn-kakao auth-form-btn mr-1">
