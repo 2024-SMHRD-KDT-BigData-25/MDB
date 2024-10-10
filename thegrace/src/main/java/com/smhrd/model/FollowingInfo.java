@@ -22,5 +22,18 @@ public class FollowingInfo {
 
     // 팔로우 날짜 
     private Date follow_date;
-	
+
+	public FollowingInfo(String follower, String followee, Date follow_date) {
+		super();
+		this.follower = follower;
+		this.followee = followee;
+		this.follow_date = follow_date;
+	}
+
+	public FollowingInfo(String follower, String followee) {
+		super();
+		this.follower = follower;
+		this.followee = followee;
+	}
+    
 }
