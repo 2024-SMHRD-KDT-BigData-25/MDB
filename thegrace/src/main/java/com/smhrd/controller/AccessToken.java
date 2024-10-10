@@ -8,7 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
 import com.smhrd.model.MovieDAO;
+
 import com.smhrd.model.UserInfo;
 
 @WebServlet("/AccessToken")
