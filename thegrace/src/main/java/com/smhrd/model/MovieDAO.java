@@ -140,7 +140,7 @@ public class MovieDAO {
 		List<ReviewInfo> reviewList = sqlSession.selectList("MovieMapper.reviewList", user_email);
 		int res = 0;
 		for ( ReviewInfo m : reviewList ) {
-			Double review_cd = m.getReview_cd();
+			int review_cd = m.getReview_cd();
 			int reviewCnt = Integer.parseInt(sqlSession.selectOne("MovieMapper.reviewRecmCnt", review_cd));
 			res += reviewCnt;
 		}

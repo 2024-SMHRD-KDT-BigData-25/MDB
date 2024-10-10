@@ -17,8 +17,8 @@
 </head>
 <body>
 
-	<%
-	session.invalidate(); // 기존 세션 무효화
+   <%
+   session.invalidate(); // 기존 세션 무효화
     String clientId = "H1vuE8JE6UJiGKXQiRzY";//애플리케이션 클라이언트 아이디값";
     String clientSecret = "HoGTIyWmPf";//애플리케이션 클라이언트 시크릿값";
     String code = request.getParameter("code");
