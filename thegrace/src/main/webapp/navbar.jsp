@@ -20,6 +20,7 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="resources/css/style.css">
+  <link rel="stylesheet" href="resources/css/style2.css">
   <link rel="stylesheet" href="resources/css/fonts.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="resources/images/favicon.png" />
