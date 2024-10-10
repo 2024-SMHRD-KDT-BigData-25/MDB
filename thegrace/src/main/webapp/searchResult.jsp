@@ -1,3 +1,4 @@
+<%@page import="com.smhrd.model.MovieDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,7 +26,10 @@
       
       <!-- partial -->
       <div class="main-panel" >
-      	<% String search_text =request.getParameter("search"); %>
+      	<% String search_text =request.getParameter("search");
+      	MovieDAO dao = new MovieDAO();
+      	
+      	%>
       
       
       	
