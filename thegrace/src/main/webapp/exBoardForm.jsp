@@ -14,9 +14,9 @@
 	리뷰 내용 <br>
 	<textarea rows="10" class="form-control" name="review_content"></textarea><br>
 	관람일자 : <input type="date"> <br>
-	공개여부 : 공개 <input type="radio" name="open_yn" value="공개">  비공개<input type="radio" name="open_yn" value="비공개"><br>
+	공개여부 : 공개 <input type="radio" name="open_yn" value="Y">  비공개<input type="radio" name="open_yn" value="N"><br>
 	이미지 첨부 : <input type="file" class="form-control" name="review_img"><br>
-	긍정 부정 : 긍정 <input type="radio" name="pos_neg" value="긍정">  부정<input type="radio" name="pos_neg" value="부정"><br>
+	긍정 부정 : 긍정 <input type="radio" name="pos_neg" value="P">  부정<input type="radio" name="pos_neg" value="N"><br>
 	<button type="submit">작성</button>
 	<button type="reset">리셋</button>
 	
