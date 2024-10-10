@@ -1,24 +1,39 @@
-
-const followBtn = document.getElementById("followBtn")
+document.addEventListener("DOMContentLoaded", function() {
+    // 모든 Follow 버튼에 대해 클릭 이벤트 리스너 추가
+    const followBtns = document.querySelectorAll('.followBtn');
+	const unfollowBtns = document.querySelectorAll('.unfollowBtn');
+    
+    followBtns.forEach(button => {
+        button.addEventListener('click', function() {
+            // data-followee 속성에서 followee 값을 가져옴
+            const followee = this.getAttribute('data-followee');
+            // follow 함수를 호출하거나 AJAX 요청을 보냄
+            follow(followee, button);
+        });
+    });
+});
 
 // 비동기 통신 시 사용하는 데이터 형식 : json {key:value, key:value} / xml
-function follow(user_email) {
+function follow(followee, button) {
 	$.ajax( {
 		url : '/thegrace/Follow',
-		data : {"user_email" : user_email}, // 서버로 보낼 데이터(json)
-		type : "get",
-		success : 		function(response) {
-				        // 서버의 응답을 기반으로 결과 표시
-				        if (response.available) {
-				            // 팔로우 성공
-				            $('#followBtn').text("unfollow");
-				        } else {
-				            // 팔로우 실패
-				            $('#alert').text("팔로우 실패").css('color', 'red');
-				        }
-				    },
+		type : "POST",
+		contentType: 'application/json', // 요청 데이터 타입 설정
+		data: JSON.stringify({ "followee" : followee }), // JSON 형식으로 데이터 전송
+		success : 	function(response) {
+				    // 서버의 응답을 기반으로 결과 표시
+				    if (response.available) {
+				        // 팔로우 성공 시 followBtn을 숨기고, unfollowBtn을 보여줌
+						$(button).hide(); // 클릭한 followBtn 숨기기
+						$(button).siblings('.unfollowBtn').show(); // 해당 followBtn의 형제 요소인 unfollowBtn 보여주기
+				    } else {
+				        // 팔로우 실패 시 unfollowBtn을 숨기고, followBtn을 보여줌
+						$(button).show(); // followBtn을 보여줌
+						$(button).siblings('.unfollowBtn').hide(); // 형제 요소 unfollowBtn을 숨김
+				    }
+			 },
 		error : function(jqXHR, textStatus, errorThrown) {
-				 // 콘솔에 에러 정보 출력하여 확인
+				// 콘솔에 에러 정보 출력하여 확인
 				console.log("Error details: ", jqXHR, textStatus, errorThrown);
 
 				// 에러 상태 코드 확인
@@ -32,5 +47,3 @@ function follow(user_email) {
 		}
 	})
 }
-
-loginBtn.addEventListener('click', follow);
