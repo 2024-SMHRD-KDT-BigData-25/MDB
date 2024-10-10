@@ -46,10 +46,10 @@
             padding: 0;
         }
         .container {
-            width: 80%;
+            width: 70%;
             margin: 0 auto;
             background-color: #ffffff;
-            padding: 20px;
+            padding: 110px;
         }
         .header {
             background-color: #ddd;
@@ -114,7 +114,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #ffffff;
-    width: 300px;
+    width: 280px;
 }
 
 .review-header {
@@ -132,7 +132,7 @@
 
 .review-title {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 13px;
 }
 
 .buttons {
@@ -153,12 +153,12 @@ h5 {
 }
 
 p {
-    font-size: 14px;
+    font-size: 10px;
     color: #555;
 }
 
 .movie-poster {
-    width: 100px;
+    width: 90px;
     margin-top: 10px;
 }
 

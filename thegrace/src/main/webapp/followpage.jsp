@@ -1,4 +1,4 @@
-<%@page import="com.smhrd.model.FollowingInfo"%>
+<%@ page import="com.smhrd.model.FollowingInfo"%>
 <%@page import="java.util.List"%>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.smhrd.model.UserInfo"%>
