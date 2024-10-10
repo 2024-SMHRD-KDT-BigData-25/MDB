@@ -157,5 +157,15 @@ public class MovieDAO {
 		sqlSession.close(); // session의 자원 반환
 		return res;
 		   }
+	
+	// 영화 검색하기
+	public List<MovieInfo> movieSearching(String search_text) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<MovieInfo> res = sqlSession.selectList("MovieMapper.getSearchResult", search_text);
+		sqlSession.close();
+		return res;
+	}
+	
+	
 
 }
