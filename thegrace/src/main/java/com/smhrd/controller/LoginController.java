@@ -31,12 +31,12 @@ public class LoginController extends HttpServlet {
 		// res is null => 로그인 실패 / null x => 성공
 		if(res == null) {
 			System.out.println("로그인 실패");
-			response.sendRedirect("login.html");
+			response.sendRedirect("login.jsp");
 		} else {
 			System.out.println("로그인 성공 " + res.getNick());
 			HttpSession session = request.getSession();
 			session.setAttribute("member", res);
-			response.sendRedirect("index.html");
+			response.sendRedirect("main.jsp");
 		}
 	
 	}
