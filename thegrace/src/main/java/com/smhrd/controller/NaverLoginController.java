@@ -21,8 +21,8 @@ import com.smhrd.model.MovieDAO;
 
 import com.smhrd.model.UserInfo;
 
-@WebServlet("/AccessToken")
-public class AccessToken extends HttpServlet {
+@WebServlet("/NaverLoginController")
+public class NaverLoginController extends HttpServlet {
 
     // 서블릿에서 GET 요청을 처리할 때 사용하는 메서드
     @Override
@@ -52,30 +52,23 @@ public class AccessToken extends HttpServlet {
         // JSON 응답에서 이메일 정보, 닉네임, 프로필 이미지 추출
         JSONObject jsonResponse = new JSONObject(responseBody);
         String user_email = jsonResponse.getJSONObject("response").getString("email");
-        String nick = jsonResponse.getJSONObject("response").getString("nickname");
-        String pf_img = jsonResponse.getJSONObject("response").getString("profile_image");
         
+        System.out.println("Naver email: " + user_email);
         
         // 이메일 정보, 닉네임, 프로필 이미지를 세션에 저장
         session.setAttribute("email", user_email);
-        session.setAttribute("nickname", nick);
-        session.setAttribute("profile_image", pf_img);
         
-        // 이메일 정보, 닉네임, 프로필 이미지를 응답으로 전송
-        response.setContentType("application/json");
-        response.getWriter().write("{\"email\": \"" + user_email + "\"}");
-        response.getWriter().write("{\"nickname\": \"" + nick + "\"}");
-        response.getWriter().write("{\"profile_image\": \"" + pf_img + "\"}");
         
-        response.sendRedirect("login.jsp");
 
         // 응답 내용을 출력
         response.setContentType("application/json");
         response.getWriter().write(responseBody);
         
-        UserInfo joinCinematografo = new UserInfo(user_email, null, nick, null, null, null, pf_img, null, null, null);      
+        UserInfo NaverLogin = new UserInfo(user_email);      
         MovieDAO dao = new MovieDAO();
-		int res = dao.naverJoin(joinCinematografo);
+		UserInfo res = dao.naverLogin(NaverLogin);
+		
+		response.sendRedirect("main.jsp");
 		
     }
     
