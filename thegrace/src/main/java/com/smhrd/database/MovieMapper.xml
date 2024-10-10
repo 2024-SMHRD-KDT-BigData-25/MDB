@@ -36,12 +36,12 @@
 	delete from following_info where follower=#{follower} and followee=#{followee}
 	</delete>
 	
-	<select id="getFollower" parameterType="String" resultType="com.smhrd.model.FollowingInfo">
-		select * from following_info where followee=#{user_email}
+	<select id="getFollower" parameterType="String" resultType="com.smhrd.model.FollowPf">
+		select b.follow_cd, b.followee, b.follower, a.nick, a.pf_img from user_info a, following_info b where a.user_email=b.follower and b.followee=#{followee}
 	</select>
 	
-	<select id="getFollowee" parameterType="String" resultType="com.smhrd.model.FollowingInfo">
-		select * from following_info where follower=#{user_email}
+	<select id="getFollowee" parameterType="String" resultType="com.smhrd.model.FollowPf">
+		select b.follow_cd, b.followee, b.follower, a.nick, a.pf_img from user_info a, following_info b where a.user_email=b.followee and b.follower=#{follower}
 	</select>
 	
 	<select id="followerCnt" parameterType="String" resultType="String">

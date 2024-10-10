@@ -93,18 +93,19 @@ public class MovieDAO {
 	}
 	
 	// 3. follower 리스트 가져오기
-	public List<FollowingInfo> getFollower(String user_email) {
+	public List<FollowPf> getFollower(String followee) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<FollowingInfo> res = sqlSession.selectList("MovieMapper.getFollower", user_email);
+		List<FollowPf> res = sqlSession.selectList("MovieMapper.getFollower", followee);
 		sqlSession.close();
 		return res;
 	}
 	
 	// 4. followee 리스트 가져오기
-	public List<FollowingInfo> getFollowee(String user_email) {
+	public List<FollowPf> getFollowee(String user_email) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<FollowingInfo> res = sqlSession.selectList("MovieMapper.getFollowee", user_email);
+		List<FollowPf> res = sqlSession.selectList("MovieMapper.getFollowee", user_email);
 		sqlSession.close();
+		System.out.println(res);
 		return res;
 	}
 	// 5. follower 수 가져오기 (return string)

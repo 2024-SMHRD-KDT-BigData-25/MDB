@@ -1,3 +1,4 @@
+<%@page import="com.smhrd.model.FollowPf"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="com.smhrd.model.FollowingInfo"%>
 <%@page import="java.util.List"%>
@@ -38,8 +39,8 @@
 	</table>
 	<table>
 	<%
-	List<FollowingInfo> followeeList = dao.getFollowee(user_email);
-	for ( FollowingInfo m : followeeList ) {
+	List<FollowPf> followeeList = dao.getFollowee(user_email);
+	for ( FollowPf m : followeeList ) {
 	%>
 		<tr>
 			<td><%=m.getFollowee() %></td>
