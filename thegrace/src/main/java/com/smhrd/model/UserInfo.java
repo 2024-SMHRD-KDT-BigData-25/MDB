@@ -64,5 +64,10 @@ public class UserInfo {
 		this.pf_img = pf_img;
 	}
 	
-    
+	public UserInfo(String user_email) {
+		super();
+		this.user_email = user_email;
+	}
+		
+	
 }

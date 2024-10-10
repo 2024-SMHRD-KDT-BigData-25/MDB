@@ -41,6 +41,15 @@ public class MovieDAO {
 		return res;
 	}
 	
+	// 네이버 로그인 기능
+	public UserInfo naverLogin(UserInfo m) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		UserInfo res = sqlSession.selectOne("MovieMapper.naverLogin", m);
+		sqlSession.close(); // session의 자원 반환
+		return res;
+	}
+	
+	
 	// 4. 아이디 중복 확인 기능
 	public boolean checkEmail(String user_email) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
