@@ -13,25 +13,40 @@
 </head>
 <body>
 
+	
+	<%
+	UserInfo member = (UserInfo)session.getAttribute("member");
+	String user_email = member.getUser_email();
+	MovieDAO dao = new MovieDAO();
+	%>
+	
+	<%
+	List<UserInfo> UserList = dao.getUserList();
+	for ( UserInfo m : UserList ) {
+	%>
+		<tr>
+			<td><a href=><%=m.getNick() %></a></td>
+			<td><button id="followBtn"></button>follow</td>
+		</tr>
+		<div id="alert"></div>
+	<% } %>
+	
+	<%
+	String followerCnt = dao.followerCnt(user_email);
+	System.out.println(followerCnt);
+	%>
+	
+	
+	<%
+	String followeeCnt = dao.followeeCnt(user_email);
+	System.out.println(followeeCnt);
+	%>
+	
+	<%
+	int allReviewRecmCnt = dao.allReviewRecmCnt(user_email);
+	System.out.println(allReviewRecmCnt);
+	%>
 
-<%
-UserInfo member = (UserInfo)session.getAttribute("member");
-String user_email = member.getUser_email();
-MovieDAO dao = new MovieDAO();
-String followerCnt = dao.followerCnt(user_email);
-System.out.println(followerCnt);
-%>
-
-
-<%
-String followeeCnt = dao.followeeCnt(user_email);
-System.out.println(followeeCnt);
-%>
-
-<%
-int allReviewRecmCnt = dao.allReviewRecmCnt(user_email);
-System.out.println(allReviewRecmCnt);
-%>
-
+	<script src="resources/js/follow.js"></script>
 </body>
 </html>

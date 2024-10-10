@@ -55,18 +55,75 @@ public class MovieDAO {
 		}
 	}
 	
+	// 5. 팔로우 테스트용 user정보 가져오기
+	public List<UserInfo> getUserList() {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<UserInfo> res = sqlSession.selectList("MovieMapper.getUserList");
+		sqlSession.close();
+		return res;
+	}
+	
+	// 팔로우(follow) 기능 메서드들 
+	
+	// 1. follow
+	public int follow(FollowingInfo m) {
+		// openSession(true) -> 오토커밋 기능 on
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int res = sqlSession.insert("MovieMapper.follow", m);
+		sqlSession.close(); // session의 자원 반환
+		return res;
+	}
+	
+	// 2. unfollow
+	public int unfollow(FollowingInfo m) {
+		// openSession(true) -> 오토커밋 기능 on
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int res = sqlSession.delete("MovieMapper.unfollow", m);
+		sqlSession.close(); // session의 자원 반환
+		return res;
+	}
+	
+	// 3. follower 리스트 가져오기
+	public List<FollowingInfo> getFollower(String user_email) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<FollowingInfo> res = sqlSession.selectList("MovieMapper.getFollower", user_email);
+		sqlSession.close();
+		return res;
+	}
+	
+	// 4. followee 리스트 가져오기
+	public List<FollowingInfo> getFollowee(String user_email) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<FollowingInfo> res = sqlSession.selectList("MovieMapper.getFollowee", user_email);
+		sqlSession.close();
+		return res;
+	}
+	// 5. follower 수 가져오기 (return string)
 	public String followerCnt(String user_email) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		String res = sqlSession.selectOne("MovieMapper.followerCnt", user_email);
 		sqlSession.close();
 		return res;
 	}
-	
+	// 6. followee 수 가져오기 (return string)
 	public String followeeCnt(String user_email) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		String res = sqlSession.selectOne("MovieMapper.followeeCnt", user_email);
 		sqlSession.close();
 		return res;
+	}
+	
+	// 7. 맞팔로우 확인하기 (맞팔이 영어로 Follow for Follow -> F4F)
+	public boolean F4F(FollowingInfo m) {
+		// openSession(true) -> 오토커밋 기능 on
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		FollowingInfo res = sqlSession.selectOne("MovieMapper.F4F", m);
+		sqlSession.close(); // session의 자원 반환
+		if ( res != null ) {
+			return true;
+		} else {
+			return false;
+		} 
 	}
 	
 	public int allReviewRecmCnt(String user_email) {
