@@ -35,4 +35,8 @@
 		select count(*) from review_recm_info where recm_cd=#{review_cd}
 	</select>
 	
+	<insert id="reviewWrite" parameterType="com.smhrd.model.ReviewInfo" >
+      insert into review_info(review_cd, mv_cd, user_email, mv_rating, review_content, view_dt, open_yn, review_img, pos_neg) values (#{review_cd}, #{mv_cd}, #{user_email}, #{mv_rating}, #{review_content}, #{view_dt}, #{open_yn}, #{review_img}, #{pos_neg})
+    </insert>
+	
 </mapper>
