@@ -55,12 +55,7 @@
             border: none; /* 테두리 제거 */
             border-radius: 5px; /* 모서리 둥글게 */
             padding: 6px 10px; /* 패딩 */
-            cursor: pointer; /* 커서 모양 변경 */
-            transition: background-color 0.3s; /* 부드러운 전환 */
-        }
-        .follow-button:hover {
-            background-color: red; /* 호버 시 빨간색으로 변경 */
-        }
+            
     </style>
 </head>
 <body>
@@ -80,7 +75,7 @@
         
         <!-- 작업공간입니다! -->
         <div class="container">
-        <h2>FOLLOWING</h2>
+        <h2>FOLLOWER</h2>
         <p>관심있는 유저들의 GRAFO를 확인해보세요.</p>
         <div id="followingList"></div> <!-- 동적으로 추가될 항목 -->
 
@@ -98,13 +93,13 @@
 
             followingItem.innerHTML = `
                 <div class="profile-img">
-                    <img src="path/to/image.jpg" alt="프로필 이미지"> <!-- 이미지 경로 설정 -->
+                    <img src="path/to/image.jpg" alt="프로필 사진"> <!-- 이미지 경로 설정 -->
                 </div>
                 <div>
                     <strong>그라포 ${itemCount + 1}</strong><br>
                     <span>grafo${itemCount + 1}@email.com</span>
                 </div>
-                <button class="follow-button" onmouseover="this.textContent='unfollow'" onmouseout="this.textContent='following'">following</button>
+                <button class="follow-button" >follow</button>
             `;
 
             followingList.appendChild(followingItem);
