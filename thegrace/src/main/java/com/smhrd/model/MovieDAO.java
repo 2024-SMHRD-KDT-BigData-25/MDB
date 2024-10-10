@@ -157,5 +157,23 @@ public class MovieDAO {
 		sqlSession.close(); // session의 자원 반환
 		return res;
 		   }
+	
+	// 리뷰 삭제하기
+	public int reviewDelete(int review_cd) {
+	      SqlSession sqlSession = sqlSessionFactory.openSession(true);
+	      int res = sqlSession.delete("MovieMapper.reviewDelete", review_cd);
+	      sqlSession.close(); // session의 자원 반환
+	      return res;
+	   }
+	
+	// 리뷰 리스트 조회
+		public List<ReviewInfo> getReview(int review_cd) {
+		      SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		      List<ReviewInfo> res = sqlSession.selectList("MovieMapper.reviewList", review_cd);
+		      sqlSession.close(); // session의 자원 반환
+		      return res;
+		
+		   }
+
 
 }

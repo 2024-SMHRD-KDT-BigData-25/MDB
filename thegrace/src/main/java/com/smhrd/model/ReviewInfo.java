@@ -49,4 +49,11 @@ public class ReviewInfo {
 		this.review_img = review_img;
 		this.pos_neg = pos_neg;
 		}
+    
+    public ReviewInfo(int review_cd, String user_email) {
+		super();
+		this.review_cd = review_cd;
+		this.user_email = user_email;
+		}
+    
 }
