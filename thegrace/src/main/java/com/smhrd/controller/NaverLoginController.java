@@ -104,6 +104,7 @@ public class NaverLoginController extends HttpServlet {
                 MovieDAO dao = new MovieDAO();
                 UserInfo resUserInfo = dao.naverLogin(NaverLogin);
 
+                
                 // 메인 페이지로 리다이렉트
                 response.sendRedirect("main.jsp");
             }

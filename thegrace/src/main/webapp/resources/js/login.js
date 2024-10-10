@@ -17,8 +17,6 @@ function color() {
 }
 
 function checkInputs(event) {
-    // 기본 제출 동작 방지
-    event.preventDefault();
 
     let isValid = false; // 유효성 검사를 위한 플래그
 
