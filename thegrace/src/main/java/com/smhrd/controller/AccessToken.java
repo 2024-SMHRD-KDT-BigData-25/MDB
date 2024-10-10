@@ -61,22 +61,24 @@ public class AccessToken extends HttpServlet {
         session.setAttribute("nickname", nick);
         session.setAttribute("profile_image", pf_img);
         
-        // 이메일 정보, 닉네임, 프로필 이미지를 응답으로 전송
-        response.setContentType("application/json");
-        response.getWriter().write("{\"email\": \"" + user_email + "\"}");
-        response.getWriter().write("{\"nickname\": \"" + nick + "\"}");
-        response.getWriter().write("{\"profile_image\": \"" + pf_img + "\"}");
-        
-        response.sendRedirect("login.jsp");
-
-        // 응답 내용을 출력
-        response.setContentType("application/json");
-        response.getWriter().write(responseBody);
-        
-        UserInfo joinCinematografo = new UserInfo(user_email, null, nick, null, null, null, pf_img, null, null, null);      
-        MovieDAO dao = new MovieDAO();
-		int res = dao.naverJoin(joinCinematografo);
-		
+      /*
+       * // 이메일 정보, 닉네임, 프로필 이미지를 응답으로 전송 response.setContentType("application/json");
+       * response.getWriter().write("{\"email\": \"" + user_email + "\"}");
+       * response.getWriter().write("{\"nickname\": \"" + nick + "\"}");
+       * response.getWriter().write("{\"profile_image\": \"" + pf_img + "\"}");
+       */
+        UserInfo joinCinematografo = new UserInfo(user_email, null, nick, null, null, null, pf_img, null, null, null); 
+      
+      if (joinCinematografo != null && joinCinematografo.getUser_email().equals(user_email)) {
+            // 이메일이 일치하면 main.jsp로 리다이렉트
+            response.sendRedirect("main.jsp");
+        } else {
+            // 이메일이 일치하지 않으면 login.jsp로 리다이렉트
+            MovieDAO dao = new MovieDAO();
+          int res = dao.naverJoin(joinCinematografo);
+            response.sendRedirect("login.jsp");
+        }
+      
     }
     
 

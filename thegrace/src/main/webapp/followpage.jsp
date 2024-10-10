@@ -26,7 +26,7 @@
 	%>
 		<tr>
 			<td><a href=><%=m.getNick() %></a></td>
-			<td><button id="followBtn"></button>follow</td>
+			<td><button id="followBtn">follow</button></td>
 		</tr>
 		<div id="alert"></div>
 	<% } %>
@@ -35,7 +35,6 @@
 	String followerCnt = dao.followerCnt(user_email);
 	System.out.println(followerCnt);
 	%>
-	
 	
 	<%
 	String followeeCnt = dao.followeeCnt(user_email);

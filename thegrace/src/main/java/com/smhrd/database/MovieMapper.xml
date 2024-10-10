@@ -44,6 +44,10 @@
 		select count(*) as follower_cnt from following_info where followee=#{user_email}
 	</select>
 	
+	<select id="followeeCnt" parameterType="String" resultType="String">
+		select count(*) as follower_cnt from following_info where follower=#{user_email}
+	</select>
+	
 	<select id="F4F" parameterType="com.smhrd.model.FollowingInfo" resultType="String">
 		select count(*) from following_info where follower=#{follower} and followee=#{followee}
 	</select>

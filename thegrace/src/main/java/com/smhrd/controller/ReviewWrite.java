@@ -33,6 +33,7 @@ public class ReviewWrite extends HttpServlet {
 	      
 	      HttpSession session = request.getSession();
 	      UserInfo member = (UserInfo)session.getAttribute("member");
+	      System.out.println(member);
 	      
 	      
 	      
