@@ -71,5 +71,9 @@
     <delete id="reviewDelete" parameterType="int">
       delete from review_info where review_cd=#{review_cd}
    </delete>
+
+    <select id="getSearchResult" parameterType="String" resultType="com.smhrd.model.MovieInfo">
+    	select * from movie_info where mv_title like concat(concat('%',#{search_text}),'%')
+    </select>
 	
 </mapper>

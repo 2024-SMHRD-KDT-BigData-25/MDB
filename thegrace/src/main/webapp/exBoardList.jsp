@@ -33,17 +33,7 @@
 		      </tr>
 		    </thead>
 		    <tbody>
-		    <% for (ReviewInfo R:) { %>
-		    <!-- JSP에서 list라는 MyBoard 객체의 리스트를 순회하면서, 각 객체를 b이라는 변수에 저장하고, 
-			그에 따라 반복문 안의 코드를 실행하는 구문이다. -->
-		      <tr>
-		        <td><%= b.getIdx() %></td>
-		        <td><a href="boardcontent.jsp?idx=<%=b.getIdx()%>"><%= b.getTitle() %></a></td>
-		        <td><%= b.getWriter() %></td>
-		        <td><%= b.getIndate() %></td>
-		      </tr>
-		    <% } %>
-		      <tr>
+		    
 		      	<td colspan="4"> 
 		      		<button class="btn btn-sm btn-success" onclick="location.href='boardform.jsp'">글작성</button>
 		      		<button class="btn btn-sm btn-warning" onclick="window.open('chat.jsp', '채팅방', 'width=500, height=700, top=50, left=500')">채팅하기</button>

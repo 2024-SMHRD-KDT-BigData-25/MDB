@@ -158,6 +158,7 @@ public class MovieDAO {
 		return res;
 		   }
 	
+
 	// 리뷰 삭제하기
 	public int reviewDelete(int review_cd) {
 	      SqlSession sqlSession = sqlSessionFactory.openSession(true);
@@ -174,6 +175,17 @@ public class MovieDAO {
 		      return res;
 		
 		   }
+
+
+	// 영화 검색하기
+	public List<MovieInfo> movieSearching(String search_text) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<MovieInfo> res = sqlSession.selectList("MovieMapper.getSearchResult", search_text);
+		sqlSession.close();
+		return res;
+	}
+	
+	
 
 
 }
