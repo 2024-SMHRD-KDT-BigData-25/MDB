@@ -25,6 +25,7 @@
 	
 	<table>
 	<%
+	
 	List<UserInfo> userList = dao.getUserList();
 	for ( UserInfo u : userList ) {
 	%>

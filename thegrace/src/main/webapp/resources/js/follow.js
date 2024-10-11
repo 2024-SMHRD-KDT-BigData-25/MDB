@@ -96,3 +96,7 @@ function unfollow(followee, button) {
 	})
 }
 
+function followYn() {
+	
+}
+
