@@ -1,3 +1,9 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
+<%@page import="com.google.gson.Gson"%>
+<%@page import="com.smhrd.model.FollowPf"%>
+<%@page import="java.util.List"%>
+<%@page import="com.smhrd.model.MovieDAO"%>
+<%@page import="com.smhrd.model.UserInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CINEM@GRAFO</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -87,28 +94,61 @@
         <p id="loading" style="text-align: center; display: none;">Loading...</p> <!-- 로딩 텍스트 -->
     </div>
 
+	<% 
+	UserInfo member = (UserInfo)session.getAttribute("member");
+	String follower = member.getUser_email();
+		
+	MovieDAO dao = new MovieDAO();
+	List<FollowPf> followeeList = dao.getFollowee(follower);
+	
+	String jsonFolloweeList = new Gson().toJson(followeeList);
+	System.out.println(jsonFolloweeList);
+	%>
+
+        
+        
+        </div>
+      </div>
+      
+    </div>
+    
+  </div>
+
+
     <script>
+        const followeeMember = <%= jsonFolloweeList %>;
+        
         let itemCount = 0; // 현재 추가된 항목 수
 
         function addFollowing() {
             const followingList = document.getElementById('followingList');
 
-            const followingItem = document.createElement('div');
-            followingItem.className = 'following-item';
+         // 현재 항목 수가 followerList 길이보다 작을 때만 항목 추가
+            if (itemCount < followeeMember.length) {
+                const followee = followeeMember[itemCount]; // 현재 항목 가져오기
 
-            followingItem.innerHTML = `
-                <div class="profile-img">
-                    <img src="path/to/image.jpg" alt="프로필 이미지"> <!-- 이미지 경로 설정 -->
-                </div>
-                <div>
-                    <strong>그라포 ${itemCount + 1}</strong><br>
-                    <span>grafo${itemCount + 1}@email.com</span>
-                </div>
-                <button class="follow-button" onmouseover="this.textContent='unfollow'" onmouseout="this.textContent='following'">following</button>
-            `;
-
-            followingList.appendChild(followingItem);
-            itemCount++; // 항목 수 증가
+                // 새로운 following 항목 생성
+                const followingItem = document.createElement('div');
+                followingItem.className = 'following-item';
+                
+                // follower 정보를 사용하여 HTML을 생성
+                let listHtml = `
+                    <div class="profile-img">
+                        <img src="/resources/images/\${followee.pf_img}" alt="프로필 사진">
+                    </div>
+                    <div>
+                        <strong>\${followee.nick}</strong><br>
+                        <span>\${followee.followee}</span>
+                    </div>
+                    <button class="follow-button followBtn" data-followee="\${followee.followee}" style="display:none;">Follow</button>
+        			<button class="follow-button unfollowBtn" data-followee="\${followee.followee}">Unfollow</button>
+                `;
+	
+                followingItem.innerHTML = listHtml;
+                
+                followingList.appendChild(followingItem); // 항목 추가
+                itemCount++; // 항목 수 증가
+            }
         }
 
         function handleScroll() {
@@ -132,16 +172,7 @@
         // 스크롤 이벤트 리스너 추가
         window.addEventListener('scroll', handleScroll);
     </script>
-        
-        
-        </div>
-      </div>
-      
-    </div>
-    
-  </div>
-
-
+    <script src="resources/js/follow.js"></script>
 
 </body>
 </html>

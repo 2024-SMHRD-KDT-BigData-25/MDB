@@ -11,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CINEM@GRAFO</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -93,7 +94,7 @@
 	String followee = member.getUser_email();
 		
 	MovieDAO dao = new MovieDAO();
-	List<FollowPf> followerList = dao.getFollowee(followee);
+	List<FollowPf> followerList = dao.getFollower(followee);
 	
 	String jsonFollowerList = new Gson().toJson(followerList);
 	%>
@@ -132,8 +133,8 @@
                         <strong>\${follower.nick}</strong><br>
                         <span>\${follower.followee}</span>
                     </div>
-                    <button class="followBtn" data-followee="\${follower.followee}" style="display:none;">Follow</button>
-        			<button class="unfollowBtn" data-followee="\${follower.followee}">Unfollow</button>
+                    <button class="follow-button followBtn" data-followee="\${follower.follower}" style="display:none;">Follow</button>
+        			<button class="follow-button unfollowBtn" data-followee="\${follower.follower}">Unfollow</button>
                 `;
 	
                 followingItem.innerHTML = listHtml;
@@ -141,8 +142,9 @@
                 followingList.appendChild(followingItem); // 항목 추가
                 itemCount++; // 항목 수 증가
             }
+         
         }
-
+        
         function handleScroll() {
             const scrollableHeight = document.documentElement.scrollHeight;
             const currentScroll = window.scrollY + window.innerHeight;
