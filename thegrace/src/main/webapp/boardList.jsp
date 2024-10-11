@@ -5,9 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>CINEM@GRAFO</title>
-    <style>
-       <style>
-        body {
+     <style>
+       body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
@@ -70,28 +69,54 @@
         .pagination button:hover {
             background-color: #f2f2f2; /* 호버 시 색상 변경 */
         }
+        .form-container {
+            display: none; /* 처음에는 숨김 */
+            margin-bottom: 20px; /* 아래쪽 여백 */
+            border: 1px solid #ddd; /* 테두리 */
+            padding: 10px; /* 패딩 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            background-color: #f9f9f9; /* 배경색 */
+        }
+        .form-container input, .form-container textarea {
+            width: 100%; /* 너비 100% */
+            padding: 10px; /* 패딩 */
+            margin: 5px 0; /* 여백 */
+            border: 1px solid #ccc; /* 테두리 */
+            border-radius: 5px; /* 모서리 둥글게 */
+        }
+        .form-container button {
+            background-color: #007BFF; /* 버튼 색상 */
+            color: white; /* 버튼 텍스트 색상 */
+            border: none; /* 테두리 제거 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            cursor: pointer; /* 커서 모양 변경 */
+            padding: 10px; /* 패딩 */
+            transition: background-color 0.3s; /* 부드러운 전환 */
+        }
+        .form-container button:hover {
+            background-color: #0056b3; /* 호버 시 색상 변경 */
+        }
+        .image-preview {
+            max-width: 100%; /* 최대 너비 100% */
+            margin-top: 10px; /* 위쪽 여백 */
+        }
     </style>
 </head>
 
 <body>
- <div class="container-scroller">
-  	<!-- 상단바 불러오기 -->
-    	<%@ include file="navbar.jsp" %>
-    
-    <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
-    
-      	<%@ include file="sidebar.jsp" %>
-      
-      <!-- partial -->
-      <div class="main-panel" >
-        <div class="content-wrapper" style="padding:60px;">
-        
-        <!-- 작업공간입니다! -->
-          <div class="container">
+ <div class="container">
         <h2>게시판</h2>
-        <button class="write-button">글쓰기</button> <!-- 글쓰기 버튼 -->
-        <table>
+        <div class="form-container" id="formContainer">
+            <h3>글쓰기</h3>
+            <input type="text" id="postTitle" placeholder="제목을 입력하세요" required>
+            <input type="text" id="postAuthor" placeholder="작성자를 입력하세요" required>
+            <textarea id="postContent" rows="4" placeholder="내용을 입력하세요" required></textarea>
+            <input type="file" id="postImage" accept="image/*" onchange="previewImage(event)">
+            <img id="imagePreview" class="image-preview" src="" alt="이미지 미리보기" style="display:none;">
+            <button onclick="submitPost()">제출</button>
+        </div>
+        <button class="write-button" onclick="toggleForm()">글쓰기</button>
+        <table id="postTable">
             <thead>
                 <tr>
                     <th>번호</th>
@@ -100,38 +125,126 @@
                     <th>작성일</th>
                     <th>조회수</th>
                     <th>추천</th>
+                    <th>이미지</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td class="title-link" onclick="location.href='page1.html'">첫 번째 게시글입니다.</td>
-                    <td>홍길동</td>
-                    <td>2024-10-01</td>
-                    <td>100</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="title-link" onclick="location.href='page2.html'">두 번째 게시글입니다.</td>
-                    <td>김철수</td>
-                    <td>2024-10-02</td>
-                    <td>80</td>
-                    <td>5</td>
-                </tr>
-                <!-- 추가 게시글은 여기에서 계속 추가할 수 있습니다. -->
+            <tbody id="postBody">
+                <!-- 게시글이 여기 추가됩니다. -->
             </tbody>
         </table>
-        <div class="pagination">
-            <button>이전</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>다음</button>
+        <div class="pagination" id="pagination">
+            <!-- 페이지 버튼이 여기 추가됩니다. -->
         </div>
     </div>
+
+    <script>
+        let posts = []; // 게시글 배열
+        const postsPerPage = 15; // 페이지당 게시글 수
+        let currentPage = 1; // 현재 페이지
+
+        function toggleForm() {
+            const formContainer = document.getElementById('formContainer');
+            formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function previewImage(event) {
+            const imagePreview = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                imagePreview.src = reader.result;
+                imagePreview.style.display = 'block'; // 이미지 미리보기 표시
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.src = '';
+                imagePreview.style.display = 'none'; // 이미지 미리보기 숨김
+            }
+        }
+
+        function addPost(title, author, content, image) {
+            const postCount = posts.length + 1; // 현재 게시글 수
+            const newPost = {
+                id: postCount,
+                title: title,
+                author: author,
+                content: content,
+                image: image,
+                date: new Date().toLocaleDateString(),
+                views: Math.floor(Math.random() * 100),
+                likes: Math.floor(Math.random() * 20)
+            };
+            posts.push(newPost); // 새 게시글 추가
+            renderPosts(); // 게시글 렌더링
+        }
+
+        function submitPost() {
+            const title = document.getElementById('postTitle').value;
+            const author = document.getElementById('postAuthor').value;
+            const content = document.getElementById('postContent').value;
+            const image = document.getElementById('postImage').files[0]; // 이미지 파일
+
+            addPost(title, author, content, image);
+
+            // 입력 필드 초기화
+            document.getElementById('postTitle').value = '';
+            document.getElementById('postAuthor').value = '';
+            document.getElementById('postContent').value = '';
+            document.getElementById('postImage').value = ''; // 파일 초기화
+            document.getElementById('imagePreview').src = ''; // 미리보기 초기화
+            document.getElementById('imagePreview').style.display = 'none'; // 미리보기 숨김
+        }
+
+        function renderPosts() {
+            const postBody = document.getElementById('postBody');
+            postBody.innerHTML = ''; // 기존 게시글 초기화
+
+            const start = (currentPage - 1) * postsPerPage;
+            const end = start + postsPerPage;
+            const paginatedPosts = posts.slice(start, end); // 현재 페이지에 해당하는 게시글
+
+            paginatedPosts.forEach(post => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${post.id}</td>
+                    <td class="title-link" onclick="location.href='post${post.id}.html'">${post.title}</td>
+                    <td>${post.author}</td>
+                    <td>${post.date}</td>
+                    <td>${post.views}</td>
+                    <td>${post.likes}</td>
+                    <td>${post.image ? `<img src="${URL.createObjectURL(post.image)}" class="image-preview" style="max-width: 100px;">` : ''}</td>
+                `;
+                postBody.appendChild(row);
+            });
+
+            renderPagination(); // 페이지네이션 렌더링
+        }
+
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = ''; // 기존 페이지 버튼 초기화
+
+            const pageCount = Math.ceil(posts.length / postsPerPage); // 총 페이지 수
+
+            for (let i = 1; i <= pageCount; i++) {
+                const button = document.createElement('button');
+                button.innerText = i;
+                button.onclick = function() {
+                    currentPage = i; // 현재 페이지 변경
+                    renderPosts(); // 게시글 렌더링
+                };
+                pagination.appendChild(button);
+            }
+        }
+
+        // 초기 게시글 추가 (예시)
+        for (let i = 0; i < 30; i++) {
+            addPost(`게시글 ${i + 1}`, `작성자 ${i + 1}`, `내용 ${i + 1}`, null);
+        }
+    </script>
     </div>
     
   </div>
