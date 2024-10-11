@@ -29,7 +29,7 @@
             </a>
           </li>
           <li class="nav-item">
-	            <a class="nav-link" href="followpage.jsp">
+	            <a class="nav-link" href="follower.jsp">
 	              <i class="icon-disc menu-icon"></i>
 	              <span class="menu-title">Friends</span>
 	            </a>

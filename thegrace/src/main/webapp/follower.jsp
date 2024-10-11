@@ -1,3 +1,8 @@
+<%@page import="com.google.gson.Gson"%>
+<%@page import="com.smhrd.model.FollowPf"%>
+<%@page import="java.util.List"%>
+<%@page import="com.smhrd.model.MovieDAO"%>
+<%@page import="com.smhrd.model.UserInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -82,28 +87,57 @@
         <p id="loading" style="text-align: center; display: none;">Loading...</p> <!-- 로딩 텍스트 -->
     </div>
 
+	<% 
+	UserInfo member = (UserInfo)session.getAttribute("member");
+	String followee = member.getUser_email();
+		
+	MovieDAO dao = new MovieDAO();
+	List<FollowPf> followerList = dao.getFollowee(followee);
+	
+	String jsonFollowerList = new Gson().toJson(followerList);
+	%>
+
+        
+        
+        </div>
+      </div>
+      
+    </div>
+    
+  </div>
+
     <script>
+    	const followerMember = <%= jsonFollowerList %>;
+    
         let itemCount = 0; // 현재 추가된 항목 수
 
         function addFollowing() {
             const followingList = document.getElementById('followingList');
 
-            const followingItem = document.createElement('div');
-            followingItem.className = 'following-item';
+         // 현재 항목 수가 followerList 길이보다 작을 때만 항목 추가
+            if (itemCount < followerMember.length) {
+                const follower = followerMember[itemCount]; // 현재 항목 가져오기
 
-            followingItem.innerHTML = `
-                <div class="profile-img">
-                    <img src="path/to/image.jpg" alt="프로필 사진"> <!-- 이미지 경로 설정 -->
-                </div>
-                <div>
-                    <strong>그라포 ${itemCount + 1}</strong><br>
-                    <span>grafo${itemCount + 1}@email.com</span>
-                </div>
-                <button class="follow-button" >follow</button>
-            `;
+                
+                // 새로운 following 항목 생성
+                const followingItem = document.createElement('div');
+                followingItem.className = 'following-item';
+                
+                // follower 정보를 사용하여 HTML을 생성
+                followingItem.innerHTML = `
+                    <div class="profile-img">
+                        <img src="/resources/images/${follower.pf_img}" alt="프로필 사진">
+                    </div>
+                    <div>
+                        <strong>${follower.nick}</strong><br>
+                        <span>${follower.followee}</span>
+                    </div>
+                    <button class="follow-button">Follow</button>
+                `;
 
-            followingList.appendChild(followingItem);
-            itemCount++; // 항목 수 증가
+                followingList.appendChild(followingItem); // 항목 추가
+                itemCount++; // 항목 수 증가
+            }
         }
 
         function handleScroll() {
@@ -127,15 +161,6 @@
         // 스크롤 이벤트 리스너 추가
         window.addEventListener('scroll', handleScroll);
     </script>
-        
-        
-        </div>
-      </div>
-      
-    </div>
-    
-  </div>
-
 
 
 </body>
