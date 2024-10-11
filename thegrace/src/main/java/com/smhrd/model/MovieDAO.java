@@ -169,9 +169,9 @@ public class MovieDAO {
 	   }
 	
 	// 리뷰 리스트 조회
-		public List<ReviewInfo> getReview(int review_cd) {
+		public List<ReviewInfo> getReview() {
 		      SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		      List<ReviewInfo> res = sqlSession.selectList("MovieMapper.reviewList", review_cd);
+		      List<ReviewInfo> res = sqlSession.selectList("MovieMapper.reviewList");
 		      sqlSession.close(); // session의 자원 반환
 		      return res;
 		
