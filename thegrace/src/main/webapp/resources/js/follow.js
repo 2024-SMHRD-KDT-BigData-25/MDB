@@ -72,7 +72,7 @@ function checkFollowStatus(userId, targetId) {
         },
         success: function(response) {
             // 서버에서 팔로우 상태를 반환한다고 가정합니다.
-            let followStatus = response.status; // "following", "follower", "mutual", "none"
+            let followStatus = response.followStatus; // "following", "follower", "mutual", "none"
             handleFollowStatus(followStatus);
         },
         error: function(error) {
@@ -91,7 +91,7 @@ function handleFollowStatus(status) {
         case 'follower':
             console.log("This user is following you.");
             break;
-        case 'mutual':
+        case 'F4F':
             console.log("You both follow each other.");
             break;
         case 'none':
