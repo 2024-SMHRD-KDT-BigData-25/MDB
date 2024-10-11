@@ -302,8 +302,8 @@ p {
                 </div>
               <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face5.jpg" alt="Profile Image">
-                    <span class="review-title">너구리</span>
+                    <img src="resources/images/faces/face4.jpg" alt="Profile Image">
+                    <span class="review-title">러바오</span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>
@@ -315,8 +315,8 @@ p {
                 </div>
               < <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face6.jpg" alt="Profile Image">
-                    <span class="review-title">모기</span>
+                    <img src="resources/images/faces/face1.jpg" alt="Profile Image">
+                    <span class="review-title">아이바오</span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>

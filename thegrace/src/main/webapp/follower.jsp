@@ -126,13 +126,14 @@
                 // follower 정보를 사용하여 HTML을 생성
                 let listHtml = `
                     <div class="profile-img">
-                        <img src="/resources/images/\${follower.pf_img} alt="프로필 사진">
+                        <img src="/resources/images/\${follower.pf_img}" alt="프로필 사진">
                     </div>
                     <div>
                         <strong>\${follower.nick}</strong><br>
                         <span>\${follower.followee}</span>
                     </div>
-                    <button class="follow-button">Follow</button>
+                    <button class="followBtn" data-followee="\${follower.followee}" style="display:none;">Follow</button>
+        			<button class="unfollowBtn" data-followee="\${follower.followee}">Unfollow</button>
                 `;
 	
                 followingItem.innerHTML = listHtml;
@@ -163,6 +164,7 @@
         // 스크롤 이벤트 리스너 추가
         window.addEventListener('scroll', handleScroll);
     </script>
+    <script src="resources/js/follow.js"></script>
 
 
 </body>

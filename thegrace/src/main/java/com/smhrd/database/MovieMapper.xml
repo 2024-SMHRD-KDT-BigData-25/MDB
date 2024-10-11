@@ -60,7 +60,7 @@
 		select * from review_info
 	</select>
 	
-	<select id="reviewRecmCnt" parameterType="Double" resultType="String">
+	<select id="reviewRecmCnt" parameterType="int" resultType="String">
 		select count(*) from review_recm_info where recm_cd=#{review_cd}
 	</select>
 	
