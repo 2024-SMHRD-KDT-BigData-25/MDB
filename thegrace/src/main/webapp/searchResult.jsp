@@ -10,7 +10,11 @@
 <meta charset="UTF-8">
 <title>CINEM@GRAFO</title>
 <style>
+.main-panel{
 
+align-items:center;
+
+}
 </style>
 </head>
 <body>
@@ -37,7 +41,7 @@
                 <h4>검색하신 <%=search_text  %>에 대한 검색 결과입니다.</h4>
                 <br>
                 <% for (MovieInfo mv:resultList) { %>
-                        <div class="comment-body">
+                        <div class="comment-body result-content">
                             <img src="<%=mv.getMv_poster() %>" alt="Movie Poster" class="comment-poster">
                             <div>
 			                  <h3><%=mv.getMv_title() %></h3>
