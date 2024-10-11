@@ -61,7 +61,7 @@
             border: none; /* 테두리 제거 */
             border-radius: 5px; /* 모서리 둥글게 */
             padding: 6px 10px; /* 패딩 */
-            }
+            
     </style>
 </head>
 <body>
@@ -118,7 +118,6 @@
          // 현재 항목 수가 followerList 길이보다 작을 때만 항목 추가
             if (itemCount < followerMember.length) {
                 const follower = followerMember[itemCount]; // 현재 항목 가져오기
-				console.log(follower);
                 
                 // 새로운 following 항목 생성
                 const followingItem = document.createElement('div');
@@ -127,11 +126,11 @@
                 // follower 정보를 사용하여 HTML을 생성
                 let listHtml = `
                     <div class="profile-img">
-                        <img src="/resources/images/" + follower.pf_img alt="프로필 사진">
+                        <img src="/resources/images/\${follower.pf_img} alt="프로필 사진">
                     </div>
                     <div>
-                        <strong>follower.nick</strong><br>
-                        <span>follower.followee</span>
+                        <strong>\${follower.nick}</strong><br>
+                        <span>\${follower.followee}</span>
                     </div>
                     <button class="follow-button">Follow</button>
                 `;
