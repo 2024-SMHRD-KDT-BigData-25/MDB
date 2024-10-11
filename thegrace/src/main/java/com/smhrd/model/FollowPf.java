@@ -10,7 +10,7 @@ import lombok.Setter;
 public class FollowPf {
 	
 	// 팔로우 코드 
-	private Double follow_cd;
+	private int follow_cd;
 	
 	// 팔로우 받은 사람
     private String followee;
