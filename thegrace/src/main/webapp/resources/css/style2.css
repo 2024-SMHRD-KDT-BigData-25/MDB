@@ -101,7 +101,7 @@
         .profile-stats {
             display: flex;
             justify-content: space-between;
-             margin-top: 50px; /* 간격 줄이기 */
+             margin-bottom: 70px; /* 간격 줄이기 */
              padding: 0 100px; /* 양옆 여백 줄이기 */
              margin-right:200;
         }
@@ -109,7 +109,7 @@
             text-align: center;
         }
         .profile-message-container {
-            margin-top: 80px; /* 아래로 내리기 위한 여백 */
+            margin-bottom: 80px; /* 아래로 내리기 위한 여백 */
             padding: 50px;    /* 내부 여백 */
             background-color: #f9f9f9; /* 배경색 */
             border-radius: 15px; /* 모서리 둥글게 */
