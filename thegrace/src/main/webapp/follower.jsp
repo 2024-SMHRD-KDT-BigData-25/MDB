@@ -5,6 +5,7 @@
 <%@page import="com.smhrd.model.UserInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,24 +118,25 @@
          // 현재 항목 수가 followerList 길이보다 작을 때만 항목 추가
             if (itemCount < followerMember.length) {
                 const follower = followerMember[itemCount]; // 현재 항목 가져오기
-
                 
                 // 새로운 following 항목 생성
                 const followingItem = document.createElement('div');
                 followingItem.className = 'following-item';
                 
                 // follower 정보를 사용하여 HTML을 생성
-                followingItem.innerHTML = `
+                let listHtml = `
                     <div class="profile-img">
-                        <img src="/resources/images/${follower.pf_img}" alt="프로필 사진">
+                        <img src="/resources/images/\${follower.pf_img} alt="프로필 사진">
                     </div>
                     <div>
-                        <strong>${follower.nick}</strong><br>
-                        <span>${follower.followee}</span>
+                        <strong>\${follower.nick}</strong><br>
+                        <span>\${follower.followee}</span>
                     </div>
                     <button class="follow-button">Follow</button>
                 `;
-
+	
+                followingItem.innerHTML = listHtml;
+                
                 followingList.appendChild(followingItem); // 항목 추가
                 itemCount++; // 항목 수 증가
             }

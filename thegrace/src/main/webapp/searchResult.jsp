@@ -10,6 +10,22 @@
 <meta charset="UTF-8">
 <title>CINEM@GRAFO</title>
 <style>
+.main-panel{
+
+align-items:center;
+
+}
+
+.main-panel a {
+ text-decoration:none !important;
+ color:black !important;
+}
+ 
+.main-panel a:hover {
+ text-decoration:none !important;
+ color:black !important;
+}
+
 
 </style>
 </head>
@@ -37,14 +53,16 @@
                 <h4>검색하신 <%=search_text  %>에 대한 검색 결과입니다.</h4>
                 <br>
                 <% for (MovieInfo mv:resultList) { %>
-                        <div class="comment-body">
+                	<a href="movieContent.jsp?mv_cd=<%=mv.getMv_cd() %>">
+                        <div class="comment-body result-content">
                             <img src="<%=mv.getMv_poster() %>" alt="Movie Poster" class="comment-poster">
                             <div>
 			                  <h3><%=mv.getMv_title() %></h3>
 			                  <h5><%=mv.getMv_title_eng() %></h5>
-			                  <p><%=mv.getOpen_year() %> · <%=mv.getMv_genre() %> · <%=mv.getMv_country() %> · <%=mv.getPlay_time() %>분</p>
+			                  <p><%=mv.getMv_genre() %> · <%=mv.getOpen_year() %> · <%=mv.getMv_country() %> · <%=mv.getPlay_time() %>분</p>
                             </div>
                         </div>
+                     </a>
                 <% } %>
           </div>
 

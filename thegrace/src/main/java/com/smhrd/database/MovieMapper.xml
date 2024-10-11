@@ -56,8 +56,8 @@
 		select count(*) from following_info where follower=#{follower} and followee=#{followee}
 	</select>
 	
-	<select id="reviewList" parameterType="String" resultType="com.smhrd.model.ReviewInfo">
-		select * from review_info where user_email=#{user_email}
+	<select id="reviewList" resultType="com.smhrd.model.ReviewInfo">
+		select * from review_info
 	</select>
 	
 	<select id="reviewRecmCnt" parameterType="Double" resultType="String">
@@ -65,7 +65,7 @@
 	</select>
 	
 	<insert id="reviewWrite" parameterType="com.smhrd.model.ReviewInfo" >
-      insert into review_info(review_cd, mv_cd, user_email, mv_rating, review_content, view_dt, open_yn, review_img, pos_neg) values (#{review_cd}, #{mv_cd}, #{user_email}, #{mv_rating}, #{review_content}, #{view_dt}, #{open_yn}, #{review_img}, #{pos_neg})
+      insert into review_info(review_cd, mv_cd, user_email, mv_rating, review_content, view_dt, open_yn, review_img, pos_neg) values (#{review_cd}, #{mv_cd}, #{user_email, jdbcType=VARCHAR}, #{mv_rating}, #{review_content, jdbcType=VARCHAR}, #{view_dt}, #{open_yn}, #{review_img, jdbcType=VARCHAR}, #{pos_neg})
     </insert>
     
     <delete id="reviewDelete" parameterType="int">
@@ -73,7 +73,7 @@
    </delete>
 
     <select id="getSearchResult" parameterType="String" resultType="com.smhrd.model.MovieInfo">
-    	select * from movie_info where mv_title like concat(concat('%',#{search_text}),'%')
+    	select * from movie_info where replace(mv_title,' ','') like replace(concat(concat('%',#{search_text}),'%'),' ','')
     </select>
 	
 </mapper>

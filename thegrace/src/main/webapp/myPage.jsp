@@ -5,7 +5,26 @@
 <head>
 <meta charset="UTF-8">
 <title>CINEM@GRAFO</title>
+<style>
+.edit-button {
+	margin-bottom: 100px;
+    margin-left: auto; /* 오른쪽으로 정렬 */
+    background-color: #007BFF; /* 버튼 색상 */
+    color: white; /* 텍스트 색상 */
+    border: none; /* 테두리 제거 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 10px; /* 패딩 */
+    cursor: pointer; /* 커서 모양 변경 */
+    transition: background-color 0.3s; /* 부드러운 전환 */
+}
+
+.edit-button:hover {
+    background-color: #0056b3; /* 호버 시 색상 변경 */
+}
+</style>
 </head>
+
+
 <body>
   <div class="container-scroller">
     
@@ -72,7 +91,9 @@
                 <h2>그라포</h2>
                 <p>grafo@naver.com</p>
                 <p>가입일: 2024-05-20</p>
-            </div>
+             </div>
+    <button class="edit-button">수정</button>
+		</div>
         </div>
         <div class="profile-stats">
             <div class="stat">

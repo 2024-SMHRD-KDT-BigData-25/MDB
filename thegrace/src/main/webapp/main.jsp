@@ -101,6 +101,7 @@
     border-radius: 8px;
     background-color: #ffffff;
     width: 280px;
+    padding: 15px;
 }
 
 .review-header {

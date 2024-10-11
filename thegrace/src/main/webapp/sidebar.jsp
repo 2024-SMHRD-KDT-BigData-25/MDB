@@ -35,7 +35,7 @@
 	            </a>
             </li>
           <li class="nav-item">
-            <a class="nav-link" href="exBoardContent.jsp">
+            <a class="nav-link" href="boardList.jsp">
               <i class="icon-file menu-icon"></i>
               <span class="menu-title">Review</span>
             </a>
