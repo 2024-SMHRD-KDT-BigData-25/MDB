@@ -1,3 +1,6 @@
+<%@page import="com.smhrd.model.ReviewInfo"%>
+<%@page import="java.util.List"%>
+<%@page import="com.smhrd.model.MovieDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,7 +9,7 @@
 <meta charset="UTF-8">
 <title>CINEM@GRAFO</title>
      <style>
-       body {
+        body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
@@ -104,32 +107,71 @@
 </head>
 
 <body>
- <div class="container">
+
+	<%
+		String userEmail = (String) session.getAttribute("userEmail");
+		MovieDAO dao = new MovieDAO();
+		List<ReviewInfo> list = dao.getReview(); // -> 여기서 getList()는 DAO의 메서드 이름이다
+		System.out.println("리뷰 개수: " + list.size());
+	%>
+
+<div class="container-scroller">
+     <!-- 상단바 불러오기 -->
+       <%@ include file="navbar.jsp" %>
+    
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+    
+         <%@ include file="sidebar.jsp" %>
+      
+      <!-- partial -->
+      <div class="main-panel" >
+        <div class="content-wrapper" style="padding:60px;">
+        
+        <!-- 작업공간입니다! -->
+   <div class="container">
         <h2>게시판</h2>
         <div class="form-container" id="formContainer">
             <h3>글쓰기</h3>
-            <input type="text" id="postTitle" placeholder="제목을 입력하세요" required>
-            <input type="text" id="postAuthor" placeholder="작성자를 입력하세요" required>
-            <textarea id="postContent" rows="4" placeholder="내용을 입력하세요" required></textarea>
-            <input type="file" id="postImage" accept="image/*" onchange="previewImage(event)">
+        <form action="write" method="post" enctype="multipart/form-data">
+            <input type="text" name="mv_cd" placeholder="영화 코드입력" required>
+            <input type="text" name="mv_rating" placeholder="영화 평점" required>
+            <textarea name="review_content" rows="4" placeholder="내용을 입력하세요" required></textarea>
+            관람일자 <input type="date" name="view_dt">
+            공개 <input type="radio" name="open_yn" value="Y">  비공개<input type="radio" name="open_yn" value="N">
+            <input type="file" name="review_img" accept="image/*" onchange="previewImage(event)">
             <img id="imagePreview" class="image-preview" src="" alt="이미지 미리보기" style="display:none;">
+            긍정 <input type="radio" name="pos_neg" value="P">  부정<input type="radio" name="pos_neg" value="N">
+            <input type="hidden" name="user_email" value="<%= session.getAttribute("userId") %>"> <!-- 세션에서 ID를 가져옴 -->
             <button onclick="submitPost()">제출</button>
+         </form>
         </div>
         <button class="write-button" onclick="toggleForm()">글쓰기</button>
         <table id="postTable">
             <thead>
                 <tr>
                     <th>번호</th>
-                    <th>제목</th>
                     <th>작성자</th>
+                    <th>리뷰내용</th>                    
                     <th>작성일</th>
-                    <th>조회수</th>
-                    <th>추천</th>
-                    <th>이미지</th>
                 </tr>
             </thead>
             <tbody id="postBody">
                 <!-- 게시글이 여기 추가됩니다. -->
+                <% for (ReviewInfo rev : list) { %>
+		      <tr>
+		        <td><%=rev.getReview_cd()%></td>		        
+		        <td><%=rev.getUser_email()%></td>
+		        <td><%=rev.getReview_content()%></td>		        		        
+		        <td><%= rev.getView_dt() %></td>
+		      </tr>
+		    <% } %>
+		    <%System.out.println("리뷰 리스트 크기: " + list.size());
+		    if (list.isEmpty()) {
+		        System.out.println("리뷰가 없습니다.");
+		    } %>
+		    
+		    
             </tbody>
         </table>
         <div class="pagination" id="pagination">
@@ -215,7 +257,6 @@
                     <td>${post.date}</td>
                     <td>${post.views}</td>
                     <td>${post.likes}</td>
-                    <td>${post.image ? `<img src="${URL.createObjectURL(post.image)}" class="image-preview" style="max-width: 100px;">` : ''}</td>
                 `;
                 postBody.appendChild(row);
             });

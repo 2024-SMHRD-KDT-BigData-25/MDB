@@ -65,7 +65,7 @@
 	</select>
 	
 	<insert id="reviewWrite" parameterType="com.smhrd.model.ReviewInfo" >
-      insert into review_info(review_cd, mv_cd, user_email, mv_rating, review_content, view_dt, open_yn, review_img, pos_neg) values (#{review_cd}, #{mv_cd}, #{user_email}, #{mv_rating}, #{review_content}, #{view_dt}, #{open_yn}, #{review_img}, #{pos_neg})
+      insert into review_info(review_cd, mv_cd, user_email, mv_rating, review_content, view_dt, open_yn, review_img, pos_neg) values (#{review_cd}, #{mv_cd}, #{user_email, jdbcType=VARCHAR}, #{mv_rating}, #{review_content, jdbcType=VARCHAR}, #{view_dt}, #{open_yn}, #{review_img, jdbcType=VARCHAR}, #{pos_neg})
     </insert>
     
     <delete id="reviewDelete" parameterType="int">
