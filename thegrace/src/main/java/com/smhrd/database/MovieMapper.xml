@@ -73,7 +73,7 @@
    </delete>
 
     <select id="getSearchResult" parameterType="String" resultType="com.smhrd.model.MovieInfo">
-    	select * from movie_info where mv_title like concat(concat('%',#{search_text}),'%')
+    	select * from movie_info where replace(mv_title,' ','') like replace(concat(concat('%',#{search_text}),'%'),' ','')
     </select>
 	
 </mapper>
