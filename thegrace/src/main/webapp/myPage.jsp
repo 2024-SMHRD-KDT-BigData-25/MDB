@@ -50,7 +50,7 @@
                 <div class="col-sm-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          <h1 class="card-title">인생의 얼마만큼을 영화를 봤나요?</h1>
+                          <h1 class="card-title">인생의 얼마만큼 영화를 봤나요?</h1>
                           <h3><p>그라포님은 GRAFO의 회원 중<br> 상위 12%에요</p></h3>
                           <h4 class="text-dark font-weight-bold mb-2">11,121 분</h4>
                           <canvas id="customers"></canvas>
