@@ -56,4 +56,18 @@ public class ReviewInfo {
 		this.user_email = user_email;
 		}
     
+    public ReviewInfo(int review_cd, String user_email, String review_content, Date view_dt) {
+		super();
+		this.review_cd = review_cd;
+		this.user_email = user_email;
+		this.review_content = review_content;
+		this.view_dt = view_dt;
+		}
+    
+    public ReviewInfo(String user_email) {
+		super();
+		this.user_email = user_email;
+		}
+    
+    
 }

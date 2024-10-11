@@ -56,8 +56,8 @@
 		select count(*) from following_info where follower=#{follower} and followee=#{followee}
 	</select>
 	
-	<select id="reviewList" parameterType="String" resultType="com.smhrd.model.ReviewInfo">
-		select * from review_info where user_email=#{user_email}
+	<select id="reviewList" resultType="com.smhrd.model.ReviewInfo">
+		select * from review_info
 	</select>
 	
 	<select id="reviewRecmCnt" parameterType="Double" resultType="String">

@@ -25,21 +25,26 @@ public class ReviewList extends HttpServlet {
 protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		
-		HttpSession session = request.getSession();
-		UserInfo member = (UserInfo)session.getAttribute("member");
-	
-		
-		int review_cd = Integer.parseInt(request.getParameter("review_cd"));
-		String user_email = (String) session.getAttribute("email");
-		String review_content = request.getParameter("review_content");
-		Date view_dt =  new Date(System.currentTimeMillis());
+//		HttpSession session = request.getSession();
+//		UserInfo member = (UserInfo)session.getAttribute("member");
+//	
+//		
+//		int review_cd = Integer.parseInt(request.getParameter("review_cd"));
+//		String user_email = (String) session.getAttribute("email");
+//		String review_content = request.getParameter("review_content");
+//		Date view_dt =  new Date(System.currentTimeMillis());
 		
 		
 		MovieDAO dao = new MovieDAO();
-		List<ReviewInfo> list = dao.getReview(review_cd);
+		List<ReviewInfo> list = dao.getReview();
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(list); // toJson의 반환타입은 반드시 String이다.
+		
+		response.setCharacterEncoding("UTF-8");
 
 		PrintWriter out = response.getWriter();
-		out.print(list);
+		out.print(json);
 	}
 }
 	
