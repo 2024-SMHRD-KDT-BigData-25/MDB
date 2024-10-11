@@ -61,7 +61,7 @@
             border: none; /* 테두리 제거 */
             border-radius: 5px; /* 모서리 둥글게 */
             padding: 6px 10px; /* 패딩 */
-            
+            }
     </style>
 </head>
 <body>
