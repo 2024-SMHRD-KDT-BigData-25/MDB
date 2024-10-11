@@ -12,7 +12,7 @@ import lombok.Setter;
 public class ReviewInfo {
 	
     // 리뷰 코드 
-    private Double review_cd;
+    private int review_cd;
 
     // 영화 코드 
     private String mv_cd;
@@ -21,7 +21,7 @@ public class ReviewInfo {
     private String user_email;
 
     // 영화 평점 
-    private Double mv_rating;
+    private int mv_rating;
 
     // 리뷰 내용 
     private String review_content;
@@ -38,7 +38,7 @@ public class ReviewInfo {
     // 긍정 부정 
     private String pos_neg;
     
-    public ReviewInfo(String mv_cd, String user_email, Double mv_rating, String review_content, Date view_dt, String open_yn, String review_img, String pos_neg) {
+    public ReviewInfo(String mv_cd, String user_email, int mv_rating, String review_content, Date view_dt, String open_yn, String review_img, String pos_neg) {
 		super();
 		this.mv_cd = mv_cd;
 		this.user_email = user_email;
@@ -49,4 +49,25 @@ public class ReviewInfo {
 		this.review_img = review_img;
 		this.pos_neg = pos_neg;
 		}
+    
+    public ReviewInfo(int review_cd, String user_email) {
+		super();
+		this.review_cd = review_cd;
+		this.user_email = user_email;
+		}
+    
+    public ReviewInfo(int review_cd, String user_email, String review_content, Date view_dt) {
+		super();
+		this.review_cd = review_cd;
+		this.user_email = user_email;
+		this.review_content = review_content;
+		this.view_dt = view_dt;
+		}
+    
+    public ReviewInfo(String user_email) {
+		super();
+		this.user_email = user_email;
+		}
+    
+    
 }

@@ -32,15 +32,14 @@ public class ReviewWrite extends HttpServlet {
 	      MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 	      
 	      HttpSession session = request.getSession();
+
 	      UserInfo member = (UserInfo)session.getAttribute("member");
-	      
-	      
-	      
-	      // 정보 받아오기
+	      System.out.println(member);
+
 	      
 	      String mv_cd = multi.getParameter("mv_cd");
-	      String user_email = member.getUser_email();
-	      Double mv_rating = Double.parseDouble(multi.getParameter("mv_rating"));
+	      String user_email = (String) session.getAttribute("email");
+	      int mv_rating = Integer.parseInt(multi.getParameter("mv_rating"));
 	      String review_content = multi.getParameter("review_content");
 	      Date view_dt =  new Date(System.currentTimeMillis());
 	      String open_yn = multi.getParameter("open_yn");

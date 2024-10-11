@@ -41,6 +41,15 @@ public class MovieDAO {
 		return res;
 	}
 	
+	// 네이버 로그인 기능
+	public UserInfo naverLogin(UserInfo m) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		UserInfo res = sqlSession.selectOne("MovieMapper.naverLogin", m);
+		sqlSession.close(); // session의 자원 반환
+		return res;
+	}
+	
+	
 	// 4. 아이디 중복 확인 기능
 	public boolean checkEmail(String user_email) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
@@ -84,18 +93,19 @@ public class MovieDAO {
 	}
 	
 	// 3. follower 리스트 가져오기
-	public List<FollowingInfo> getFollower(String user_email) {
+	public List<FollowPf> getFollower(String followee) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<FollowingInfo> res = sqlSession.selectList("MovieMapper.getFollower", user_email);
+		List<FollowPf> res = sqlSession.selectList("MovieMapper.getFollower", followee);
 		sqlSession.close();
 		return res;
 	}
 	
 	// 4. followee 리스트 가져오기
-	public List<FollowingInfo> getFollowee(String user_email) {
+	public List<FollowPf> getFollowee(String user_email) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<FollowingInfo> res = sqlSession.selectList("MovieMapper.getFollowee", user_email);
+		List<FollowPf> res = sqlSession.selectList("MovieMapper.getFollowee", user_email);
 		sqlSession.close();
+		System.out.println(res);
 		return res;
 	}
 	// 5. follower 수 가져오기 (return string)
@@ -131,7 +141,7 @@ public class MovieDAO {
 		List<ReviewInfo> reviewList = sqlSession.selectList("MovieMapper.reviewList", user_email);
 		int res = 0;
 		for ( ReviewInfo m : reviewList ) {
-			Double review_cd = m.getReview_cd();
+			int review_cd = m.getReview_cd();
 			int reviewCnt = Integer.parseInt(sqlSession.selectOne("MovieMapper.reviewRecmCnt", review_cd));
 			res += reviewCnt;
 		}
@@ -148,5 +158,35 @@ public class MovieDAO {
 		sqlSession.close(); // session의 자원 반환
 		return res;
 		   }
+	
+
+	// 리뷰 삭제하기
+	public int reviewDelete(int review_cd) {
+	      SqlSession sqlSession = sqlSessionFactory.openSession(true);
+	      int res = sqlSession.delete("MovieMapper.reviewDelete", review_cd);
+	      sqlSession.close(); // session의 자원 반환
+	      return res;
+	   }
+	
+	// 리뷰 리스트 조회
+		public List<ReviewInfo> getReview() {
+		      SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		      List<ReviewInfo> res = sqlSession.selectList("MovieMapper.reviewList");
+		      sqlSession.close(); // session의 자원 반환
+		      return res;
+		
+		   }
+
+
+	// 영화 검색하기
+	public List<MovieInfo> movieSearching(String search_text) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<MovieInfo> res = sqlSession.selectList("MovieMapper.getSearchResult", search_text);
+		sqlSession.close();
+		return res;
+	}
+	
+	
+
 
 }

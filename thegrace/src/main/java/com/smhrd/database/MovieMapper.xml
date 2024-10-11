@@ -15,6 +15,10 @@
 		insert into user_info(user_email, nick, pf_img) values (#{user_email}, #{nick}, #{pf_img})
 	</insert>
 	
+	<select id="naverLogin" parameterType="com.smhrd.model.UserInfo" resultType="com.smhrd.model.UserInfo">
+		select * from user_info where user_email=#{user_email}
+	</select>
+	
 	<select id="checkEmail" parameterType="String" resultType="com.smhrd.model.UserInfo">
 		select * from user_info where user_email=#{user_email}
 	</select>
@@ -32,24 +36,28 @@
 	delete from following_info where follower=#{follower} and followee=#{followee}
 	</delete>
 	
-	<select id="getFollower" parameterType="String" resultType="com.smhrd.model.FollowingInfo">
-		select * from following_info where followee=#{user_email}
+	<select id="getFollower" parameterType="String" resultType="com.smhrd.model.FollowPf">
+		select b.follow_cd, b.followee, b.follower, a.nick, a.pf_img from user_info a, following_info b where a.user_email=b.follower and b.followee=#{followee}
 	</select>
 	
-	<select id="getFollowee" parameterType="String" resultType="com.smhrd.model.FollowingInfo">
-		select * from following_info where follower=#{user_email}
+	<select id="getFollowee" parameterType="String" resultType="com.smhrd.model.FollowPf">
+		select b.follow_cd, b.followee, b.follower, a.nick, a.pf_img from user_info a, following_info b where a.user_email=b.followee and b.follower=#{follower}
 	</select>
 	
 	<select id="followerCnt" parameterType="String" resultType="String">
 		select count(*) as follower_cnt from following_info where followee=#{user_email}
 	</select>
 	
+	<select id="followeeCnt" parameterType="String" resultType="String">
+		select count(*) as follower_cnt from following_info where follower=#{user_email}
+	</select>
+	
 	<select id="F4F" parameterType="com.smhrd.model.FollowingInfo" resultType="String">
 		select count(*) from following_info where follower=#{follower} and followee=#{followee}
 	</select>
 	
-	<select id="reviewList" parameterType="String" resultType="com.smhrd.model.ReviewInfo">
-		select * from review_info where user_email=#{user_email}
+	<select id="reviewList" resultType="com.smhrd.model.ReviewInfo">
+		select * from review_info
 	</select>
 	
 	<select id="reviewRecmCnt" parameterType="Double" resultType="String">
@@ -59,5 +67,13 @@
 	<insert id="reviewWrite" parameterType="com.smhrd.model.ReviewInfo" >
       insert into review_info(review_cd, mv_cd, user_email, mv_rating, review_content, view_dt, open_yn, review_img, pos_neg) values (#{review_cd}, #{mv_cd}, #{user_email}, #{mv_rating}, #{review_content}, #{view_dt}, #{open_yn}, #{review_img}, #{pos_neg})
     </insert>
+    
+    <delete id="reviewDelete" parameterType="int">
+      delete from review_info where review_cd=#{review_cd}
+   </delete>
+
+    <select id="getSearchResult" parameterType="String" resultType="com.smhrd.model.MovieInfo">
+    	select * from movie_info where replace(mv_title,' ','') like replace(concat(concat('%',#{search_text}),'%'),' ','')
+    </select>
 	
 </mapper>
