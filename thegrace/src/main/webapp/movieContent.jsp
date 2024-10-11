@@ -4,10 +4,12 @@
 <html lang="en">
 
 <head>
+
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>CINEM@GRAFO</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
   
   .content img {
@@ -153,6 +155,7 @@ p {
       
     
   </style>
+  
 </head>
 <body>
 <div class="container-scroller">
@@ -242,9 +245,7 @@ p {
                 <button class="btn follow">삭제</button>
             </div>
         </div>
-        <h5>#mv_title</h5>
         <p>#review_content</p>
-        <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
     </div>
 
     <div class="review-card">
@@ -256,9 +257,7 @@ p {
                 <button class="btn follow">삭제</button>
             </div>
         </div>
-        <h5>#mv_title</h5>
         <p>#review_content</p>
-        <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
     </div>
 
     <div class="review-card">
@@ -270,9 +269,7 @@ p {
                 <button class="btn follow">삭제</button>
             </div>
         </div>
-        <h5>#mv_title</h5>
         <p>#review_content</p>
-        <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
     </div>
 
 </div>
@@ -282,88 +279,153 @@ p {
     <h4>리뷰(#리뷰 개수)</h4>
 
     <div class="review-card">
-        <div class="review-header">
-            <img src="resources/images/faces/face1.jpg" alt="Profile Image">
-            <span class="review-title">뚱냥이</span>
-            <div class="buttons">
-                <button class="btn">추천</button>
-                <button class="btn follow">팔로우</button>
-            </div>
+    <div class="review-header">
+        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
+        <span class="review-title">뚱냥이</span>
+        <div class="buttons">
+            <span style="color: red; cursor: pointer;" onclick="handleLike(this)">
+                <i class="fas fa-heart"></i>
+            </span>
+            <button class="btn follow">팔로우</button>
         </div>
-        <h5>#mv_title</h5>
-        <p>#review_content</p>
-        <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
     </div>
+    <h5>#mv_title</h5>
+    <p>#review_content</p>
+    <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
+</div>
+
+<script>
+    function handleLike(element) {
+        // 여기에서 좋아요 로직을 구현할 수 있습니다.
+        alert("You liked this review!");
+        // 예를 들어, 색상을 변경할 수도 있습니다.
+        element.querySelector('i').style.color = 'red'; // 하트를 빨간색으로 변경
+    }
+</script>
 
     <div class="review-card">
-        <div class="review-header">
-            <img src="resources/images/faces/face2.jpg" alt="Profile Image">
-            <span class="review-title">사용자 2</span>
-            <div class="buttons">
-                <button class="btn">추천</button>
-                <button class="btn follow">팔로우</button>
-            </div>
+    <div class="review-header">
+        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
+        <span class="review-title">뚱냥이</span>
+        <div class="buttons">
+            <span style="color: red; cursor: pointer;" onclick="handleLike(this)">
+                <i class="fas fa-heart"></i>
+            </span>
+            <button class="btn follow">팔로우</button>
         </div>
-        <h5>#mv_title</h5>
-        <p>#review_content</p>
-        <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
     </div>
+    <h5>#mv_title</h5>
+    <p>#review_content</p>
+    <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
+</div>
+
+<script>
+    function handleLike(element) {
+        // 여기에서 좋아요 로직을 구현할 수 있습니다.
+        alert("You liked this review!");
+        // 예를 들어, 색상을 변경할 수도 있습니다.
+        element.querySelector('i').style.color = 'red'; // 하트를 빨간색으로 변경
+    }
+</script>
 
     <div class="review-card">
-        <div class="review-header">
-            <img src="resources/images/faces/face3.jpg" alt="Profile Image">
-            <span class="review-title">사용자 3</span>
-            <div class="buttons">
-                <button class="btn">추천</button>
-                <button class="btn follow">팔로우</button>
-            </div>
+    <div class="review-header">
+        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
+        <span class="review-title">뚱냥이</span>
+        <div class="buttons">
+            <span style="color: red; cursor: pointer;" onclick="handleLike(this)">
+                <i class="fas fa-heart"></i>
+            </span>
+            <button class="btn follow">팔로우</button>
         </div>
-        <h5>#mv_title</h5>
-        <p>#review_content</p>
-        <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
-   </div>
+    </div>
+    <h5>#mv_title</h5>
+    <p>#review_content</p>
+    <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
+</div>
+
+<script>
+    function handleLike(element) {
+        // 여기에서 좋아요 로직을 구현할 수 있습니다.
+        alert("You liked this review!");
+        // 예를 들어, 색상을 변경할 수도 있습니다.
+        element.querySelector('i').style.color = 'red'; // 하트를 빨간색으로 변경
+    }
+</script>
     <!-- 추가된 사용자 4, 5, 6 -->
     <div class="review-card">
-        <div class="review-header">
-            <img src="resources/images/faces/face4.jpg" alt="Profile Image">
-            <span class="review-title">사용자 4</span>
-            <div class="buttons">
-                <button class="btn">추천</button>
-                <button class="btn follow">팔로우</button>
-            </div>
+    <div class="review-header">
+        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
+        <span class="review-title">뚱냥이</span>
+        <div class="buttons">
+            <span style="color: red; cursor: pointer;" onclick="handleLike(this)">
+                <i class="fas fa-heart"></i>
+            </span>
+            <button class="btn follow">팔로우</button>
         </div>
-        <h5>#mv_title</h5>
-        <p>#review_content</p>
-        <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
     </div>
+    <h5>#mv_title</h5>
+    <p>#review_content</p>
+    <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
+</div>
+
+<script>
+    function handleLike(element) {
+        // 여기에서 좋아요 로직을 구현할 수 있습니다.
+        alert("You liked this review!");
+        // 예를 들어, 색상을 변경할 수도 있습니다.
+        element.querySelector('i').style.color = 'red'; // 하트를 빨간색으로 변경
+    }
+</script>
+    <div class="review-card">
+    <div class="review-header">
+        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
+        <span class="review-title">뚱냥이</span>
+        <div class="buttons">
+            <span style="color: red; cursor: pointer;" onclick="handleLike(this)">
+                <i class="fas fa-heart"></i>
+            </span>
+            <button class="btn follow">팔로우</button>
+        </div>
+    </div>
+    <h5>#mv_title</h5>
+    <p>#review_content</p>
+    <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
+</div>
+
+<script>
+    function handleLike(element) {
+        // 여기에서 좋아요 로직을 구현할 수 있습니다.
+        alert("You liked this review!");
+        // 예를 들어, 색상을 변경할 수도 있습니다.
+        element.querySelector('i').style.color = 'red'; // 하트를 빨간색으로 변경
+    }
+</script>
 
     <div class="review-card">
-        <div class="review-header">
-            <img src="resources/images/faces/face5.jpg" alt="Profile Image">
-            <span class="review-title">사용자 5</span>
-            <div class="buttons">
-                <button class="btn">추천</button>
-                <button class="btn follow">팔로우</button>
-            </div>
+    <div class="review-header">
+        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
+        <span class="review-title">뚱냥이</span>
+        <div class="buttons">
+            <span style="color: red; cursor: pointer;" onclick="handleLike(this)">
+                <i class="fas fa-heart"></i>
+            </span>
+            <button class="btn follow">팔로우</button>
         </div>
-        <h5>#mv_title</h5>
-        <p>#review_content</p>
-        <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
     </div>
+    <h5>#mv_title</h5>
+    <p>#review_content</p>
+    <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
+</div>
 
-    <div class="review-card">
-        <div class="review-header">
-            <img src="resources/images/faces/face6.jpg" alt="Profile Image">
-            <span class="review-title">사용자 6</span>
-            <div class="buttons">
-                <button class="btn">추천</button>
-                <button class="btn follow">팔로우</button>
-            </div>
-        </div>
-        <h5>#mv_title</h5>
-        <p>#review_content</p>
-        <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
-    </div>
+<script>
+    function handleLike(element) {
+        // 여기에서 좋아요 로직을 구현할 수 있습니다.
+        alert("You liked this review!");
+        // 예를 들어, 색상을 변경할 수도 있습니다.
+        element.querySelector('i').style.color = 'red'; // 하트를 빨간색으로 변경
+    }
+</script>
 </div>
 </div>   
 
