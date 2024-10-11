@@ -131,7 +131,7 @@
                     </div>
                     <div>
                         <strong>\${follower.nick}</strong><br>
-                        <span>\${follower.followee}</span>
+                        <span>\${follower.follower}</span>
                     </div>
                     <button class="follow-button followBtn" data-followee="\${follower.follower}" style="display:none;">Follow</button>
         			<button class="follow-button unfollowBtn" data-followee="\${follower.follower}">Unfollow</button>

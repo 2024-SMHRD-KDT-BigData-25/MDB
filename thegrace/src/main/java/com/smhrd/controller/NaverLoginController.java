@@ -93,11 +93,16 @@ public class NaverLoginController extends HttpServlet {
                 // JSON 응답에서 이메일 정보, 닉네임, 프로필 이미지 추출
                 JSONObject jsonResponseUserInfo = new JSONObject(responseBody);
                 String user_email = jsonResponseUserInfo.getJSONObject("response").getString("email");
-
+                String nick = jsonResponseUserInfo.getJSONObject("response").getString("nickname");
+                String pf_img = jsonResponseUserInfo.getJSONObject("response").getString("profile_image");
+                
+                UserInfo joinCinematografo = new UserInfo(user_email, null, nick, null, null, null, pf_img, null, null, null); 
+                
                 System.out.println("Naver email: " + user_email);
 
                 // 세션에 이메일 저장
-                session.setAttribute("email", user_email);
+//                session.setAttribute("email", user_email);
+                session.setAttribute("member", joinCinematografo);
 
                 // 유저 정보 DB 저장
                 UserInfo NaverLogin = new UserInfo(user_email);      

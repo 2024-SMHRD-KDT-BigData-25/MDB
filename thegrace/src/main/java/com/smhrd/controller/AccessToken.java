@@ -57,9 +57,9 @@ public class AccessToken extends HttpServlet {
         
         
         // 이메일 정보, 닉네임, 프로필 이미지를 세션에 저장
-        session.setAttribute("email", user_email);
-        session.setAttribute("nickname", nick);
-        session.setAttribute("profile_image", pf_img);
+//        session.setAttribute("email", user_email);
+//        session.setAttribute("nickname", nick);
+//        session.setAttribute("profile_image", pf_img);
         
       /*
        * // 이메일 정보, 닉네임, 프로필 이미지를 응답으로 전송 response.setContentType("application/json");
@@ -69,6 +69,8 @@ public class AccessToken extends HttpServlet {
        */
         UserInfo joinCinematografo = new UserInfo(user_email, null, nick, null, null, null, pf_img, null, null, null); 
       
+		session.setAttribute("member", joinCinematografo);
+        
       if (joinCinematografo != null && joinCinematografo.getUser_email().equals(user_email)) {
             // 이메일이 일치하면 main.jsp로 리다이렉트
             response.sendRedirect("main.jsp");
