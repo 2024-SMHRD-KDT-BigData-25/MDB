@@ -349,7 +349,7 @@
                         <div class="form-group">
                             <label for="exampleInputName1"><i class="fas fa-film"></i> 영화코드</label>
                             <input type="text" class="form-control" id="exampleInputName1" readonly>
-                            <button type="button" class="btn"><i class="fas fa-search"></i>영화 찾기</button>
+                            <button type="button" class="btn inReviewMovieSearch"><i class="fas fa-search"></i>영화 찾기</button>
                         </div>
 						<input type="text" name="mv_cd"  required hidden>
                         <!-- 영화 평점 입력 -->
