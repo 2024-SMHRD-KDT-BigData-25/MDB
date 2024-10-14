@@ -41,7 +41,7 @@
 	</select>
 	
 	<select id="getFollowee" parameterType="String" resultType="com.smhrd.model.FollowPf">
-		select b.follow_cd, b.followee, b.follower, a.nick, a.pf_img from user_info a, following_info b where a.user_email=b.followee and b.follower=#{follower}
+		select b.follow_cd, b.followee, b.follower, a.nick, a.pf_img from user_info a, following_info b where a.user_email=b.followee and b.follower=#{follower, jdbcType=VARCHAR}
 	</select>
 	
 	<select id="followerCnt" parameterType="String" resultType="String">
@@ -75,5 +75,28 @@
     <select id="getSearchResult" parameterType="String" resultType="com.smhrd.model.MovieInfo">
     	select * from movie_info where replace(mv_title,' ','') like replace(concat(concat('%',#{search_text}),'%'),' ','')
     </select>
+    
+    <select id="getMovieList" resultType="com.smhrd.model.MovieInfo">
+    	select * from movie_info
+    </select>
+    
+    <select id="getReviewMvTitle" parameterType="String" resultType="com.smhrd.model.RevMvTitle">
+    	select m.mv_title from movie_info m 
+    	join review_info r on m.mv_cd = r.mv_cd
+    	join following_info f on f.followee = r.user_email
+    	where f.followee=#{followee}
+	</select>
+	
+	<select id="followeeReviewList" resultType="com.smhrd.model.RevMvTitle">
+		select A.*, B.mv_title, b.mv_poster
+		from Review_Info A
+		INNER JOIN Movie_Info B 
+		ON A.mv_cd = B.mv_cd
+		where a.user_email = #{followee}
+    </select>
+	
+	
+    
+    
 	
 </mapper>

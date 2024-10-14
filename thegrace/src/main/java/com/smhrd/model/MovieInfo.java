@@ -23,5 +23,9 @@ public class MovieInfo {
 	private String mv_story;
 	
 	
-	
+	public MovieInfo(String mv_cd, String mv_title) {
+		super();
+	    this.mv_cd = mv_cd;
+	    this.mv_title = mv_title;
+	}
 }

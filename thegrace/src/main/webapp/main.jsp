@@ -1,3 +1,11 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
+<%@page import="com.smhrd.model.RevMvTitle"%>
+<%@page import="com.smhrd.model.ReviewInfo"%>
+<%@page import="com.smhrd.model.FollowPf"%>
+<%@page import="com.smhrd.model.MovieInfo"%>
+<%@page import="com.smhrd.model.UserInfo"%>
+<%@page import="java.util.List"%>
+<%@page import="com.smhrd.model.MovieDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -153,9 +161,33 @@ p {
     margin-top: 10px;
 }
 
-
 	
 </style>
+
+	<%	
+	
+
+		
+		// 타입이름 변수명 = dao.매개변수명
+		UserInfo member = (UserInfo)session.getAttribute("member");
+		String user_email = member.getUser_email();
+		
+		
+		
+		MovieDAO dao = new MovieDAO();
+		List<FollowPf> followeeList = dao.getFollowee(user_email);
+		List<UserInfo> userList = dao.getUserList();
+		List<ReviewInfo> reviewList = dao.getReview();
+		List<MovieInfo> title = dao.getMovieList();
+		
+		List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(1).getFollowee() );
+		List<RevMvTitle> reviewMvList2 = dao.followeeReviewList( followeeList.get(6).getFollowee() );
+		// 내가 팔로우한 사람이 작성한 리뷰의 영화제목 가져오기!!!! 너무 어렵다ㅠ
+		
+	    
+	    
+	%>
+	
   <div class="container-scroller">
   	<!-- 상단바 불러오기 -->
     	<%@ include file="navbar.jsp" %>
@@ -200,31 +232,29 @@ p {
                 <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
                 <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face1.jpg" alt="Profile Image">
-                    <span class="review-title">뚱냥이</span>
+                    <img src=<%=followeeList.get(1).getPf_img()  %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(1).getNick() %></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
-                      <button class="btn follow">Follow</button>
                     </div>
                   </div>
-                  <h5>너의 이름은</h5>
-                  <p>나는 침대에서 아팠을 때 이 영화를 본 기억이 !</p>
-                   <img src="resources/images/너의이름은.jpg"  alt="Movie Poster" style="width:100px;">
+                  <h5><%=reviewMvList.get(0).getMv_title() %></h5>
+                  <p><%=reviewMvList.get(0).getReview_content()%></p>
+                   <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
                 </div>
                 
                 
                 <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face2.jpg" alt="Profile Image">
-                    <span class="review-title">보노보노</span>
+                    <img src=<%=followeeList.get(6).getPf_img() %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(6).getNick() %></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
-                      <button class="btn follow">Follow</button>
                     </div>
                   </div>
-                  <h5>인터스텔라</h5>
-                  <p>SF를 향한 놀런의 웅대한 꿈. 그 한 가운데 자리한 가족영화의 간절한 순간 </p>
-                   <img src="resources/images/인터스텔라.jpg" alt="Movie Poster" style="width:100px;">
+                  <h5><%=reviewMvList2.get(0).getMv_title() %></h5>
+                  <p><%=reviewMvList2.get(0).getReview_content()%></p>
+                   <img src=<%=reviewMvList2.get(0).getMv_poster() %> alt="Movie Poster" style="width:100px;">
                 </div>
                 <div class="review-card">
                   <div class="review-header">
