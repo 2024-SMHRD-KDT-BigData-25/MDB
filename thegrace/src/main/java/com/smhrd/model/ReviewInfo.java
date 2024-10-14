@@ -1,6 +1,5 @@
 package com.smhrd.model;
 
-import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +26,7 @@ public class ReviewInfo {
     private String review_content;
 
     // 관람 일자 
-    private Date view_dt;
+    private String view_dt;
 
     // 공개 여부 
     private String open_yn;
@@ -38,7 +37,7 @@ public class ReviewInfo {
     // 긍정 부정 
     private String pos_neg;
     
-    public ReviewInfo(String mv_cd, String user_email, int mv_rating, String review_content, Date view_dt, String open_yn, String review_img, String pos_neg) {
+    public ReviewInfo(String mv_cd, String user_email, int mv_rating, String review_content, String view_dt, String open_yn, String review_img, String pos_neg) {
 		super();
 		this.mv_cd = mv_cd;
 		this.user_email = user_email;
@@ -56,7 +55,7 @@ public class ReviewInfo {
 		this.user_email = user_email;
 		}
     
-    public ReviewInfo(int review_cd, String user_email, String review_content, Date view_dt) {
+    public ReviewInfo(int review_cd, String user_email, String review_content, String view_dt) {
 		super();
 		this.review_cd = review_cd;
 		this.user_email = user_email;

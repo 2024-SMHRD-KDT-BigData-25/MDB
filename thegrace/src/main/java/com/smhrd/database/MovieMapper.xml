@@ -56,6 +56,7 @@
 		select count(*) from following_info where follower=#{follower} and followee=#{followee}
 	</select>
 	
+	<!-- Review 관련 sql구문 -->
 	<select id="reviewList" resultType="com.smhrd.model.ReviewInfo">
 		select * from review_info
 	</select>
@@ -71,11 +72,17 @@
     <delete id="reviewDelete" parameterType="int">
       delete from review_info where review_cd=#{review_cd}
    </delete>
+   
+   	<select id="userReviewInfo" resultType="com.smhrd.model.ReviewInfo">
+		select * from review_info where user_email = #{user_email} and mv_cd = #{mv_cd}
+	</select>
 
+	<!-- MovieInfo 관련 sql구문 -->
     <select id="getSearchResult" parameterType="String" resultType="com.smhrd.model.MovieInfo">
     	select * from movie_info where replace(mv_title,' ','') like replace(concat(concat('%',#{search_text}),'%'),' ','')
     </select>
     
+
     <select id="getMovieList" resultType="com.smhrd.model.MovieInfo">
     	select * from movie_info
     </select>
@@ -95,8 +102,19 @@
 		where a.user_email = #{followee}
     </select>
 	
-	
+    <select id="mvInfo" parameterType="int" resultType="com.smhrd.model.MovieInfo">
+		select * from movie_info where mv_cd = #{mv_cd}
+	</select>
     
-    
+    <select id="getWeekMovieTitles" resultType="String" parameterType="int"  >
+        SELECT mi.mv_title
+        FROM week_movie_info wm
+        JOIN movie_info mi ON wm.mv_cd1 = mi.mv_cd 
+                           OR wm.mv_cd2 = mi.mv_cd 
+                           OR wm.mv_cd3 = mi.mv_cd
+                           OR wm.mv_cd4 = mi.mv_cd
+                           OR wm.mv_cd5 = mi.mv_cd
+        WHERE wm.week_cd = ${week_cd }
+    </select>
 	
 </mapper>

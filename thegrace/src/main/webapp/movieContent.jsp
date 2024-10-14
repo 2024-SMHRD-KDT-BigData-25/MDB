@@ -1,3 +1,7 @@
+<%@page import="com.smhrd.model.ReviewInfo"%>
+<%@page import="com.smhrd.model.UserInfo"%>
+<%@page import="com.smhrd.model.MovieInfo"%>
+<%@page import="com.smhrd.model.MovieDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -67,14 +71,14 @@
         .plot-summary h3 {
             margin-top: 0;
         }
-    .review-card {
+    .review-card {	
       border: 1px solid #ddd;
       border-radius: 5px;
       padding: 10px;
       margin: 10px 0;
       background-color: #f9f9f9;
-      margin-left:5px;
-      margin-right:5px;
+      margin-left:50px;
+      margin-right:50px;
     }
     .review-header {
       display: flex;
@@ -93,9 +97,10 @@
 .reviews-section {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; /* 왼쪽 정렬 */
+    justify-content: space-between; /* 왼쪽 정렬 */
     text-align: left; /* 텍스트 왼쪽 정렬 */
-    padding: 20px;
+    padding: 0 100px;
+    margin-right:50px;
 }
 
 .review-card {
@@ -158,6 +163,19 @@ p {
   
 </head>
 <body>
+
+     <% 
+     // 영화 내용 불러오기
+     int mv_cd = Integer.parseInt(request.getParameter("mv_cd")); 
+     MovieDAO dao = new MovieDAO();
+     MovieInfo mvInfo = dao.mvInfo(mv_cd);
+     // 로그인 유저 정보 -> 네이버 로그인 시 nick, Pf_img, email 정보만 담고 있음
+     UserInfo member = (UserInfo)session.getAttribute("member");
+     String user_email = member.getUser_email();
+     // 위 영화에 대한 유저의 리뷰 정보 가져오기
+     ReviewInfo userReviewInfo = dao.userReviewInfo(user_email, mv_cd);
+     %>
+     
 <div class="container-scroller">
   <!-- 상단바 불러오기 -->
   <%@ include file="navbar.jsp" %>
@@ -167,38 +185,23 @@ p {
       
   	<!-- partial -->
      <div class="main-panel">
-     <% int mv_cd = Integer.parseInt(request.getParameter("mv_cd")); %>
+
       <div class="content-wrapper" style="margin-left: 20px; margin-right: 40px; float right;"><!-- 여백 추가 -->
         <div class="strong">
             <p>장르 · 개봉년도 · 제작국가 · 상영시간</p>
-              <h2>명탐정 코난: 시한장치의 마천루</h2>
-          <h4>Detective Conan: The Time-Bombed Skyscraper</h4>
+              <h2><%=mvInfo.getMv_title() %></h2>
+          <h4><%=mvInfo.getMv_title_eng() %></h4>
       
         
 
         <div class="content">
-   <img src="resources/images/코난.png" alt="Additional Image" style="width: 250px; margin-right: 20px;"> <!-- 추가할 이미지 -->
+   	<img src="<%=mvInfo.getMv_poster() %>" alt="Additional Image" style="width: 250px; margin-right: 20px;"> <!-- 추가할 이미지 -->
           <div>
 
             <h3>줄거리</h3>
-<p>
-“5월 3일 토요일 밤 10시! 베이카 시네마 로비에서 만나는 거다! 잊지 마!”<br><br>
-
-검은 조직에 의해 초등학생 코난의 몸으로 작아진 고등학생 쿠도 신이치,<br>
-천재 건축가 모리야 테이지 교수에게 가는 파티의 초대를 받았지만,<br>
-코난은 상태를 알 수 없어 대리인을 부탁하려 소꿉친구 모리란에게<br>
-목소리 변조기를 사용해 신이치로서 전화를 건다. 하지만 밤 10시,<br>
-심야 영화를 보자고 조건을 걸어 난처해지고 만다.<br><br>
-
-약속 당일, 뉴스에서 화약 도난 사건을 보던 코난이 신이치에게<br>
-수상한 협박 전화가 걸려 오고 의문의 남자가 도심 전체를 폭탄 테러로<br>
-협박한다. 자신에게 도전장을 내민 연쇄 폭탄 테러임을 알게 된 신이치는<br>
-범인과의 숨 막히는 대결 중, 베이카 시티 빌딩이 되는 란이 타지게 되어<br>
-위험에 처함을 깨닫는다...<br><br>
-
-“명탐정 코난”, 전무후무 레전드 애니메이션의 ‘시작’!<br>
-진실은 언제나 하나!
-</p>
+			<p>
+			<%=mvInfo.getMv_story() %>
+			</p>
 
           </div>
         </div>
@@ -234,20 +237,27 @@ p {
    <div class="reviews-section">
 
     <h4>이 영화를 본 내 감상</h4>
-
+	<%if(userReviewInfo==null) {%>
+	    <div class="review-card">
+        <div class="review-header">
+        리뷰를 작성해보세요.
+        <button>작성하러 가기</button>
+        </div>
+    </div>
+	<%} else { %>
     <div class="review-card">
       
         <div class="review-header">
-            <img src="resources/images/faces/face1.jpg" alt="Profile Image">
-            <span class="review-title">뚱냥이</span>
+            <img src="<%=member.getPf_img() %>" alt="Profile Image">
+            <span class="review-title"><%=member.getNick() %></span>
             <div class="buttons">
                 <button class="btn">수정</button>
                 <button class="btn follow">삭제</button>
             </div>
         </div>
-        <p>#review_content</p>
+        <p><%=userReviewInfo.getReview_content() %></p>
     </div>
-
+	<%} %>
     <div class="review-card">
         <div class="review-header">
             <img src="resources/images/faces/face2.jpg" alt="Profile Image">
