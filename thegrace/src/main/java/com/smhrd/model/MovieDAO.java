@@ -186,7 +186,17 @@ public class MovieDAO {
 		return res;
 	}
 	
+	 // 이 주의 영화 투표 기능
 	
-
-
+	 // 1. 영화 이름 출력
+	public List<String> getWeekMovieTitles(int week_cd) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<String> movieTitles = null;
+		    try {
+		       movieTitles = sqlSession.selectList("getWeekMovieTitles", week_cd);
+		    } finally {
+		       sqlSession.close();
+		    }
+		    return movieTitles;
+	}
 }

@@ -75,5 +75,16 @@
     <select id="getSearchResult" parameterType="String" resultType="com.smhrd.model.MovieInfo">
     	select * from movie_info where replace(mv_title,' ','') like replace(concat(concat('%',#{search_text}),'%'),' ','')
     </select>
+    
+    <select id="getWeekMovieTitles" resultType="String" parameterType="int"  >
+        SELECT mi.mv_title
+        FROM week_movie_info wm
+        JOIN movie_info mi ON wm.mv_cd1 = mi.mv_cd 
+                           OR wm.mv_cd2 = mi.mv_cd 
+                           OR wm.mv_cd3 = mi.mv_cd
+                           OR wm.mv_cd4 = mi.mv_cd
+                           OR wm.mv_cd5 = mi.mv_cd
+        WHERE wm.week_cd = ${week_cd }
+    </select>
 	
 </mapper>
