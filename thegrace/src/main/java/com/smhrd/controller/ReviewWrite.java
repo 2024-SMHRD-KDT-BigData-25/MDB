@@ -38,10 +38,10 @@ public class ReviewWrite extends HttpServlet {
 
 	      
 	      String mv_cd = multi.getParameter("mv_cd");
-	      String user_email = (String) session.getAttribute("email");
+	      String user_email = member.getUser_email();
 	      int mv_rating = Integer.parseInt(multi.getParameter("mv_rating"));
 	      String review_content = multi.getParameter("review_content");
-	      Date view_dt =  new Date(System.currentTimeMillis());
+	      String view_dt =  multi.getParameter("view_dt");
 	      String open_yn = multi.getParameter("open_yn");
 	      String review_img = multi.getFilesystemName("review_img");
 	      String pos_neg = multi.getParameter("pos_neg");

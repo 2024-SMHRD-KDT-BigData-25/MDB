@@ -109,7 +109,7 @@
 <body>
 
 	<%
-		String userEmail = (String) session.getAttribute("userEmail");
+		String userEmail = (String) session.getAttribute("user_email");
 		MovieDAO dao = new MovieDAO();
 		List<ReviewInfo> list = dao.getReview(); // -> 여기서 getList()는 DAO의 메서드 이름이다
 		System.out.println("리뷰 개수: " + list.size());

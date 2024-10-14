@@ -1,6 +1,8 @@
 package com.smhrd.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -136,6 +138,8 @@ public class MovieDAO {
 		} 
 	}
 	
+	// 리뷰Review 관련 메서드
+	// 1. 사용자가 작성한 모든 리뷰의 모든 추천 수 합친 값 가져오기
 	public int allReviewRecmCnt(String user_email) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		List<ReviewInfo> reviewList = sqlSession.selectList("MovieMapper.reviewList", user_email);
@@ -150,7 +154,7 @@ public class MovieDAO {
 		
 	}
 	
-	// 리뷰입력하기
+	// 2. 리뷰입력하기
 	public int reviewWrite(ReviewInfo m) {
 		// openSession(true) -> 오토커밋 기능 on
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
@@ -160,7 +164,7 @@ public class MovieDAO {
 		   }
 	
 
-	// 리뷰 삭제하기
+	// 3. 리뷰 삭제하기
 	public int reviewDelete(int review_cd) {
 	      SqlSession sqlSession = sqlSessionFactory.openSession(true);
 	      int res = sqlSession.delete("MovieMapper.reviewDelete", review_cd);
@@ -168,20 +172,38 @@ public class MovieDAO {
 	      return res;
 	   }
 	
-	// 리뷰 리스트 조회
-		public List<ReviewInfo> getReview() {
-		      SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		      List<ReviewInfo> res = sqlSession.selectList("MovieMapper.reviewList");
-		      sqlSession.close(); // session의 자원 반환
-		      return res;
+	// 4. 리뷰 리스트 조회
+	public List<ReviewInfo> getReview() {
+		  SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		  List<ReviewInfo> res = sqlSession.selectList("MovieMapper.reviewList");
+		  sqlSession.close(); // session의 자원 반환
+		  return res;
+	}
 		
-		   }
+	// 5. 유저 이메일과 영화 코드로 리뷰 정보 불러오기
+	public ReviewInfo userReviewInfo(String user_email, int mv_cd) { 
+		Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("user_email", user_email);
+	    paramMap.put("mv_cd", mv_cd);
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		ReviewInfo res = sqlSession.selectOne("MovieMapper.userReviewInfo", paramMap);
+		sqlSession.close();
+		return res;
+	}
 
-
-	// 영화 검색하기
+	// MovieInfo 관련 메서드
+	// 1. 영화 검색하기
 	public List<MovieInfo> movieSearching(String search_text) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		List<MovieInfo> res = sqlSession.selectList("MovieMapper.getSearchResult", search_text);
+		sqlSession.close();
+		return res;
+	}
+	
+	// 2. 영화 정보 조회
+	public MovieInfo mvInfo(int mv_cd) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		MovieInfo res = sqlSession.selectOne("MovieMapper.mvInfo", mv_cd);
 		sqlSession.close();
 		return res;
 	}
