@@ -1,3 +1,5 @@
+<%@page import="com.smhrd.model.RevMvTitle"%>
+<%@page import="java.util.List"%>
 <%@page import="com.smhrd.model.ReviewInfo"%>
 <%@page import="com.smhrd.model.UserInfo"%>
 <%@page import="com.smhrd.model.MovieInfo"%>
@@ -169,11 +171,20 @@ p {
      int mv_cd = Integer.parseInt(request.getParameter("mv_cd")); 
      MovieDAO dao = new MovieDAO();
      MovieInfo mvInfo = dao.mvInfo(mv_cd);
+     
      // 로그인 유저 정보 -> 네이버 로그인 시 nick, Pf_img, email 정보만 담고 있음
      UserInfo member = (UserInfo)session.getAttribute("member");
      String user_email = member.getUser_email();
-     // 위 영화에 대한 유저의 리뷰 정보 가져오기
      
+     // 위 영화에 대한 유저의 리뷰 정보 가져오기 -> 리뷰 + 영화 타이틀 + 영화 포스터 = userReview
+     List<RevMvTitle> userReviewList = dao.followeeReviewList(user_email);
+     RevMvTitle userReview = null;  // 조건에 맞는 리뷰를 담을 객체
+     for (RevMvTitle m : userReviewList) {
+         if (m.getMv_cd().equals(mv_cd)) {
+        	 userReview = m;  // 영화 코드가 일치하면 해당 리뷰 정보를 담음
+             break;  // 일치하는 리뷰를 찾으면 루프를 중단
+         }
+     }
      %>
      
 <div class="container-scroller">
@@ -237,9 +248,22 @@ p {
    <div class="reviews-section">
 
     <h4>이 영화를 본 내 감상</h4>
-
+    
+    <% if ( userReview == null ){%>
     <div class="review-card">
-      
+
+        <div class="review-header">
+        	아직 작성된 리뷰가 없습니다. 
+            <div class="buttons">
+                <button class="btn">리뷰 작성하러 가기</button>
+            </div>
+        </div>
+        <p><%=userReview.getReview_content() %></p>
+    </div>
+    <% } else {%>
+    
+    <div class="review-card">
+
         <div class="review-header">
             <img src="<%=member.getPf_img() %>" alt="Profile Image">
             <span class="review-title"><%=member.getNick() %></span>
@@ -248,8 +272,9 @@ p {
                 <button class="btn follow">삭제</button>
             </div>
         </div>
-        <p>리뷰 내용</p>
+        <p><%=userReview.getReview_content() %></p>
     </div>
+    <% } %>
     <div class="review-card">
         <div class="review-header">
             <img src="resources/images/faces/face2.jpg" alt="Profile Image">
