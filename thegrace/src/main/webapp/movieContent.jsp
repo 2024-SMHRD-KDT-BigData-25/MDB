@@ -67,14 +67,14 @@
         .plot-summary h3 {
             margin-top: 0;
         }
-    .review-card {
+    .review-card {	
       border: 1px solid #ddd;
       border-radius: 5px;
       padding: 10px;
       margin: 10px 0;
       background-color: #f9f9f9;
-      margin-left:5px;
-      margin-right:5px;
+      margin-left:50px;
+      margin-right:50px;
     }
     .review-header {
       display: flex;
@@ -93,9 +93,10 @@
 .reviews-section {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; /* 왼쪽 정렬 */
+    justify-content: space-between; /* 왼쪽 정렬 */
     text-align: left; /* 텍스트 왼쪽 정렬 */
-    padding: 20px;
+    padding: 0 100px;
+    margin-right:50px;
 }
 
 .review-card {
