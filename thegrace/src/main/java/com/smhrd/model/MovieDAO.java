@@ -198,6 +198,23 @@ public class MovieDAO {
 		sqlSession.close();
 		return res;
 	}
+
+	// 영화정보 가져오기
+		public List<MovieInfo> getMovieList() {
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			List<MovieInfo> res = sqlSession.selectList("MovieMapper.getMovieList");
+			sqlSession.close();
+			return res;
+		}
+		
+	// 리뷰의 영화제목 가져오기
+		public List<RevMvTitle> followeeReviewList(String followee) {
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			List<RevMvTitle> res = sqlSession.selectList("MovieMapper.followeeReviewList", followee);
+			sqlSession.close();
+			return res;
+		}
+
 	
 	// 2. 영화 정보 조회
 	public MovieInfo mvInfo(int mv_cd) {
