@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
+<%@page import="com.smhrd.model.MovieInfo"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.smhrd.model.MovieDAO" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -174,18 +178,22 @@ p {
               </div>
               <div>
                 <p>투표 기간: #ST_DT ~ #ED_DT</p>
-                <form id="voteForm">
-                  <div>
-                    <input type="radio" name="movie" value="#mv_cd1.mv_title"> 영화 1<br>
-                    <input type="radio" name="movie" value="#mv_cd2.mv_title"> 영화 2<br>
-                    <input type="radio" name="movie" value="#mv_cd3.mv_title"> 영화 3<br>
-                    <input type="radio" name="movie" value="#mv_cd4.mv_title"> 영화 4<br>
-                    <input type="radio" name="movie" value="#mv_cd5.mv_title"> 영화 5<br>
-                  </div>
-                  <br>
-                  <button type="submit">투표하기</button>
-                  <br>
-                </form>
+                <form action="vote" id="voteForm" method="post">
+        		<!-- MyBatis에서 가져온 영화 목록 출력 -->
+        			 
+        			<c:if test="${not empty movieTitles}">
+					    <c:forEach var="title" items="${movieTitles }">
+					        <label>
+					            <input type="radio" name="movie" value="${title}"> ${title}
+					        </label><br>
+					    </c:forEach>
+					</c:if>
+					<c:if test="${empty movieTitles}">
+					    <p>영화 목록이 없습니다.</p>
+					</c:if>
+			        <br>
+			        <button type="button" onclick="submitVote()">투표하기</button>
+			    </form>
               </div>
               <br>
               <div class="chatgpt-activation" style="padding-left: 20px;">
@@ -357,8 +365,106 @@ p {
     <!-- End custom js for this page-->
     <!-- 주간차트 js -->
  	<script src="resources/js/weekChart.js"></script>
-              
+    <script>
+    let myChart;
+
+    // 페이지 로드 시 빈 차트 초기화
+    function initializeChart() {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['영화 1', '영화 2', '영화 3', '영화 4', '영화 5'], // 영화 제목
+                datasets: [{
+                    label: '투표 수',
+                    data: [0, 0, 0, 0, 0], // 초기에는 0으로 설정
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // 차트 데이터 업데이트
+    function updateChart(data) {
+        const results = data.results;
+        myChart.data.datasets[0].data = [
+            results[1],
+            results[2],
+            results[3],
+            results[4],
+            results[5]
+        ];
+        myChart.update();
+    }
+
+    function submitVote() {
+        const selectedMovie = document.querySelector('input[name="movie"]:checked');
+        if (!selectedMovie) {
+            alert("영화를 선택하세요!");
+            return;
+        }
+
+        const movieId = selectedMovie.value;
+
+        fetch('/vote', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `movieId=${movieId}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            updateResults(data);
+            updateChart(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // 페이지 로드 시 초기 결과 불러오기
+    window.onload = function() {
+        initializeChart(); // 차트 초기화
+        fetch('/results')
+            .then(response => response.json())
+            .then(data => {
+                updateResults(data);
+                updateChart(data); // 불러온 결과로 차트 업데이트
+            });
+    };	
+    
+    
+    
+    
+    </script>       
 </body>
 </html>
-        
-    
