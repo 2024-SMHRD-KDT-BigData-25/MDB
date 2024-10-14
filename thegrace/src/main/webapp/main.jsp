@@ -173,6 +173,7 @@ p {
       
       MovieDAO dao = new MovieDAO();
       List<FollowPf> followeeList = dao.getFollowee(user_email);
+     
       
       List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(1).getFollowee() );
       List<RevMvTitle> reviewMvList2 = dao.followeeReviewList( followeeList.get(2).getFollowee() );
