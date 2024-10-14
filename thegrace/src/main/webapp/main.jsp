@@ -1,9 +1,14 @@
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
+
+<%@page import="com.smhrd.model.RevMvTitle"%>
+<%@page import="com.smhrd.model.ReviewInfo"%>
+<%@page import="com.smhrd.model.FollowPf"%>
 <%@page import="com.smhrd.model.MovieInfo"%>
+<%@page import="com.smhrd.model.UserInfo"%>
+<%@page import="java.util.List"%>
+<%@page import="com.smhrd.model.MovieDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.smhrd.model.MovieDAO" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -131,7 +136,7 @@
 }
 
 h4 {
-	color: #000000; /* 검정색 */
+   color: #000000; /* 검정색 */
     width: 100%;
     margin-bottom: 20px;
     font-size: 24px;
@@ -157,82 +162,98 @@ p {
     margin-top: 10px;
 }
 
-
-	
+   
 </style>
+
+   <%   
+   
+      // 타입이름 변수명 = dao.매개변수명
+      UserInfo member = (UserInfo)session.getAttribute("member");
+      String user_email = member.getUser_email();
+      
+      MovieDAO dao = new MovieDAO();
+      List<FollowPf> followeeList = dao.getFollowee(user_email);
+      List<UserInfo> userList = dao.getUserList();
+      List<ReviewInfo> reviewList = dao.getReview();
+      List<MovieInfo> title = dao.getMovieList();
+      
+      List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(1).getFollowee() );
+      List<RevMvTitle> reviewMvList2 = dao.followeeReviewList( followeeList.get(2).getFollowee() );
+      // 내가 팔로우한 사람이 작성한 리뷰의 영화제목 가져오기!!!! 너무 어렵다ㅠ
+      
+   %>
+   
   <div class="container-scroller">
-  	<!-- 상단바 불러오기 -->
-    	<%@ include file="navbar.jsp" %>
+     <!-- 상단바 불러오기 -->
+       <%@ include file="navbar.jsp" %>
     
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
     
-      	<%@ include file="sidebar.jsp" %>
+         <%@ include file="sidebar.jsp" %>
       
       <!-- partial -->
       <div class="main-panel" >
         <div class="content-wrapper" style="padding:80px;">
-        	  <h2 style="text-align: center;">이번 주의 영화</h2> <!-- 제목 중앙 정렬 -->
+             <h2 style="text-align: center;">이번 주의 영화</h2> <!-- 제목 중앙 정렬 -->
               <div>
                 <canvas id="myChart" width="200" height="50"></canvas> <!-- 차트크기수정 -->
               </div>
               <div>
                 <p>투표 기간: #ST_DT ~ #ED_DT</p>
                 <form action="vote" id="voteForm" method="post">
-        		<!-- MyBatis에서 가져온 영화 목록 출력 -->
-        			 
-        			<c:if test="${not empty movieTitles}">
-					    <c:forEach var="title" items="${movieTitles }">
-					        <label>
-					            <input type="radio" name="movie" value="${title}"> ${title}
-					        </label><br>
-					    </c:forEach>
-					</c:if>
-					<c:if test="${empty movieTitles}">
-					    <p>영화 목록이 없습니다.</p>
-					</c:if>
-			        <br>
-			        <button type="button" onclick="submitVote()">투표하기</button>
-			    </form>
+              <!-- MyBatis에서 가져온 영화 목록 출력 -->
+                  
+                 <c:if test="${not empty movieTitles}">
+                   <c:forEach var="title" items="${movieTitles }">
+                       <label>
+                           <input type="radio" name="movie" value="${title}"> ${title}
+                       </label><br>
+                   </c:forEach>
+               </c:if>
+               <c:if test="${empty movieTitles}">
+                   <p>영화 목록이 없습니다.</p>
+               </c:if>
+                 <br>
+                 <button type="button" onclick="submitVote()">투표하기</button>
+             </form>
               </div>
               <br>
               <div class="chatgpt-activation" style="padding-left: 20px;">
-  				<div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
-    				<span style="color: green;">ChatGPT 활성화 (팝업 창에서 열기)</span>
-  				</div>
-			  </div>
-			    
+              <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
+                <span style="color: green;">ChatGPT 활성화 (팝업 창에서 열기)</span>
+              </div>
+           </div>
+             
         <!-- 영화 리뷰 섹션  -->
               <br>
               <div class="reviews-section">
                 <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
                 <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face1.jpg" alt="Profile Image">
-                    <span class="review-title">뚱냥이</span>
+                    <img src=<%=followeeList.get(1).getPf_img()  %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(1).getNick() %></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
-                      <button class="btn follow">Follow</button>
                     </div>
                   </div>
-                  <h5>너의 이름은</h5>
-                  <p>나는 침대에서 아팠을 때 이 영화를 본 기억이 !</p>
-                   <img src="resources/images/너의이름은.jpg"  alt="Movie Poster" style="width:100px;">
+                  <h5><%=reviewMvList.get(0).getMv_title() %></h5>
+                  <p><%=reviewMvList.get(0).getReview_content()%></p>
+                   <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
                 </div>
                 
                 
                 <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face2.jpg" alt="Profile Image">
-                    <span class="review-title">보노보노</span>
+                    <img src=<%=followeeList.get(2).getPf_img() %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(2).getNick() %></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
-                      <button class="btn follow">Follow</button>
                     </div>
                   </div>
-                  <h5>인터스텔라</h5>
-                  <p>SF를 향한 놀런의 웅대한 꿈. 그 한 가운데 자리한 가족영화의 간절한 순간 </p>
-                   <img src="resources/images/인터스텔라.jpg" alt="Movie Poster" style="width:100px;">
+                  <h5><%=reviewMvList2.get(0).getMv_title() %></h5>
+                  <p><%=reviewMvList2.get(0).getReview_content()%></p>
+                   <img src=<%=reviewMvList2.get(0).getMv_poster() %> alt="Movie Poster" style="width:100px;">
                 </div>
                 <div class="review-card">
                   <div class="review-header">
@@ -250,7 +271,7 @@ p {
               </div>
  <div class="reviews-section">
                 <h4>000님이 최근 본 영화들, 다른 사람들은 어떻게 봤을까요?</h4>
-          		 <div class="review-card">
+                 <div class="review-card">
                   <div class="review-header">
                     <img src="resources/images/faces/face4.jpg" alt="Profile Image">
                     <span class="review-title">포로리</span>
@@ -293,9 +314,9 @@ p {
 
 
         
-            	<br>
+               <br>
                 <h4>최근 인기있는 리뷰를 확인해보세요!</h4>
-          		 <div class="review-card">
+                 <div class="review-card">
                   <div class="review-header">
                     <img src="resources/images/faces/face7.jpg" alt="Profile Image">
                     <span class="review-title">푸바오</span>
@@ -338,8 +359,8 @@ p {
 
               
               <!-- 세 번째 리뷰 섹션 ends -->  
-			</div>
-			<!-- contents-wrapper ends -->
+         </div>
+         <!-- contents-wrapper ends -->
         </div>
         <!-- main-panel ends -->
       </div>
@@ -364,7 +385,7 @@ p {
     <script src="resources/js/dashboard.js"></script>
     <!-- End custom js for this page-->
     <!-- 주간차트 js -->
- 	<script src="resources/js/weekChart.js"></script>
+    <script src="resources/js/weekChart.js"></script>
     <script>
     let myChart;
 
@@ -460,7 +481,7 @@ p {
                 updateResults(data);
                 updateChart(data); // 불러온 결과로 차트 업데이트
             });
-    };	
+    };   
     
     
     

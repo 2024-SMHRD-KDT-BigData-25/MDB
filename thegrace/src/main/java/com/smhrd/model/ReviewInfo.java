@@ -63,10 +63,5 @@ public class ReviewInfo {
 		this.view_dt = view_dt;
 		}
     
-    public ReviewInfo(String user_email) {
-		super();
-		this.user_email = user_email;
-		}
-    
     
 }
