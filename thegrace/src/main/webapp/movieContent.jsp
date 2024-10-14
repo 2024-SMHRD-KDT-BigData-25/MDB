@@ -173,7 +173,7 @@ p {
      UserInfo member = (UserInfo)session.getAttribute("member");
      String user_email = member.getUser_email();
      // 위 영화에 대한 유저의 리뷰 정보 가져오기
-     ReviewInfo userReviewInfo = dao.userReviewInfo(user_email, mv_cd);
+     
      %>
      
 <div class="container-scroller">
@@ -237,14 +237,7 @@ p {
    <div class="reviews-section">
 
     <h4>이 영화를 본 내 감상</h4>
-	<%if(userReviewInfo==null) {%>
-	    <div class="review-card">
-        <div class="review-header">
-        리뷰를 작성해보세요.
-        <button>작성하러 가기</button>
-        </div>
-    </div>
-	<%} else { %>
+
     <div class="review-card">
       
         <div class="review-header">
@@ -255,9 +248,8 @@ p {
                 <button class="btn follow">삭제</button>
             </div>
         </div>
-        <p><%=userReviewInfo.getReview_content() %></p>
+        <p>리뷰 내용</p>
     </div>
-	<%} %>
     <div class="review-card">
         <div class="review-header">
             <img src="resources/images/faces/face2.jpg" alt="Profile Image">
