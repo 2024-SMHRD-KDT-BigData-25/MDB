@@ -1,5 +1,5 @@
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
-<<<<<<< HEAD
+
 <%@page import="com.smhrd.model.RevMvTitle"%>
 <%@page import="com.smhrd.model.ReviewInfo"%>
 <%@page import="com.smhrd.model.FollowPf"%>
@@ -7,15 +7,10 @@
 <%@page import="com.smhrd.model.UserInfo"%>
 <%@page import="java.util.List"%>
 <%@page import="com.smhrd.model.MovieDAO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-=======
-<%@page import="com.smhrd.model.MovieInfo"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="java.util.List" %>
 <%@ page import="com.smhrd.model.MovieDAO" %>
->>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-BigData-25/MDB.git
 <!DOCTYPE html>
 <html lang="en">
 
