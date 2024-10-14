@@ -135,13 +135,8 @@
     margin-left: auto;
 }
 
-<<<<<<< HEAD
 h4 {
    color: #000000; /* 검정색 */
-=======
-h4 {
-   color: #000000; /* 검정색 */
->>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-BigData-25/MDB.git
     width: 100%;
     margin-bottom: 20px;
     font-size: 24px;
@@ -577,7 +572,12 @@ p {
             .then(data => {
                 updateResults(data);
                 updateChart(data); // 불러온 결과로 차트 업데이트
-            });   
+            });
+
+    };   
+    
+    
+    
     
     </script>       
 </body>
