@@ -136,7 +136,7 @@
 }
 
 h4 {
-	color: #000000; /* 검정색 */
+   color: #000000; /* 검정색 */
     width: 100%;
     margin-bottom: 20px;
     font-size: 24px;
@@ -162,83 +162,151 @@ p {
     margin-top: 10px;
 }
 
-	
+   
 </style>
 
-	<%	
-	
+   <%   
 
-		
-		// 타입이름 변수명 = dao.매개변수명
-		UserInfo member = (UserInfo)session.getAttribute("member");
-		String user_email = member.getUser_email();
-		
-		
-		
-		MovieDAO dao = new MovieDAO();
-		List<FollowPf> followeeList = dao.getFollowee(user_email);
-		List<UserInfo> userList = dao.getUserList();
-		List<ReviewInfo> reviewList = dao.getReview();
-		List<MovieInfo> title = dao.getMovieList();
-		
-		List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(1).getFollowee() );
-		List<RevMvTitle> reviewMvList2 = dao.followeeReviewList( followeeList.get(6).getFollowee() );
-		// 내가 팔로우한 사람이 작성한 리뷰의 영화제목 가져오기!!!! 너무 어렵다ㅠ
-		
-	    
-	    
-	%>
-	
+      // 타입이름 변수명 = dao.매개변수명
+      UserInfo member = (UserInfo)session.getAttribute("member");
+      String user_email = member.getUser_email(); 
+      MovieDAO dao = new MovieDAO();
+      List<FollowPf> followeeList = dao.getFollowee(user_email);
+      
+      
+      // 내가 팔로우한 사람이 작성한 리뷰의 영화제목 가져오기!!!! 너무 어렵다ㅠ
+ 
+   %>
+   
   <div class="container-scroller">
-  	<!-- 상단바 불러오기 -->
-    	<%@ include file="navbar.jsp" %>
+     <!-- 상단바 불러오기 -->
+       <%@ include file="navbar.jsp" %>
     
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
     
-      	<%@ include file="sidebar.jsp" %>
+         <%@ include file="sidebar.jsp" %>
       
       <!-- partial -->
       <div class="main-panel" >
         <div class="content-wrapper" style="padding:80px;">
-        	  <h2 style="text-align: center;">이번 주의 영화</h2> <!-- 제목 중앙 정렬 -->
+             <h2 style="text-align: center;">이번 주의 영화</h2> <!-- 제목 중앙 정렬 -->
               <div>
                 <canvas id="myChart" width="200" height="50"></canvas> <!-- 차트크기수정 -->
               </div>
               <div>
                 <p>투표 기간: #ST_DT ~ #ED_DT</p>
                 <form action="vote" id="voteForm" method="post">
-        		<!-- MyBatis에서 가져온 영화 목록 출력 -->
-        			 
-        			<c:if test="${not empty movieTitles}">
-					    <c:forEach var="title" items="${movieTitles }">
-					        <label>
-					            <input type="radio" name="movie" value="${title}"> ${title}
-					        </label><br>
-					    </c:forEach>
-					</c:if>
-					<c:if test="${empty movieTitles}">
-					    <p>영화 목록이 없습니다.</p>
-					</c:if>
-			        <br>
-			        <button type="button" onclick="submitVote()">투표하기</button>
-			    </form>
+              <!-- MyBatis에서 가져온 영화 목록 출력 -->
+                  
+                 <c:if test="${not empty movieTitles}">
+                   <c:forEach var="title" items="${movieTitles }">
+                       <label>
+                           <input type="radio" name="movie" value="${title}"> ${title}
+                       </label><br>
+                   </c:forEach>
+               </c:if>
+               <c:if test="${empty movieTitles}">
+                   <p>영화 목록이 없습니다.</p>
+               </c:if>
+                 <br>
+                 <button type="button" onclick="submitVote()">투표하기</button>
+             </form>
               </div>
               <br>
               <div class="chatgpt-activation" style="padding-left: 20px;">
-  				<div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
-    				<span style="color: green;">ChatGPT 활성화 (팝업 창에서 열기)</span>
-  				</div>
-			  </div>
-			    
+              <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
+                <span style="color: green;">ChatGPT 활성화 (팝업 창에서 열기)</span>
+              </div>
+           </div>
+             
         <!-- 영화 리뷰 섹션  -->
               <br>
+              <%if (followeeList.size() >= 3) {
+                 List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(0).getFollowee() );
+                 List<RevMvTitle> reviewMvList2 = dao.followeeReviewList( followeeList.get(1).getFollowee() );
+                 List<RevMvTitle> reviewMvList3 = dao.followeeReviewList( followeeList.get(2).getFollowee() );
+                 %>
               <div class="reviews-section">
                 <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
                 <div class="review-card">
                   <div class="review-header">
-                    <img src=<%=followeeList.get(1).getPf_img()  %> alt="Profile Image">
+                    <img src=<%=followeeList.get(0).getPf_img()  %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(0).getNick() %></span>
+                    <div class="buttons">
+                      <button class="btn" onclick="recommendReview(<%=reviewMvList.get(0).getReview_cd()%>, '<%=user_email%>', this)">추천</button>
+                    </div>
+                  </div>
+                  <h5><%=reviewMvList.get(0).getMv_title() %></h5>
+                  <p><%=reviewMvList.get(0).getReview_content()%></p>
+                   <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
+                   <p>추천 수: <span id="recommend-count-<%=reviewMvList.get(0).getReview_cd()%>">0</span></p>
+                </div>
+                
+                <script>
+				function recommendReview(reviewCd, userEmail, button) {
+    				// AJAX 요청 생성
+    				var xhr = new XMLHttpRequest();
+    				xhr.open("POST", "/thegrace/RecommendController", true);
+    				xhr.setRequestHeader("Content-Type", "application/json");
+
+    				// 요청 데이터 생성
+    				var data = JSON.stringify({ reviewCd: reviewCd, userEmail: userEmail });
+
+    				// 응답 처리
+    				xhr.onload = function () {
+        				if (xhr.status === 200) {
+            				// 추천 수 증가
+            				var countElement = document.getElementById(`recommend-count-${reviewCd}`);
+            				console.log(countElement.textContent);  // 추천 수 확인
+            				countElement.textContent = parseInt(countElement.textContent) + 1;
+        				} else {
+            				console.error('추천 실패');
+        				}
+    				};
+
+    				// 요청 전송
+				}
+				console.log(countElement);
+				</script>
+                
+                <div class="review-card">
+                  <div class="review-header">
+                    <img src=<%=followeeList.get(1).getPf_img() %> alt="Profile Image">
                     <span class="review-title"><%=followeeList.get(1).getNick() %></span>
+                    <div class="buttons">
+                      <button class="btn">추천</button>
+                    </div>
+                  </div>
+                  <h5><%=reviewMvList2.get(0).getMv_title() %></h5>
+                  <p><%=reviewMvList2.get(0).getReview_content()%></p>
+                   <img src=<%=reviewMvList2.get(0).getMv_poster() %> alt="Movie Poster" style="width:100px;">
+                </div>
+                
+                <div class="review-card">
+                  <div class="review-header">
+                    <img src=<%=followeeList.get(2).getPf_img() %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(2).getNick() %></span>
+                    <div class="buttons">
+                      <button class="btn">추천</button>
+                    </div>
+                  </div>
+                  <h5><%=reviewMvList3.get(0).getMv_title() %></h5>
+                  <p><%=reviewMvList3.get(0).getReview_content()%></p>
+                <img src=<%=reviewMvList3.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
+                </div>
+              </div>
+              
+              <%} else if (followeeList.size() == 2) { 
+                 List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(0).getFollowee() );
+                 List<RevMvTitle> reviewMvList2 = dao.followeeReviewList( followeeList.get(1).getFollowee() );
+              %>
+              <div class="reviews-section">
+                <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
+                <div class="review-card">
+                  <div class="review-header">
+                    <img src=<%=followeeList.get(0).getPf_img()  %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(0).getNick() %></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                     </div>
@@ -248,11 +316,10 @@ p {
                    <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
                 </div>
                 
-                
                 <div class="review-card">
                   <div class="review-header">
-                    <img src=<%=followeeList.get(6).getPf_img() %> alt="Profile Image">
-                    <span class="review-title"><%=followeeList.get(6).getNick() %></span>
+                    <img src=<%=followeeList.get(1).getPf_img() %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(1).getNick() %></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                     </div>
@@ -261,26 +328,46 @@ p {
                   <p><%=reviewMvList2.get(0).getReview_content()%></p>
                    <img src=<%=reviewMvList2.get(0).getMv_poster() %> alt="Movie Poster" style="width:100px;">
                 </div>
+               </div>
+                
+              <%} else if (followeeList.size() == 1) { 
+                 List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(0).getFollowee() );
+              %>
+              <div class="reviews-section">
+                <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
                 <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face3.jpg" alt="Profile Image">
-                    <span class="review-title">천상지희</span>
+                    <img src=<%=followeeList.get(0).getPf_img()  %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(0).getNick() %></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
-                      <button class="btn follow">Follow</button>
                     </div>
                   </div>
-                  <h5>인셉션</h5>
-                  <p> 크리스토퍼 놀란이 감독한 이 작품은 마음을 사로잡는 스토리텔링, 뛰어난 연기</p>
-                <img src="resources/images/인셉션.jpg" alt="Movie Poster" style="width:100px;">
+                  <h5><%=reviewMvList.get(0).getMv_title() %></h5>
+                  <p><%=reviewMvList.get(0).getReview_content()%></p>
+                   <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
                 </div>
+               </div>
+                
+              <%} else if (followeeList.size() == 0) { %>
+              <div class="reviews-section">
+                <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
+               <div class="review-card">
+                <div class="review-header">
+                 팔로우가 없습니다!
+                </div>
+               </div>
               </div>
+              <%} %>
+              
+              <%System.out.println("List size: " + followeeList.size()); %>
+              
  <div class="reviews-section">
-                <h4>000님이 최근 본 영화들, 다른 사람들은 어떻게 봤을까요?</h4>
-          		 <div class="review-card">
+                <h4><%=member.getNick() %>님이 최근 본 영화들, 다른 사람들은 어떻게 봤을까요?</h4>
+                 <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face4.jpg" alt="Profile Image">
-                    <span class="review-title">포로리</span>
+                    <img src=<%=followeeList.get(3).getPf_img()%> alt="Profile Image">
+                    <span class="review-title"><%= followeeList.get(3).getNick()%></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>
@@ -292,8 +379,8 @@ p {
                 </div>
               <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face5.jpg" alt="Profile Image">
-                    <span class="review-title">너구리</span>
+                    <img src=<%=followeeList.get(4).getPf_img()%> alt="Profile Image">
+                    <span class="review-title"><%= followeeList.get(4).getNick()%></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>
@@ -303,10 +390,10 @@ p {
                   <p> 청춘의 성장기에 집중해 누구나 부담 없이, 공감하며 볼 수 있다</p>
                   <img src="resources/images/대도시의 사랑법.jpg" alt="Movie Poster" style="width:100px;">
                 </div>
-              < <div class="review-card">
+               <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face6.jpg" alt="Profile Image">
-                    <span class="review-title">모기</span>
+                    <img src=<%=followeeList.get(5).getPf_img()%> alt="Profile Image">
+                    <span class="review-title"><%= followeeList.get(5).getNick()%></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>
@@ -320,9 +407,9 @@ p {
 
 
         
-            	<br>
+               <br>
                 <h4>최근 인기있는 리뷰를 확인해보세요!</h4>
-          		 <div class="review-card">
+                 <div class="review-card">
                   <div class="review-header">
                     <img src="resources/images/faces/face7.jpg" alt="Profile Image">
                     <span class="review-title">푸바오</span>
@@ -365,8 +452,8 @@ p {
 
               
               <!-- 세 번째 리뷰 섹션 ends -->  
-			</div>
-			<!-- contents-wrapper ends -->
+         </div>
+         <!-- contents-wrapper ends -->
         </div>
         <!-- main-panel ends -->
       </div>
@@ -391,7 +478,7 @@ p {
     <script src="resources/js/dashboard.js"></script>
     <!-- End custom js for this page-->
     <!-- 주간차트 js -->
- 	<script src="resources/js/weekChart.js"></script>
+    <script src="resources/js/weekChart.js"></script>
     <script>
     let myChart;
 
@@ -487,7 +574,7 @@ p {
                 updateResults(data);
                 updateChart(data); // 불러온 결과로 차트 업데이트
             });
-    };	
+    };   
     
     
     

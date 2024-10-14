@@ -156,7 +156,7 @@
                     <th>작성일</th>
                 </tr>
             </thead>
-            <tbody id="postBody">
+            <tbody id="">
                 <!-- 게시글이 여기 추가됩니다. -->
                 <% for (ReviewInfo rev : list) { %>
 		      <tr>
