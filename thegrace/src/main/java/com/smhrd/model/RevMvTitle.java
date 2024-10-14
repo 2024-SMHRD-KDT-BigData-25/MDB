@@ -42,12 +42,5 @@ public class RevMvTitle {
 	private String mv_title;
 	
 	private String mv_poster;
-
-    public RevMvTitle(String mv_title) {
-    	super();
-    	this.mv_title = mv_title;
-    }
-   
-	
 	
 }

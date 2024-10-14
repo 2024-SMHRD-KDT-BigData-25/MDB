@@ -175,7 +175,6 @@ p {
       
       
       // 내가 팔로우한 사람이 작성한 리뷰의 영화제목 가져오기!!!! 너무 어렵다ㅠ
- 
    %>
    
   <div class="container-scroller">
@@ -574,10 +573,6 @@ p {
                 updateResults(data);
                 updateChart(data); // 불러온 결과로 차트 업데이트
             });
-    };   
-    
-    
-    
     
     </script>       
 </body>

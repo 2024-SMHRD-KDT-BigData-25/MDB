@@ -179,13 +179,10 @@ public class MovieDAO {
 		  return res;
 	}
 		
-	// 5. 유저 이메일과 영화 코드로 리뷰 정보 불러오기
-	public ReviewInfo userReviewInfo(String user_email, int mv_cd) { 
-		Map<String, Object> paramMap = new HashMap<>();
-	    paramMap.put("user_email", user_email);
-	    paramMap.put("mv_cd", mv_cd);
-		SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		ReviewInfo res = sqlSession.selectOne("MovieMapper.userReviewInfo", paramMap);
+	// 5. 리뷰 정보 가져오기 (user_email 기준) -> review 정보 + movie의 title, poster
+	public List<RevMvTitle> followeeReviewList(String followee) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<RevMvTitle> res = sqlSession.selectList("MovieMapper.followeeReviewList", followee);
 		sqlSession.close();
 		return res;
 	}
@@ -203,14 +200,6 @@ public class MovieDAO {
 		public List<MovieInfo> getMovieList() {
 			SqlSession sqlSession = sqlSessionFactory.openSession();
 			List<MovieInfo> res = sqlSession.selectList("MovieMapper.getMovieList");
-			sqlSession.close();
-			return res;
-		}
-		
-	// 리뷰의 영화제목 가져오기
-		public List<RevMvTitle> followeeReviewList(String followee) {
-			SqlSession sqlSession = sqlSessionFactory.openSession();
-			List<RevMvTitle> res = sqlSession.selectList("MovieMapper.followeeReviewList", followee);
 			sqlSession.close();
 			return res;
 		}
