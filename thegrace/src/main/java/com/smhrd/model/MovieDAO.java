@@ -186,6 +186,14 @@ public class MovieDAO {
 		sqlSession.close();
 		return res;
 	}
+	
+	// 6. 리뷰 정보 가져오기 (mv_cd 기준) -> review 정보 + movie의 title, poster
+	public List<ReviewInfo> reviewListbyMv_cd(String mv_cd) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<ReviewInfo> res = sqlSession.selectList("MovieMapper.reviewListbyMv_cd", mv_cd);
+		sqlSession.close();
+		return res;
+	}
 
 	// MovieInfo 관련 메서드
 	// 1. 영화 검색하기
@@ -203,10 +211,9 @@ public class MovieDAO {
 			sqlSession.close();
 			return res;
 		}
-
 	
 	// 2. 영화 정보 조회
-	public MovieInfo mvInfo(int mv_cd) {
+	public MovieInfo mvInfo(String mv_cd) {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		MovieInfo res = sqlSession.selectOne("MovieMapper.mvInfo", mv_cd);
 		sqlSession.close();

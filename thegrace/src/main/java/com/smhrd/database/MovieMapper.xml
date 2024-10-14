@@ -76,6 +76,22 @@
    	<select id="userReviewInfo" resultType="com.smhrd.model.ReviewInfo">
 		select * from review_info where user_email = #{user_email} and mv_cd = #{mv_cd}
 	</select>
+	
+	<select id="followeeReviewList" resultType="com.smhrd.model.RevMvTitle">
+		select A.*, B.mv_title, b.mv_poster
+		from Review_Info A
+		INNER JOIN Movie_Info B 
+		ON A.mv_cd = B.mv_cd
+		where a.user_email = #{followee}
+    </select>
+    
+   	<select id="reviewListbyMv_cd" resultType="com.smhrd.model.ReviewInfo">
+		select A.*, B.nick, b.pf_img
+		from Review_Info A
+		INNER JOIN User_Info B 
+		ON A.user_email = B.user_email
+		where a.mv_cd = #{mv_cd}
+    </select>
 
 	<!-- MovieInfo 관련 sql구문 -->
     <select id="getSearchResult" parameterType="String" resultType="com.smhrd.model.MovieInfo">
@@ -94,15 +110,8 @@
     	where f.followee=#{followee}
 	</select>
 	
-	<select id="followeeReviewList" resultType="com.smhrd.model.RevMvTitle">
-		select A.*, B.mv_title, b.mv_poster
-		from Review_Info A
-		INNER JOIN Movie_Info B 
-		ON A.mv_cd = B.mv_cd
-		where a.user_email = #{followee}
-    </select>
 	
-    <select id="mvInfo" parameterType="int" resultType="com.smhrd.model.MovieInfo">
+    <select id="mvInfo" parameterType="String" resultType="com.smhrd.model.MovieInfo">
 		select * from movie_info where mv_cd = #{mv_cd}
 	</select>
     
@@ -116,5 +125,6 @@
                            OR wm.mv_cd5 = mi.mv_cd
         WHERE wm.week_cd = ${week_cd }
     </select>
+    
 	
 </mapper>

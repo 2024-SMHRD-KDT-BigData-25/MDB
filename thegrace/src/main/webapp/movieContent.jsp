@@ -1,3 +1,5 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="com.smhrd.model.RevMvTitle"%>
 <%@page import="java.util.List"%>
 <%@page import="com.smhrd.model.ReviewInfo"%>
@@ -31,6 +33,7 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
 }
   
         body {
@@ -101,8 +104,8 @@
     flex-wrap: wrap;
     justify-content: space-between; /* 왼쪽 정렬 */
     text-align: left; /* 텍스트 왼쪽 정렬 */
-    padding: 0 100px;
-    margin-right:50px;
+    padding: 0 50px;
+    margin-bottom: 40px;
 }
 
 .review-card {
@@ -134,6 +137,7 @@
 
 .buttons {
     margin-left: auto;
+    margin-right: 20px;
 }
 
 h4 {
@@ -168,7 +172,7 @@ p {
 
      <% 
      // 영화 내용 불러오기
-     int mv_cd = Integer.parseInt(request.getParameter("mv_cd")); 
+     String mv_cd = request.getParameter("mv_cd"); 
      MovieDAO dao = new MovieDAO();
      MovieInfo mvInfo = dao.mvInfo(mv_cd);
      
@@ -176,13 +180,28 @@ p {
      UserInfo member = (UserInfo)session.getAttribute("member");
      String user_email = member.getUser_email();
      
-     // 위 영화에 대한 유저의 리뷰 정보 가져오기 -> 리뷰 + 영화 타이틀 + 영화 포스터 = userReview
+     // 위 영화에 대한 유저의 리뷰 정보 가져오기 
+     // 리뷰 + 영화 타이틀 + 영화 포스터 = userReview
      List<RevMvTitle> userReviewList = dao.followeeReviewList(user_email);
      RevMvTitle userReview = null;  // 조건에 맞는 리뷰를 담을 객체
      for (RevMvTitle m : userReviewList) {
-         if (m.getMv_cd().equals(mv_cd)) {
+         if ( m.getMv_cd().equals(mv_cd) ) {
         	 userReview = m;  // 영화 코드가 일치하면 해당 리뷰 정보를 담음
              break;  // 일치하는 리뷰를 찾으면 루프를 중단
+         }
+     }
+
+     
+     // 해당 영화에 대한 리뷰 조회 -> 매개변수 = mv_cd / 응답값 =  프로필 이미지, 닉네임, 영화 코드, 리뷰 내용, 리뷰 코드 
+     // Iterator를 사용해 리스트에서 안전하게 삭제
+     List<ReviewInfo> reviewListbyMv_cd = dao.reviewListbyMv_cd(mv_cd);
+
+     Iterator<ReviewInfo> iterator = reviewListbyMv_cd.iterator();
+
+     while ( iterator.hasNext() ) {
+         ReviewInfo reviewbyMv_cd = iterator.next();
+         if ( reviewbyMv_cd.getUser_email().equals(user_email) ) {
+             iterator.remove();
          }
      }
      %>
@@ -206,14 +225,18 @@ p {
         
 
         <div class="content">
-   	<img src="<%=mvInfo.getMv_poster() %>" alt="Additional Image" style="width: 250px; margin-right: 20px;"> <!-- 추가할 이미지 -->
-          <div>
-
+   		<img src="<%=mvInfo.getMv_poster() %>" alt="Additional Image" style="width: 250px; margin-right: 20px;"> <!-- 추가할 이미지 -->
+        <div>
             <h3>줄거리</h3>
+	        <% if( mvInfo.getMv_story() == null || "null".equals(mvInfo.getMv_story()) ) {%>
+	        <p>
+			줄거리가 없습니다.
+			</p>
+			<%} else { %>
 			<p>
 			<%=mvInfo.getMv_story() %>
 			</p>
-
+		<%} %>
           </div>
         </div>
           <div class="row">
@@ -258,12 +281,9 @@ p {
                 <button class="btn">리뷰 작성하러 가기</button>
             </div>
         </div>
-        <p><%=userReview.getReview_content() %></p>
     </div>
     <% } else {%>
-    
     <div class="review-card">
-
         <div class="review-header">
             <img src="<%=member.getPf_img() %>" alt="Profile Image">
             <span class="review-title"><%=member.getNick() %></span>
@@ -275,54 +295,38 @@ p {
         <p><%=userReview.getReview_content() %></p>
     </div>
     <% } %>
-    <div class="review-card">
-        <div class="review-header">
-            <img src="resources/images/faces/face2.jpg" alt="Profile Image">
-            <span class="review-title">사용자 2</span>
-            <div class="buttons">
-                <button class="btn">수정</button>
-                <button class="btn follow">삭제</button>
-            </div>
-        </div>
-        <p>#review_content</p>
     </div>
-
-    <div class="review-card">
-        <div class="review-header">
-            <img src="resources/images/faces/face3.jpg" alt="Profile Image">
-            <span class="review-title">사용자 3</span>
-            <div class="buttons">
-                <button class="btn">수정</button>
-                <button class="btn follow">삭제</button>
-            </div>
-        </div>
-        <p>#review_content</p>
-    </div>
-
-</div>
 
 <!-- 추가 리뷰 섹션 -->
 <div class="reviews-section">
-    <h4>리뷰(#리뷰 개수)</h4>
-
-    <div class="review-card">
-    <div class="review-header">
-        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
-        <span class="review-title">뚱냥이</span>
-        <div class="buttons">
-            <span style="color: red; cursor: pointer;" onclick="handleLike(this)">
-                <i class="fas fa-heart"></i>
-            </span>
-            <button class="btn follow">팔로우</button>
-        </div>
-    </div>
-    <h5>#mv_title</h5>
-    <p>#review_content</p>
-    <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
-</div>
-
+    <h4>리뷰(<%=reviewListbyMv_cd.size() %>)</h4>
+    <% if ( reviewListbyMv_cd.size()>=1 ) { %>
+		<%for ( ReviewInfo reviewbyMv_cd : reviewListbyMv_cd) { %>
+			<div class="review-card">
+			    <div class="review-header">
+			        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
+			        <span class="review-title"><%=reviewbyMv_cd.getNick() %></span>
+			        <div class="buttons">
+			            <span style="color: black; cursor: pointer;" onclick="handleLike(<%=reviewbyMv_cd.getReview_cd()%>)">
+			                <i class="fas fa-heart"></i>
+			            </span>
+			        </div>
+			    </div>
+			    <p><%=reviewbyMv_cd.getReview_content() %></p>
+			</div>
+		<% } %>
+	<% } else if(reviewListbyMv_cd.size()==0) {%>
+			<div class="review-card">
+			<div class="review-header">
+			    <span class="review-title"></span>
+			    
+			</div>
+			<p>리뷰가 없습니다.</p>
+			</div>
+	<% } %>
+	</div>
 <script>
-    function handleLike(element) {
+    function handleLike(mv_cd) {
         // 여기에서 좋아요 로직을 구현할 수 있습니다.
         alert("You liked this review!");
         // 예를 들어, 색상을 변경할 수도 있습니다.
@@ -330,136 +334,13 @@ p {
     }
 </script>
 
-    <div class="review-card">
-    <div class="review-header">
-        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
-        <span class="review-title">뚱냥이</span>
-        <div class="buttons">
-            <span style="color: red; cursor: pointer;" onclick="handleLike(this)">
-                <i class="fas fa-heart"></i>
-            </span>
-            <button class="btn follow">팔로우</button>
-        </div>
-    </div>
-    <h5>#mv_title</h5>
-    <p>#review_content</p>
-    <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
-</div>
 
-<script>
-    function handleLike(element) {
-        // 여기에서 좋아요 로직을 구현할 수 있습니다.
-        alert("You liked this review!");
-        // 예를 들어, 색상을 변경할 수도 있습니다.
-        element.querySelector('i').style.color = 'red'; // 하트를 빨간색으로 변경
-    }
-</script>
-
-    <div class="review-card">
-    <div class="review-header">
-        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
-        <span class="review-title">뚱냥이</span>
-        <div class="buttons">
-            <span style="color: red; cursor: pointer;" onclick="handleLike(this)">
-                <i class="fas fa-heart"></i>
-            </span>
-            <button class="btn follow">팔로우</button>
-        </div>
-    </div>
-    <h5>#mv_title</h5>
-    <p>#review_content</p>
-    <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
-</div>
-
-<script>
-    function handleLike(element) {
-        // 여기에서 좋아요 로직을 구현할 수 있습니다.
-        alert("You liked this review!");
-        // 예를 들어, 색상을 변경할 수도 있습니다.
-        element.querySelector('i').style.color = 'red'; // 하트를 빨간색으로 변경
-    }
-</script>
-    <!-- 추가된 사용자 4, 5, 6 -->
-    <div class="review-card">
-    <div class="review-header">
-        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
-        <span class="review-title">뚱냥이</span>
-        <div class="buttons">
-            <span style="color: red; cursor: pointer;" onclick="handleLike(this)">
-                <i class="fas fa-heart"></i>
-            </span>
-            <button class="btn follow">팔로우</button>
-        </div>
-    </div>
-    <h5>#mv_title</h5>
-    <p>#review_content</p>
-    <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
-</div>
-
-<script>
-    function handleLike(element) {
-        // 여기에서 좋아요 로직을 구현할 수 있습니다.
-        alert("You liked this review!");
-        // 예를 들어, 색상을 변경할 수도 있습니다.
-        element.querySelector('i').style.color = 'red'; // 하트를 빨간색으로 변경
-    }
-</script>
-    <div class="review-card">
-    <div class="review-header">
-        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
-        <span class="review-title">뚱냥이</span>
-        <div class="buttons">
-            <span style="color: red; cursor: pointer;" onclick="handleLike(this)">
-                <i class="fas fa-heart"></i>
-            </span>
-            <button class="btn follow">팔로우</button>
-        </div>
-    </div>
-    <h5>#mv_title</h5>
-    <p>#review_content</p>
-    <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
-</div>
-
-<script>
-    function handleLike(element) {
-        // 여기에서 좋아요 로직을 구현할 수 있습니다.
-        alert("You liked this review!");
-        // 예를 들어, 색상을 변경할 수도 있습니다.
-        element.querySelector('i').style.color = 'red'; // 하트를 빨간색으로 변경
-    }
-</script>
-
-    <div class="review-card">
-    <div class="review-header">
-        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
-        <span class="review-title">뚱냥이</span>
-        <div class="buttons">
-            <span style="color: red; cursor: pointer;" onclick="handleLike(this)">
-                <i class="fas fa-heart"></i>
-            </span>
-            <button class="btn follow">팔로우</button>
-        </div>
-    </div>
-    <h5>#mv_title</h5>
-    <p>#review_content</p>
-    <img src="#mv_poster" alt="Movie Poster" class="movie-poster">
-</div>
-
-<script>
-    function handleLike(element) {
-        // 여기에서 좋아요 로직을 구현할 수 있습니다.
-        alert("You liked this review!");
-        // 예를 들어, 색상을 변경할 수도 있습니다.
-        element.querySelector('i').style.color = 'red'; // 하트를 빨간색으로 변경
-    }
-</script>
 </div>
 </div>   
 
     </div>
 </div>
 
-</div>
 </div>
 </div>
 </div>
