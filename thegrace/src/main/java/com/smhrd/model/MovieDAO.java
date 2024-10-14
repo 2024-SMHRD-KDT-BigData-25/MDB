@@ -179,7 +179,7 @@ public class MovieDAO {
 		  return res;
 	}
 		
-	// 5. 리뷰 정보 가져오기 (user_email로 조회) -> review 정보 + movie의 title, poster
+	// 5. 리뷰 정보 가져오기 (user_email 기준) -> review 정보 + movie의 title, poster
 	public List<RevMvTitle> followeeReviewList(String followee) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		List<RevMvTitle> res = sqlSession.selectList("MovieMapper.followeeReviewList", followee);
