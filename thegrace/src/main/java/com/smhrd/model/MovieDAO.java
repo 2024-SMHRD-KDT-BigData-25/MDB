@@ -163,7 +163,6 @@ public class MovieDAO {
 		return res;
 		   }
 	
-
 	// 3. 리뷰 삭제하기
 	public int reviewDelete(int review_cd) {
 	      SqlSession sqlSession = sqlSessionFactory.openSession(true);
