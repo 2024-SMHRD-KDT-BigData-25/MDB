@@ -126,5 +126,15 @@
         WHERE wm.week_cd = ${week_cd }
     </select>
     
+    <insert id="insertUserVote" parameterType="com.smhrd.model.UserVoteInfo" >
+    	insert into user_vote_info(vote_cd, week_cd, mv_cd, vote_date, user_email) values (#{vote_cd}, #{week_cd}, #{mv_cd}, #{vote_date}, #{user_email})
+    </insert>
+    
+    <select id="getVoteCnt" resultType="map" parameterType="int">
+	    select mv_cd, count(*) as vote_count
+	    from user_vote_info
+	    where week_cd = #{week_cd}
+	    group by mv_cd
+	</select>
 	
 </mapper>
