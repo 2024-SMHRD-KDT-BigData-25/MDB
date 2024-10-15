@@ -233,4 +233,13 @@ public class MovieDAO {
 		    }
 		    return movieTitles;
 	}
+	
+	public int chatRoom(ChatRoomInfo m) {
+		// openSession(true) -> 오토커밋 기능 on
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int res = sqlSession.insert("MovieMapper.chatroom", m);
+		sqlSession.close(); // session의 자원 반환
+		return res;
+		   }
+	
 }

@@ -126,5 +126,9 @@
         WHERE wm.week_cd = ${week_cd }
     </select>
     
+    <insert id="chatroom" parameterType="com.smhrd.model.ChatRoomInfo">
+    	insert into chatroom_info(croom_cd, create_user, created_at, invited_user) values (#{croom_cd}, #{create_user}, current_timestamp, #{invited_user})
+    </insert>
+    
 	
 </mapper>
