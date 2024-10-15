@@ -67,6 +67,8 @@
             </tr>
         <% } %>
     </table>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="follow.js"></script>
     <script>
 	    document.addEventListener("DOMContentLoaded", function() {
 	        const followBtns = document.querySelectorAll('.followBtn');

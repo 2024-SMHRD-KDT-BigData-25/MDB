@@ -304,7 +304,7 @@ p {
 		                <button class="btn follow">삭제</button>
 		            </div>
 		        </div>
-		        <p><%=userReview.getReview_content() %></p>
+		        <a href="reviewShow.jsp?review_cd=<%=userReview.getReview_cd()%>"><p><%=userReview.getReview_content() %></p></a>
 		    </div>
 	    <% } %>
     <% } %>
@@ -325,7 +325,7 @@ p {
 			            </span>
 			        </div>
 			    </div>
-			    <p><%=reviewbyMv_cd.getReview_content() %></p>
+			    <a href="reviewShow.jsp?review_cd=<%=reviewbyMv_cd.getReview_cd()%>"><p><%=reviewbyMv_cd.getReview_content() %></p></a>
 			</div>
 		<% } %>
 	<% } else if(reviewListbyMv_cd.size()==0) {%>
