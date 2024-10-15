@@ -90,10 +90,8 @@
     </div>
 
 	<% 
-	UserInfo member = (UserInfo)session.getAttribute("member");
 	String followee = member.getUser_email();
 		
-	MovieDAO dao = new MovieDAO();
 	List<FollowPf> followerList = dao.getFollower(followee);
 	
 	String jsonFollowerList = new Gson().toJson(followerList);

@@ -19,6 +19,6 @@ public class LogoutController extends HttpServlet {
 		HttpSession sessioin = request.getSession();
 		sessioin.removeAttribute("member");
 		// session.invalidate(); 세션 값 모두 삭제
-		response.sendRedirect("index.html");
+		response.sendRedirect("login.jsp");
     }
 }

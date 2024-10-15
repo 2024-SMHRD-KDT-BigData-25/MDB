@@ -37,7 +37,7 @@ public class NaverLoginController extends HttpServlet {
         String clientSecret = "HoGTIyWmPf";        // 애플리케이션 클라이언트 시크릿
         String code = request.getParameter("code"); // 네이버 로그인 후 받은 코드
         String state = request.getParameter("state"); // 상태 값
-        String redirectURI = URLEncoder.encode("http://localhost:8081/thegrace/callback.jsp", "UTF-8");
+        String redirectURI = URLEncoder.encode("/callback", "UTF-8");
         String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code"
             + "&client_id=" + clientId
             + "&client_secret=" + clientSecret

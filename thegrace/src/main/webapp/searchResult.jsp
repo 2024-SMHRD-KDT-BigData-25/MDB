@@ -42,8 +42,6 @@ align-items:center;
       <!-- partial -->
       <div class="main-panel" >
       	<% String search_text =request.getParameter("search");
-      	System.out.print(search_text);
-      	MovieDAO dao = new MovieDAO();
       	List<MovieInfo> resultList = dao.movieSearching(search_text);
       	%>
       
