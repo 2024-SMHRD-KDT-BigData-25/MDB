@@ -211,7 +211,6 @@ public class MovieDAO {
 			sqlSession.close();
 			return res;
 		}
-
 	
 	// 2. 영화 정보 조회
 	public MovieInfo mvInfo(String mv_cd) {

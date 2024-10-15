@@ -125,5 +125,6 @@
                            OR wm.mv_cd5 = mi.mv_cd
         WHERE wm.week_cd = ${week_cd }
     </select>
+    
 	
 </mapper>

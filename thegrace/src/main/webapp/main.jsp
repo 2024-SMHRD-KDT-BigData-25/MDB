@@ -166,19 +166,15 @@ p {
 </style>
 
    <%   
-   
+
       // 타입이름 변수명 = dao.매개변수명
       UserInfo member = (UserInfo)session.getAttribute("member");
-      String user_email = member.getUser_email();
-      
+      String user_email = member.getUser_email(); 
       MovieDAO dao = new MovieDAO();
       List<FollowPf> followeeList = dao.getFollowee(user_email);
-     
       
-      List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(1).getFollowee() );
-      List<RevMvTitle> reviewMvList2 = dao.followeeReviewList( followeeList.get(2).getFollowee() );
+      
       // 내가 팔로우한 사람이 작성한 리뷰의 영화제목 가져오기!!!! 너무 어렵다ㅠ
-      
    %>
    
   <div class="container-scroller">
@@ -225,21 +221,66 @@ p {
              
         <!-- 영화 리뷰 섹션  -->
               <br>
+              <%if (followeeList.size() >= 3) {
+                 List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(0).getFollowee() );
+                 List<RevMvTitle> reviewMvList2 = dao.followeeReviewList( followeeList.get(1).getFollowee() );
+                 List<RevMvTitle> reviewMvList3 = dao.followeeReviewList( followeeList.get(2).getFollowee() );
+                 %>
               <div class="reviews-section">
                 <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
                 <div class="review-card">
                   <div class="review-header">
-                    <img src=<%=followeeList.get(1).getPf_img()  %> alt="Profile Image">
-                    <span class="review-title"><%=followeeList.get(1).getNick() %></span>
+                    <img src=<%=followeeList.get(0).getPf_img()  %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(0).getNick() %></span>
                     <div class="buttons">
-                      <button class="btn">추천</button>
+                      <button class="btn" onclick="recommendReview(<%=reviewMvList.get(0).getReview_cd()%>, '<%=user_email%>', this)">추천</button>
                     </div>
                   </div>
                   <h5><%=reviewMvList.get(0).getMv_title() %></h5>
                   <p><%=reviewMvList.get(0).getReview_content()%></p>
                    <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
+                   <p>추천 수: <span id="recommend-count-<%=reviewMvList.get(0).getReview_cd()%>">0</span></p>
                 </div>
                 
+                <script>
+				function recommendReview(reviewCd, userEmail, button) {
+    				// AJAX 요청 생성
+    				var xhr = new XMLHttpRequest();
+    				xhr.open("POST", "/thegrace/RecommendController", true);
+    				xhr.setRequestHeader("Content-Type", "application/json");
+
+    				// 요청 데이터 생성
+    				var data = JSON.stringify({ reviewCd: reviewCd, userEmail: userEmail });
+
+    				// 응답 처리
+    				xhr.onload = function () {
+        				if (xhr.status === 200) {
+            				// 추천 수 증가
+            				var countElement = document.getElementById(`recommend-count-${reviewCd}`);
+            				console.log(countElement.textContent);  // 추천 수 확인
+            				countElement.textContent = parseInt(countElement.textContent) + 1;
+        				} else {
+            				console.error('추천 실패');
+        				}
+    				};
+
+    				// 요청 전송
+				}
+				console.log(countElement);
+				</script>
+                
+                <div class="review-card">
+                  <div class="review-header">
+                    <img src=<%=followeeList.get(1).getPf_img() %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(1).getNick() %></span>
+                    <div class="buttons">
+                      <button class="btn">추천</button>
+                    </div>
+                  </div>
+                  <h5><%=reviewMvList2.get(0).getMv_title() %></h5>
+                  <p><%=reviewMvList2.get(0).getReview_content()%></p>
+                   <img src=<%=reviewMvList2.get(0).getMv_poster() %> alt="Movie Poster" style="width:100px;">
+                </div>
                 
                 <div class="review-card">
                   <div class="review-header">
@@ -249,30 +290,83 @@ p {
                       <button class="btn">추천</button>
                     </div>
                   </div>
+                  <h5><%=reviewMvList3.get(0).getMv_title() %></h5>
+                  <p><%=reviewMvList3.get(0).getReview_content()%></p>
+                <img src=<%=reviewMvList3.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
+                </div>
+              </div>
+              
+              <%} else if (followeeList.size() == 2) { 
+                 List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(0).getFollowee() );
+                 List<RevMvTitle> reviewMvList2 = dao.followeeReviewList( followeeList.get(1).getFollowee() );
+              %>
+              <div class="reviews-section">
+                <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
+                <div class="review-card">
+                  <div class="review-header">
+                    <img src=<%=followeeList.get(0).getPf_img()  %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(0).getNick() %></span>
+                    <div class="buttons">
+                      <button class="btn">추천</button>
+                    </div>
+                  </div>
+                  <h5><%=reviewMvList.get(0).getMv_title() %></h5>
+                  <p><%=reviewMvList.get(0).getReview_content()%></p>
+                   <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
+                </div>
+                
+                <div class="review-card">
+                  <div class="review-header">
+                    <img src=<%=followeeList.get(1).getPf_img() %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(1).getNick() %></span>
+                    <div class="buttons">
+                      <button class="btn">추천</button>
+                    </div>
+                  </div>
                   <h5><%=reviewMvList2.get(0).getMv_title() %></h5>
                   <p><%=reviewMvList2.get(0).getReview_content()%></p>
                    <img src=<%=reviewMvList2.get(0).getMv_poster() %> alt="Movie Poster" style="width:100px;">
                 </div>
+               </div>
+                
+              <%} else if (followeeList.size() == 1) { 
+                 List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(0).getFollowee() );
+              %>
+              <div class="reviews-section">
+                <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
                 <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face3.jpg" alt="Profile Image">
-                    <span class="review-title">천상지희</span>
+                    <img src=<%=followeeList.get(0).getPf_img()  %> alt="Profile Image">
+                    <span class="review-title"><%=followeeList.get(0).getNick() %></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
-                      <button class="btn follow">Follow</button>
                     </div>
                   </div>
-                  <h5>인셉션</h5>
-                  <p> 크리스토퍼 놀란이 감독한 이 작품은 마음을 사로잡는 스토리텔링, 뛰어난 연기</p>
-                <img src="resources/images/인셉션.jpg" alt="Movie Poster" style="width:100px;">
+                  <h5><%=reviewMvList.get(0).getMv_title() %></h5>
+                  <p><%=reviewMvList.get(0).getReview_content()%></p>
+                   <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
                 </div>
+               </div>
+                
+              <%} else if (followeeList.size() == 0) { %>
+              <div class="reviews-section">
+                <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
+               <div class="review-card">
+                <div class="review-header">
+                 팔로우가 없습니다!
+                </div>
+               </div>
               </div>
+              <%} %>
+              
+              <%System.out.println("List size: " + followeeList.size()); %>
+              
  <div class="reviews-section">
-                <h4>000님이 최근 본 영화들, 다른 사람들은 어떻게 봤을까요?</h4>
+                <h4><%=member.getNick() %>님이 최근 본 영화들, 다른 사람들은 어떻게 봤을까요?</h4>
                  <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face4.jpg" alt="Profile Image">
-                    <span class="review-title">포로리</span>
+                    <img src=<%=followeeList.get(3).getPf_img()%> alt="Profile Image">
+                    <span class="review-title"><%= followeeList.get(3).getNick()%></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>
@@ -284,8 +378,8 @@ p {
                 </div>
               <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face5.jpg" alt="Profile Image">
-                    <span class="review-title">너구리</span>
+                    <img src=<%=followeeList.get(4).getPf_img()%> alt="Profile Image">
+                    <span class="review-title"><%= followeeList.get(4).getNick()%></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>
@@ -295,10 +389,10 @@ p {
                   <p> 청춘의 성장기에 집중해 누구나 부담 없이, 공감하며 볼 수 있다</p>
                   <img src="resources/images/대도시의 사랑법.jpg" alt="Movie Poster" style="width:100px;">
                 </div>
-              < <div class="review-card">
+               <div class="review-card">
                   <div class="review-header">
-                    <img src="resources/images/faces/face6.jpg" alt="Profile Image">
-                    <span class="review-title">모기</span>
+                    <img src=<%=followeeList.get(5).getPf_img()%> alt="Profile Image">
+                    <span class="review-title"><%= followeeList.get(5).getNick()%></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>
@@ -479,6 +573,7 @@ p {
                 updateResults(data);
                 updateChart(data); // 불러온 결과로 차트 업데이트
             });
+
     };   
     
     
