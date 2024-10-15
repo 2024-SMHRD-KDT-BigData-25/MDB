@@ -45,7 +45,7 @@ public class LoginController extends HttpServlet {
 			// 세션에 값이 제대로 저장되었는지 확인 (디버그용)
 //			System.out.println("세션에 저장된 userEmail: " + session.getAttribute("userEmail"));
 //			System.out.println("세션에 저장된 member: " + session.getAttribute("member"));
-			RequestDispatcher dispatcher = request.getRequestDispatcher("main2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("main.jsp");
 			dispatcher.forward(request, response);
 		}
 	
