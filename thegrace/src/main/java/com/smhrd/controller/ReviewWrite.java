@@ -53,6 +53,7 @@ public class ReviewWrite extends HttpServlet {
 	      
 	      if(res>0) {
 	         System.out.println("리뷰 업로드 성공");
+	         response.sendRedirect("/myReview.jsp");
 	      } else {
 	         System.out.println("리뷰 업로드 실패");
 	      }
