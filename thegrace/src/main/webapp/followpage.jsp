@@ -26,53 +26,7 @@
             cursor: pointer;
         }
     </style>
-    <script>
-        $(document).ready(function() {
-            // 팔로우 버튼 클릭 이벤트
-            $('.followBtn').on('click', function() {
-                const followee = $(this).data('followee');
-                const button = $(this);
-                
-                $.ajax({
-                    url: '/thegrace/Follow', // 팔로우 요청을 처리할 URL
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ followee: followee }),
-                    success: function(response) {
-                        if (response.available) {
-                            button.hide(); // Follow 버튼 숨김
-                            button.siblings('.unfollowBtn').show(); // Unfollow 버튼 표시
-                        }
-                    },
-                    error: function(jqXHR) {
-                        console.error("Error:", jqXHR);
-                    }
-                });
-            });
 
-            // 언팔로우 버튼 클릭 이벤트
-            $('.unfollowBtn').on('click', function() {
-                const followee = $(this).data('followee');
-                const button = $(this);
-                
-                $.ajax({
-                    url: '/thegrace/Unfollow', // 언팔로우 요청을 처리할 URL
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ followee: followee }),
-                    success: function(response) {
-                        if (response.available) {
-                            button.hide(); // Unfollow 버튼 숨김
-                            button.siblings('.followBtn').show(); // Follow 버튼 표시
-                        }
-                    },
-                    error: function(jqXHR) {
-                        console.error("Error:", jqXHR);
-                    }
-                });
-            });
-        });
-    </script>
 </head>
 <body>
 
@@ -113,6 +67,32 @@
             </tr>
         <% } %>
     </table>
+    <script>
+	    document.addEventListener("DOMContentLoaded", function() {
+	        const followBtns = document.querySelectorAll('.followBtn');
+	        const unfollowBtns = document.querySelectorAll('.unfollowBtn');
+            const userId = '<%= user_email %>'; // 세션에서 userID 가져오기
 
+            // 페이지 로드 시 팔로우 상태 확인 (userId와 각 followee(targetID)로 확인)
+            followBtns.forEach(button => {
+                const followee = button.getAttribute('data-followee');
+                checkFollowStatus(userId, followee, button);  // 팔로우 상태 확인
+            });
+	        
+	        followBtns.forEach(button => {
+	            button.addEventListener('click', function() {
+	                const followee = this.getAttribute('data-followee');
+	                follow(followee, button);
+	            });
+	        });
+	        
+	        unfollowBtns.forEach(button => {
+	            button.addEventListener('click', function() {
+	                const followee = this.getAttribute('data-followee');
+	                unfollow(followee, button);
+	            });
+	        });
+	    });
+    </script>
 </body>
 </html>
