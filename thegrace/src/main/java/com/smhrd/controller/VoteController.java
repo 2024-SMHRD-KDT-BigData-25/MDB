@@ -18,7 +18,7 @@ import com.smhrd.model.UserVoteInfo;
 
 @WebServlet("/vote")
 public class VoteController extends HttpServlet {
-
+	
     private static final long serialVersionUID = 1L;
     private Map<Integer, Integer> voteCount = new HashMap<>();
     private MovieDAO movieDAO = new MovieDAO();
