@@ -118,7 +118,7 @@
         .message-time {
             font-size: 0.75em;
             color: #888;
-            margin-right: 10px; /* 메시지와 시간 사이 간격 */
+            margin-right: 5px; /* 메시지와 시간 사이 간격 */
         }
 
         .read-receipt {
@@ -168,6 +168,19 @@
                 transform: translateY(0);
             }
         }
+        
+        .message .message-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* 시간과 숫자를 왼쪽 정렬 */
+            margin-right: 10px; /* 메시지 내용과의 간격 */
+        }
+
+        /* 사용자 메시지에 대해 왼쪽 정렬 적용 */
+        .message.user .message-info {
+            align-items: flex-end; /* 시간과 숫자를 오른쪽 정렬 */
+        }
+
     </style>
 </head>
 <body>
@@ -214,11 +227,8 @@
 
         // Create a container for the time and read receipt
         const messageInfo = document.createElement('div');
-        messageInfo.style.display = 'flex';
-        messageInfo.style.alignItems = 'center'; // Aligns items vertically in the center
-        messageInfo.style.flexDirection = 'row'; // Aligns items in a row
-        messageInfo.style.justifyContent = user === 'User' ? 'flex-end' : 'flex-start'; // Align left for receiver and right for user
-        
+        messageInfo.className = 'message-info';
+
         const messageTime = document.createElement('div');
         messageTime.className = 'message-time';
         messageTime.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -233,21 +243,22 @@
             console.log(user + '의 메시지 읽음 표시가 사라졌습니다.'); // 로그 출력
         });
 
-        // Append time and read receipt to the messageInfo container
+        // 시간과 읽음 표시 추가
         messageInfo.appendChild(messageTime);
         messageInfo.appendChild(readReceipt);
 
         // 메시지 내용 및 읽음 표시 추가
-        messageElement.appendChild(messageContent);
-        messageElement.appendChild(messageInfo); // Add the messageInfo container
-        chatBody.appendChild(messageElement); // 메시지 추가
-
-        // 자동 스크롤
-        chatBody.scrollTop = chatBody.scrollHeight;
+        messageElement.appendChild(messageInfo); // 시간과 읽음 표시 먼저 추가
+        messageElement.appendChild(messageContent); // 메시지 내용 추가
+        
+        chatBody.appendChild(messageElement);
+        
+        chatBody.scrollTop = chatBody.scrollHeight; // 새 메시지로 스크롤
 
         // 애니메이션 효과
-        setTimeout(() => {
-            messageElement.style.opacity = '1'; // 메시지 표시
+        setTimeout(function() {
+            messageElement.style.opacity = 1;
+            messageElement.style.transform = 'translateY(0)';
         }, 100);
     }
 </script>
