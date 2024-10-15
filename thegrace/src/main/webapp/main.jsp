@@ -440,7 +440,6 @@ p {
     <script src="resources/js/dashboard.js"></script>
     <!-- End custom js for this page-->
     <!-- 주간차트 js -->
-    <script src="resources/js/weekChart.js"></script>
     <script>
     // 페이지 로딩 시 영화 목록 불러오기
     // Chart.js 그래프 초기 설정
