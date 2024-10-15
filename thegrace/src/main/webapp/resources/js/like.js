@@ -1,3 +1,6 @@
+
+
+
 // 좋아요 추가, 취소, 카운트
 const likeButton = document.querySelector('.like-button');
 const likeCountDisplay = document.getElementById('likeCount');
