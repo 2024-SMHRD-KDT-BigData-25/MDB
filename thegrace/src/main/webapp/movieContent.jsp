@@ -117,6 +117,16 @@
     width: 280px;
 }
 
+.review-card p {
+    display:-webkit-box; 
+    word-wrap:break-word; 
+    -webkit-line-clamp:3; 
+    -webkit-box-orient:vertical; 
+    overflow:hidden; 
+    text-overflow:ellipsis;
+
+}
+
 .review-header {
     display: flex;
     align-items: center;
@@ -183,25 +193,26 @@ p {
      // 위 영화에 대한 유저의 리뷰 정보 가져오기 
      // 리뷰 + 영화 타이틀 + 영화 포스터 = userReview
      List<RevMvTitle> userReviewList = dao.followeeReviewList(user_email);
-     RevMvTitle userReview = null;  // 조건에 맞는 리뷰를 담을 객체
-     for (RevMvTitle m : userReviewList) {
-         if ( m.getMv_cd().equals(mv_cd) ) {
-        	 userReview = m;  // 영화 코드가 일치하면 해당 리뷰 정보를 담음
-             break;  // 일치하는 리뷰를 찾으면 루프를 중단
+     // mv_cd 일치하지 않으면 삭제
+     Iterator<RevMvTitle> userReviewIterator = userReviewList.iterator();
+
+     while (userReviewIterator.hasNext()) {
+         RevMvTitle review = userReviewIterator.next();
+         if (!review.getMv_cd().equals(mv_cd)) {
+        	 userReviewIterator.remove();  // mv_cd가 일치하지 않으면 리스트에서 삭제
          }
      }
 
-     
      // 해당 영화에 대한 리뷰 조회 -> 매개변수 = mv_cd / 응답값 =  프로필 이미지, 닉네임, 영화 코드, 리뷰 내용, 리뷰 코드 
      // Iterator를 사용해 리스트에서 안전하게 삭제
      List<ReviewInfo> reviewListbyMv_cd = dao.reviewListbyMv_cd(mv_cd);
 
-     Iterator<ReviewInfo> iterator = reviewListbyMv_cd.iterator();
+     Iterator<ReviewInfo> reviewIterator = reviewListbyMv_cd.iterator();
 
-     while ( iterator.hasNext() ) {
-         ReviewInfo reviewbyMv_cd = iterator.next();
+     while ( reviewIterator.hasNext() ) {
+         ReviewInfo reviewbyMv_cd = reviewIterator.next();
          if ( reviewbyMv_cd.getUser_email().equals(user_email) ) {
-             iterator.remove();
+        	 reviewIterator.remove();
          }
      }
      %>
@@ -272,7 +283,7 @@ p {
 
     <h4>이 영화를 본 내 감상</h4>
     
-    <% if ( userReview == null ){%>
+    <% if ( userReviewList == null ){%>
     <div class="review-card">
 
         <div class="review-header">
@@ -283,17 +294,19 @@ p {
         </div>
     </div>
     <% } else {%>
-    <div class="review-card">
-        <div class="review-header">
-            <img src="<%=member.getPf_img() %>" alt="Profile Image">
-            <span class="review-title"><%=member.getNick() %></span>
-            <div class="buttons">
-                <button class="btn">수정</button>
-                <button class="btn follow">삭제</button>
-            </div>
-        </div>
-        <p><%=userReview.getReview_content() %></p>
-    </div>
+	    <%for( RevMvTitle userReview : userReviewList) { %>
+		    <div class="review-card">
+		        <div class="review-header">
+		            <img src="<%=member.getPf_img() %>" alt="Profile Image">
+		            <span class="review-title"><%=member.getNick() %></span>
+		            <div class="buttons">
+		                <button class="btn">수정</button>
+		                <button class="btn follow">삭제</button>
+		            </div>
+		        </div>
+		        <a href="reviewShow.jsp?review_cd=<%=userReview.getReview_cd()%>"><p><%=userReview.getReview_content() %></p></a>
+		    </div>
+	    <% } %>
     <% } %>
     </div>
 
@@ -312,7 +325,7 @@ p {
 			            </span>
 			        </div>
 			    </div>
-			    <p><%=reviewbyMv_cd.getReview_content() %></p>
+			    <a href="reviewShow.jsp?review_cd=<%=reviewbyMv_cd.getReview_cd()%>"><p><%=reviewbyMv_cd.getReview_content() %></p></a>
 			</div>
 		<% } %>
 	<% } else if(reviewListbyMv_cd.size()==0) {%>
@@ -324,7 +337,7 @@ p {
 			<p>리뷰가 없습니다.</p>
 			</div>
 	<% } %>
-	</div>
+</div>
 <script>
     function handleLike(mv_cd) {
         // 여기에서 좋아요 로직을 구현할 수 있습니다.
