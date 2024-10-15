@@ -103,7 +103,7 @@
          + "&redirect_uri=" + redirectURI
          + "&state=" + state;
     session.setAttribute("state", state);
- %>
+	%>
 
   <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">

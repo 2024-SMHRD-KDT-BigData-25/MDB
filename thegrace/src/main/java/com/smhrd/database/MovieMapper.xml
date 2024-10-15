@@ -125,10 +125,11 @@
                            OR wm.mv_cd5 = mi.mv_cd
         WHERE wm.week_cd = ${week_cd }
     </select>
-    
+    <!-- 
     <insert id="insertUserVote" parameterType="com.smhrd.model.UserVoteInfo" >
     	insert into user_vote_info(vote_cd, week_cd, mv_cd, vote_date, user_email) values (#{vote_cd}, #{week_cd}, #{mv_cd}, #{vote_date}, #{user_email})
-    </insert>
+    </insert> 
+    -->
     
     <select id="getVoteCnt" resultType="map" parameterType="int">
 	    select mv_cd, count(*) as vote_count
@@ -136,22 +137,5 @@
 	    where week_cd = #{week_cd}
 	    group by mv_cd
 	</select>
-	
-	<!-- chat관련 구문 -->
-	<insert id="createChatroom" parameterType="com.smhrd.model.ChatroomInfo">
-		insert into chatroom_info(croom_cd, create_user, invited_user) values (#{croom_cd}, #{create_user}, #{invited_user})
-	</insert>
-	
-	<select id="doesChatRoomExist" resultType="int">
-		select count(*) from chatroom_info where croom_cd = #{croom_cd}
-	</select>
-	
-	<select id="getMessagesByRoomId" resultType="com.smhrd.model.ChattingInfo">
-		select * from chatting_info where croom_cd = #{croom_cd}
-	</select>
-	
-	<insert id="insertMessage" parameterType="com.smhrd.model.ChattingInfo">
-		insert into chatting_info(chatter, chatting, croom_cd, chat_read) values (#{chatter}, #{chatting}, #{croom_cd}, #{chat_read})
-	</insert>
 	
 </mapper>

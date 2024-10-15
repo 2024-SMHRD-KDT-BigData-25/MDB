@@ -47,6 +47,7 @@
                 <td>
                     <button class="followBtn" data-followee="<%=u.getUser_email()%>">Follow</button>
                     <button class="unfollowBtn" data-followee="<%=u.getUser_email()%>" style="display:none;">Unfollow</button>
+                    <button class="chat" data-followee="<%=u.getUser_email()%>" onclick="window.open('chat.jsp/<%=u.getUser_email()%>', '채팅방')">채팅하기</button>
                 </td>
             </tr>
         <% } %>
@@ -67,7 +68,7 @@
             </tr>
         <% } %>
     </table>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="follow.js"></script>
     <script>
 	    document.addEventListener("DOMContentLoaded", function() {

@@ -244,56 +244,18 @@ public class MovieDAO {
 		    return voteCounts;
 		}
 		
-		// 투표 기록을 데이터베이스에 삽입하는 메서드
-	    public int insertUserVote(UserVoteInfo voteInfo) {
-	        SqlSession session = sqlSessionFactory.openSession();
-	        int result = 0;
-	        try {
-	            result = session.insert("insertUserVote", voteInfo); // 매퍼의 id인 insertUserVote 호출
-	            session.commit();  // 데이터베이스에 반영
-	        } finally {
-	            session.close();  // 세션 종료
-	        }
-	        return result;  // 삽입된 행의 개수를 반환
+	// 투표 기록을 데이터베이스에 삽입하는 메서드
+	public int insertUserVote(UserVoteInfo voteInfo) {
+	    SqlSession session = sqlSessionFactory.openSession();
+	    int result = 0;
+	    try {
+	        result = session.insert("insertUserVote", voteInfo); // 매퍼의 id인 insertUserVote 호출
+	        session.commit();  // 데이터베이스에 반영
+	    } finally {
+	        session.close();  // 세션 종료
 	    }
+	    return result;  // 삽입된 행의 개수를 반환
+	}
 	    
-	// CHAT 기능
-	// 1. chat 입력
-	public int createChatroom(ChatroomInfo m) {
-		// openSession(true) -> 오토커밋 기능 on
-		SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		int res = sqlSession.insert("MovieMapper.createChatroom", m);
-		sqlSession.close(); // session의 자원 반환
-		return res;
-	}
-	
-	// 2. 채팅방 존재 여부 확인
-	public boolean doesChatRoomExist(String croom_cd) {
-		  SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		  int res = sqlSession.selectOne("MovieMapper.doesChatRoomExist", croom_cd);
-		  sqlSession.close(); // session의 자원 반환
-		  if( res>0 ) {
-			  return true;
-		  } else {
-			  return false;
-		  }
-	}
-	
-	// 3. 이전 채팅 기록 조회
-	public List<ChattingInfo> getMessagesByRoomId(String croom_cd) {
-		  SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		  List<ChattingInfo> res = sqlSession.selectList("MovieMapper.getMessagesByRoomId");
-		  sqlSession.close(); // session의 자원 반환
-		  return res;
-	}
-	
-	// 4. 새로운 메시지 저장
-	public int insertMessage(ChattingInfo m) {
-		// openSession(true) -> 오토커밋 기능 on
-		SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		int res = sqlSession.insert("MovieMapper.insertMessage", m);
-		sqlSession.close(); // session의 자원 반환
-		return res;
-	}
 
 }
