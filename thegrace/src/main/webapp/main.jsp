@@ -111,6 +111,7 @@
     background-color: #ffffff;
     width: 280px;
     padding: 15px;
+    height:300px;
 }
 
 .review-header {
@@ -165,17 +166,7 @@ p {
    
 </style>
 
-   <%   
 
-      // 타입이름 변수명 = dao.매개변수명
-      UserInfo member = (UserInfo)session.getAttribute("member");
-      String user_email = member.getUser_email(); 
-      MovieDAO dao = new MovieDAO();
-      List<FollowPf> followeeList = dao.getFollowee(user_email);
-      
-      
-      // 내가 팔로우한 사람이 작성한 리뷰의 영화제목 가져오기!!!! 너무 어렵다ㅠ
-   %>
    
   <div class="container-scroller">
      <!-- 상단바 불러오기 -->
@@ -185,7 +176,16 @@ p {
     <div class="container-fluid page-body-wrapper">
     
          <%@ include file="sidebar.jsp" %>
+
+
+
+   <%   
+
+   List<FollowPf> followeeList = dao.getFollowee(user_email);
+   
       
+      // 내가 팔로우한 사람이 작성한 리뷰의 영화제목 가져오기!!!! 너무 어렵다ㅠ
+   %>      
       <!-- partial -->
       <div class="main-panel" >
         <div class="content-wrapper" style="padding:80px;">
@@ -204,10 +204,6 @@ p {
 			    </form>
               </div>
               <br>
-              <div class="chatgpt-activation" style="padding-left: 20px;">
-              <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
-                <span style="color: green;">ChatGPT 활성화 (팝업 창에서 열기)</span>
-              </div>
            </div>
              
         <!-- 영화 리뷰 섹션  -->
@@ -440,7 +436,6 @@ p {
     <script src="resources/js/dashboard.js"></script>
     <!-- End custom js for this page-->
     <!-- 주간차트 js -->
-    <script src="resources/js/weekChart.js"></script>
     <script>
     // 페이지 로딩 시 영화 목록 불러오기
     // Chart.js 그래프 초기 설정

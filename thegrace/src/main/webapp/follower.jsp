@@ -66,6 +66,12 @@
     </style>
 </head>
 <body>
+	<%
+	UserInfo member = (UserInfo)session.getAttribute("member");
+	
+	String user_email = member.getUser_email();
+	MovieDAO dao = new MovieDAO();
+	%>
 
   <div class="container-scroller">
   	<!-- 상단바 불러오기 -->
@@ -90,10 +96,8 @@
     </div>
 
 	<% 
-	UserInfo member = (UserInfo)session.getAttribute("member");
 	String followee = member.getUser_email();
 		
-	MovieDAO dao = new MovieDAO();
 	List<FollowPf> followerList = dao.getFollower(followee);
 	
 	String jsonFollowerList = new Gson().toJson(followerList);

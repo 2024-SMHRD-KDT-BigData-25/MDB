@@ -68,12 +68,7 @@
             border-radius: 8px; /* 모서리 둥글게 */
         }
     </style>
-    <script>
-        function handleLike() {
-            alert("하트를 눌렀습니다!");
-            // 추가적인 로직을 여기에 구현할 수 있습니다.
-        }
-    </script>
+
 </head>
 <body>
 <div class="container-scroller">
@@ -113,5 +108,13 @@
         </div>
     </div>
 </div>
+
+    <script>
+        function handleLike() {
+            alert("하트를 눌렀습니다!");
+            // 추가적인 로직을 여기에 구현할 수 있습니다.
+        }
+    </script>
+
 </body>
 </html>
