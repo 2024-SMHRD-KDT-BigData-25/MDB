@@ -233,41 +233,13 @@ p {
                     <img src=<%=followeeList.get(0).getPf_img()  %> alt="Profile Image">
                     <span class="review-title"><%=followeeList.get(0).getNick() %></span>
                     <div class="buttons">
-                      <button class="btn" onclick="recommendReview(<%=reviewMvList.get(0).getReview_cd()%>, '<%=user_email%>', this)">추천</button>
+                      <button class="btn">추천</button>
                     </div>
                   </div>
                   <h5><%=reviewMvList.get(0).getMv_title() %></h5>
                   <p><%=reviewMvList.get(0).getReview_content()%></p>
                    <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
-                   <p>추천 수: <span id="recommend-count-<%=reviewMvList.get(0).getReview_cd()%>">0</span></p>
                 </div>
-                
-                <script>
-            function recommendReview(reviewCd, userEmail, button) {
-                // AJAX 요청 생성
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/thegrace/RecommendController", true);
-                xhr.setRequestHeader("Content-Type", "application/json");
-
-                // 요청 데이터 생성
-                var data = JSON.stringify({ reviewCd: reviewCd, userEmail: userEmail });
-
-                // 응답 처리
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        // 추천 수 증가
-                        var countElement = document.getElementById(`recommend-count-${reviewCd}`);
-                        console.log(countElement.textContent);  // 추천 수 확인
-                        countElement.textContent = parseInt(countElement.textContent) + 1;
-                    } else {
-                        console.error('추천 실패');
-                    }
-                };
-
-                // 요청 전송
-            }
-            console.log(countElement);
-            </script>
                 
                 <div class="review-card">
                   <div class="review-header">
