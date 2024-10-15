@@ -45,6 +45,8 @@ public class ReviewInfo {
     
     
     
+    
+    
     public ReviewInfo(String mv_cd, String user_email, int mv_rating, String review_content, String view_dt, String open_yn, String review_img, String pos_neg) {
 		super();
 		this.mv_cd = mv_cd;

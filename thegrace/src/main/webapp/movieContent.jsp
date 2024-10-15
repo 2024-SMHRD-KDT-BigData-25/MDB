@@ -252,27 +252,6 @@ p {
             <div class="col-sm-12 mb-4 mb-xl-0">
       
 
-    <!-- container-scroller -->
-
-    <!-- base:js -->
-    <script src="resources/vendors/base/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page-->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- inject:js -->
-    <script src="resources/js/off-canvas.js"></script>
-    <script src="resources/js/hoverable-collapse.js"></script>
-    <script src="resources/js/template.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="resources/js/dashboard.js"></script>
-    <!-- End custom js for this page-->
-
-    <script>
-
-
-    </script>
-    
     <br>
    
     

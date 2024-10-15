@@ -7,6 +7,10 @@
 		select * from user_info where user_email=#{user_email} and user_pw=#{user_pw}
 	</select>
 	
+	<select id="userLoad" parameterType="String" resultType="com.smhrd.model.UserInfo">
+		select * from user_info where user_email=#{user_email}
+	</select>
+	
 	<insert id="join" parameterType="com.smhrd.model.UserInfo" >
 		insert into user_info(user_email, user_pw, nick, join_date, join_source) values (#{user_email}, #{user_pw}, #{nick}, #{join_date}, #{join_source})
 	</insert>
@@ -92,6 +96,14 @@
 		ON A.user_email = B.user_email
 		where a.mv_cd = #{mv_cd}
     </select>
+    
+    <select id="reviewbyReview_cd" resultType="com.smhrd.model.ReviewInfo">
+		select A.*, B.nick, b.pf_img
+		from Review_Info A
+		INNER JOIN User_Info B 
+		ON A.user_email = B.user_email
+		where a.review_cd = #{review_cd}
+    </select>
 
 	<!-- MovieInfo 관련 sql구문 -->
     <select id="getSearchResult" parameterType="String" resultType="com.smhrd.model.MovieInfo">
@@ -140,5 +152,24 @@
 	    where week_cd = #{week_cd}
 	    group by mv_cd
 	</select>
+	
+	 <insert id="insertlike" parameterType="com.smhrd.model.ReviewRecmInfo">
+	insert into review_recm_info(review_cd,user_email) values (#{review_cd},#{user_email})
+ </insert>
+	
+  <delete id="deletelike" parameterType="com.smhrd.model.ReviewRecmInfo">
+ 		delete from review_recm_info where review_cd=#{review_cd} and user_email=#{user_email}
+ </delete>
+ 
+  <select id="checklike" parameterType="com.smhrd.model.ReviewRecmInfo" resultType="int">
+ 	select * from review_recm_info where review_cd=#{review_cd} and user_email=#{user_email}
+ </select>
+	
+	<select id="totallike" resultType="java.lang.Integer">
+ 		select count(*) as review_cd from review_recm_info where review_cd=#{review_cd}
+ 	</select>	
+ 	
+ 	
+	
 	
 </mapper>

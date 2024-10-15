@@ -20,7 +20,7 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar"> <!-- 사이드바 영역 -->
         <div class="user-profile">
           <div class="user-image">
-            <img src="upload/<%=member_side.getPf_img() %>">
+            <img src="resources/images/<%=member_side.getPf_img() %>">
           </div>
           <div class="user-name">
               <%=member_side.getNick() %>
@@ -37,21 +37,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="boardList.jsp">
+            <a class="nav-link" href="myReview.jsp">
               <i class="icon-file menu-icon"></i>
               <span class="menu-title">Review</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/charts/chartjs.html">
+            <a class="nav-link" href="myPage.jsp">
               <i class="icon-pie-graph menu-icon"></i>
               <span class="menu-title">My Grafo</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">
-              <i class="icon-command menu-icon"></i>
-              <span class="menu-title">Setting</span>
             </a>
           </li>
         </ul>

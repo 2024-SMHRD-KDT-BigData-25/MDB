@@ -328,17 +328,6 @@
 </head>
 <body>
 
-	<%
-	UserInfo member = (UserInfo)session.getAttribute("member");
-	
-	String user_email = member.getUser_email();
-	MovieDAO dao = new MovieDAO();
-
-		//String user_email = (String) session.getAttribute("user_email");
-		List<ReviewJoinMovie> list = dao.getUserReviewList(user_email); // -> 여기서 getList()는 DAO의 메서드 이름이다
-		System.out.println("리뷰 개수: " + list.size());
-	
-	%>
 
 <div class="container-scroller">
      <!-- 상단바 불러오기 -->
@@ -348,6 +337,14 @@
     <div class="container-fluid page-body-wrapper">
     
          <%@ include file="sidebar.jsp" %>
+
+	<%
+		//String user_email = (String) session.getAttribute("user_email");
+		List<ReviewJoinMovie> list = dao.getUserReviewList(user_email); // -> 여기서 getList()는 DAO의 메서드 이름이다
+		System.out.println("리뷰 개수: " + list.size());
+	
+	%>
+
       
       <!-- partial -->
       <div class="main-panel" >

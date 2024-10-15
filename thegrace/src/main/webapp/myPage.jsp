@@ -21,18 +21,30 @@
 .edit-button:hover {
     background-color: #0056b3; /* 호버 시 색상 변경 */
 }
+
+.card .card-body {
+	height:300px;
+}
+
+.inCardText {
+	height:80%;
+	
+}
+
+.profile-message-container{
+	width:80%;
+}
+
+.card {
+            overflow-y: auto;
+}
+
 </style>
 </head>
 
 
 <body>
 
-	<%
-	UserInfo member = (UserInfo)session.getAttribute("member");
-	
-	String user_email = member.getUser_email();
-	MovieDAO dao = new MovieDAO();
-	%>
   <div class="container-scroller">
     
   	<!-- 상단바 불러오기 -->
@@ -57,10 +69,11 @@
                 <div class="col-sm-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          <h1 class="card-title">인생의 얼마만큼 영화를 봤나요?</h1>
-                          <h3><p>그라포님은 GRAFO의 회원 중<br> 상위 12%에요</p></h3>
-                          <h4 class="text-dark font-weight-bold mb-2">11,121 분</h4>
-                          <canvas id="customers"></canvas>
+                      	<div class="inCardText">
+                          	<h1 class="card-title">인생의 얼마만큼 영화를 봤나요?</h1>
+                          	<h3><p>그라포님은 GRAFO의 회원 중<br> 상위 12%에요</p></h3>
+                          	<h4 class="text-dark font-weight-bold mb-2">11,121 분</h4>
+				         </div>
 				         <div class="movie-graph-container">
 				            <div class="bar" style="height: 70%;"><span>70%</span></div> <!-- 예시 값 -->
 				            <div class="bar" style="height: 50%;"><span>50%</span></div> <!-- 예시 값 -->
@@ -72,10 +85,11 @@
                 <div class="col-sm-12 stretch-card">
                     <div class="card">
                       <div class="card-body">
+                      	<div class="inCardText">
                           <h4 class="card-title">얼마만큼의 감상을 표현했나요?</h4>
                           <p>그라포 님은 GRAFO 회원 중<br>상위 31% 에요!</p>
                           <h4 class="text-dark font-weight-bold mb-2">26 개</h4>
-                          <canvas id="orders"></canvas>
+						</div>
                           <div class="movie-graph-container2">
 				            <div class="bar2" style="height: 70%;"><span>70%</span></div> <!-- 예시 값 -->
 				            <div class="bar2" style="height: 50%;"><span>50%</span></div> <!-- 예시 값 -->
@@ -88,109 +102,38 @@
             </div>
             <div class="col-xl-9 d-flex grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
-                  <title>프로필</title>
-                  <div class="profile-header">
-            <div class="profile-img">
-             <img src="path/to/your/image.jpg" alt="프로필 이미지"> <!-- 이미지 경로 설정 -->
-            </div>
-            <div class="profile-info">
-                <h2>그라포</h2>
-                <p>grafo@naver.com</p>
-                <p>가입일: 2024-05-20</p>
-             </div>
-    <button class="edit-button">수정</button>
-		</div>
-        </div>
-        <div class="profile-stats">
-            <div class="stat">
-                <h4>팔로잉</h4>
-                <h5><p>7</p></h5>
-            </div>
-            <div class="stat">
-                <h4>팔로워</h4>
-                <h5><p>12</p></h5>
-            </div>
-            <div class="stat">
-                <h4>받은 추천 수</h4>
-                <h5><p>21</p></h5>
-            </div>
-        </div>
-        <div class="profile-message-container">
-            <p class="profile-message">그라포님의 인생 영화는 <b>명탐정 코난 : 시한장치의 마천루</b>입니다.<br><br><br>
-            인생영화에 대한 한 마디를 남겨보세요.</p>
-        </div>
-    
-                    </div>
-                  </div>
-            </div>
-          </div>
-          <div class="row">
-              <div class="col-xl-4 grid-margin stretch-card">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between mb-3">
-                          
-                          <div class="dropdown">
-                              
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
-                                
-                              </div>
-                            </div>
-                      </div>
-                      <div id="chart-legends-market-trend" class="chart-legends mt-1">
-                      </div>
-                      <div class="row mt-2 mb-2">
-                        <div class="col-6">
-                          
-                        </div>
-                        <div class="col-6">
-                          
-                        </div>
-                      </div>
-                      <div class="marketTrends mt-4">
-                        <canvas id="marketTrendssatacked"></canvas>
-                      </div>
-                        
-                    </div>
-                  </div>
-              </div>
-              <div class="col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    
-                    <div class="row">
-                      <div class="col-sm-12">
-                          
-                        
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="traffic-source-legend">
-                          <div class="d-flex justify-content-between mb-1 mt-2">
-                          </div>
-                         
-                         
-                          
-                        </div>
-                        
-                      </div>
-                    </div>  
+			       <div class="card-body">
+			         <title>프로필</title>
+			         <div class="profile-header">
+			            <div class="profile-img">
+			             <img src="path/to/your/image.jpg" alt="프로필 이미지"> <!-- 이미지 경로 설정 -->
+			            </div>
+			            <div class="profile-info">
+			                <h4>그라포</h4>
+			                <p>grafo@naver.com</p>
+			                <p>가입일: 2024-05-20</p>
+			             </div>
+			    		<button class="edit-button">수정</button>
+					</div>
+			        </div>
+			        <div class="profile-stats">
+			            <div class="stat">
+			                <h6>팔로잉</h4>
+			                <a href="following.jsp"><p>7</p></a>
+			            </div>
+			            <div class="stat">
+			                <h6>팔로워</h6>
+			                <a href="follower.jsp"><p>12</p></a>
+			            </div>
+			            <div class="stat">
+			                <h6>받은 추천 수</h6>
+			                <p>21</p>
+			            </div>
+			        </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                   
-                    <div class="row">
-                      <div class="col-sm-12">
-                       
-                      </div>
-                    </div>  
-                  </div>
-                </div>
-              </div>
-          </div>
+            </div>
+
           <div class="row">
             <div class="col-xl-9 grid-margin-lg-0 grid-margin stretch-card">
               <div class="card">
@@ -366,7 +309,8 @@
             </div>
           </div>
         </div>
-        
-        
+       </div>
+      </div>
+      </div>  
 </body>
 </html>

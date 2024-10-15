@@ -23,6 +23,13 @@ public class MovieDAO {
 		return res;
 	}
 	
+	public UserInfo userLoad(String user_email) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		UserInfo res = sqlSession.selectOne("MovieMapper.userLoad", user_email);
+		sqlSession.close();
+		return res;
+	}
+	
 	// 2. 회원가입 기능
 	public int join(UserInfo m) {
 		// openSession(true) -> 오토커밋 기능 on
@@ -176,6 +183,14 @@ public class MovieDAO {
 		  sqlSession.close(); // session의 자원 반환
 		  return res;
 	}
+	
+	// 4-1. 나의 리뷰 리스트 조회 (review, movie join)
+	public List<ReviewJoinMovie> getUserReviewList(String user_email) {
+		  SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		  List<ReviewJoinMovie> res = sqlSession.selectList("ReviewMapper.userReviewList",user_email);
+		  sqlSession.close(); // session의 자원 반환
+		  return res;
+	}
 		
 	// 5. 리뷰 정보 가져오기 (user_email 기준) -> review 정보 + movie의 title, poster
 	public List<RevMvTitle> followeeReviewList(String followee) {
@@ -189,6 +204,14 @@ public class MovieDAO {
 	public List<ReviewInfo> reviewListbyMv_cd(String mv_cd) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		List<ReviewInfo> res = sqlSession.selectList("MovieMapper.reviewListbyMv_cd", mv_cd);
+		sqlSession.close();
+		return res;
+	}
+	
+	// 7. 리뷰 정보 가져오기 (review_cd 기준) -> review 정보 + user_info의 nick
+	public ReviewInfo reviewbyReview_cd(int review_cd) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		ReviewInfo res = sqlSession.selectOne("MovieMapper.reviewbyReview_cd", review_cd);
 		sqlSession.close();
 		return res;
 	}
@@ -263,6 +286,36 @@ public class MovieDAO {
 	        session.close();  // 세션 종료
 	    }
 	    return result;  // 삽입된 행의 개수를 반환
+	}
+	
+	// 추천기능
+	
+	public int deletelike(ReviewRecmInfo t) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int res = sqlSession.delete("MovieMapper.deletelike", t);
+		sqlSession.close();
+		return res;
+	}
+	
+	public int insertlike(ReviewRecmInfo t) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int res = sqlSession.insert("MovieMapper.insertlike", t);
+		sqlSession.close();
+		return res;
+	}
+	
+	public int totallike(int review_cd) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		Integer res = sqlSession.selectOne("MovieMapper.totallike", review_cd);
+		sqlSession.close();
+		return (res != null) ? res : 0;
+	}
+	
+	public int checklike(ReviewRecmInfo t) {
+	    try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
+	        Integer res = sqlSession.selectOne("MovieMapper.checklike", t); // Integer로 받기
+	        return (res != null) ? res : 0; // null 체크 후 반환
+	    } // try 블록이 끝나면 자동으로 sqlSession이 닫힘
 	}
 	    
 
