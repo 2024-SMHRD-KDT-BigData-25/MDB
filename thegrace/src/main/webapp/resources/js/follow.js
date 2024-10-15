@@ -1,21 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const followBtns = document.querySelectorAll('.followBtn');
-    const unfollowBtns = document.querySelectorAll('.unfollowBtn');
-    
-    followBtns.forEach(button => {
-        button.addEventListener('click', function() {
-            const followee = this.getAttribute('data-followee');
-            follow(followee, button);
-        });
-    });
-    
-    unfollowBtns.forEach(button => {
-        button.addEventListener('click', function() {
-            const followee = this.getAttribute('data-followee');
-            unfollow(followee, button);
-        });
-    });
-});
+
 
 // 팔로우 기능 구현
 function follow(followee, button) {
@@ -61,7 +44,7 @@ function handleError(jqXHR) {
 }
 
 // 팔로우 상태를 확인하는 함수
-function checkFollowStatus(userId, targetId) {
+function checkFollowStatus(userId, targetId, button) {
     // AJAX 요청을 통해 서버에서 팔로우 상태를 받아옵니다.
     $.ajax({
         url: '/thegrace/followStatus',  // 서버의 팔로우 상태 확인 API
@@ -73,7 +56,7 @@ function checkFollowStatus(userId, targetId) {
         success: function(response) {
             // 서버에서 팔로우 상태를 반환한다고 가정합니다.
             let followStatus = response.followStatus; // "following", "follower", "mutual", "none"
-            handleFollowStatus(followStatus);
+            handleFollowStatus(followStatus, button);
         },
         error: function(error) {
             console.error("Error fetching follow status:", error);
@@ -82,20 +65,27 @@ function checkFollowStatus(userId, targetId) {
 }
 
 // 팔로우 상태에 따른 처리 함수
-function handleFollowStatus(status) {
+function handleFollowStatus(status, button) {
+	const followBtn = button;
+	const unfollowBtn = followBtn.nextElementSibling;
+	
     switch (status) {
         case 'following':
-            console.log("You are following this user.");
+			followBtn.style.display = 'none';
+			unfollowBtn.style.display = 'inline-block';
             // 여기서 UI 업데이트 등을 처리
             break;
         case 'follower':
-            console.log("This user is following you.");
+			followBtn.style.display = 'inline-block';
+			unfollowBtn.style.display = 'none';
             break;
         case 'F4F':
-            console.log("You both follow each other.");
+			followBtn.style.display = 'none';
+			unfollowBtn.style.display = 'inline-block';
             break;
         case 'none':
-            console.log("Neither user follows each other.");
+			followBtn.style.display = 'inline-block';
+			unfollowBtn.style.display = 'none';
             break;
         default:
             console.log("Unknown follow status.");
