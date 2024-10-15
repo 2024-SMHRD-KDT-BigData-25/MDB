@@ -74,6 +74,16 @@
         .plot-summary h3 {
             margin-top: 0;
         }
+        
+    .review-card p {
+    display:-webkit-box; 
+    word-wrap:break-word; 
+    -webkit-line-clamp:3; 
+    -webkit-box-orient:vertical; 
+    overflow:hidden; 
+    text-overflow:ellipsis;
+}
+    
     .review-card {
       border: 1px solid #ddd;
       border-radius: 5px;
@@ -172,11 +182,21 @@ p {
       String user_email = member.getUser_email(); 
       MovieDAO dao = new MovieDAO();
       List<FollowPf> followeeList = dao.getFollowee(user_email);
+      List<UserInfo> userList = dao.getUserList();
       
-      
-      // 내가 팔로우한 사람이 작성한 리뷰의 영화제목 가져오기!!!! 너무 어렵다ㅠ
-   %>
-   
+      if (!userList.isEmpty()) {
+          int randomIndex = new java.util.Random().nextInt(userList.size());
+          String randomNick = userList.get(randomIndex).getNick();
+  %>
+          <span class="review-title"><%= randomNick %></span>
+  <%
+      } else {
+  %>
+          <span class="review-title">등록된 유저가 없습니다.</span>
+  <%
+      }
+  %>
+  
   <div class="container-scroller">
      <!-- 상단바 불러오기 -->
        <%@ include file="navbar.jsp" %>
@@ -195,22 +215,13 @@ p {
               </div>
               <div>
                 <p>투표 기간: #ST_DT ~ #ED_DT</p>
-                <form action="vote" id="voteForm" method="post">
-              <!-- MyBatis에서 가져온 영화 목록 출력 -->
-                  
-                 <c:if test="${not empty movieTitles}">
-                   <c:forEach var="title" items="${movieTitles }">
-                       <label>
-                           <input type="radio" name="movie" value="${title}"> ${title}
-                       </label><br>
-                   </c:forEach>
-               </c:if>
-               <c:if test="${empty movieTitles}">
-                   <p>영화 목록이 없습니다.</p>
-               </c:if>
-                 <br>
-                 <button type="button" onclick="submitVote()">투표하기</button>
-             </form>
+                <form id="voteForm" method="post" action="vote">
+			        <div id="movieList"> <!-- 영화 목록이 동적으로 추가될 부분 -->
+			            <!-- JavaScript를 통해 영화 목록이 추가될 예정 -->
+			        </div>
+			        <br>
+			        <button type="submit">투표하기</button>
+			    </form>
               </div>
               <br>
               <div class="chatgpt-activation" style="padding-left: 20px;">
@@ -333,48 +344,119 @@ p {
               
               <%System.out.println("List size: " + followeeList.size()); %>
               
+        <% if (!userList.isEmpty()) {
+        	int userListSize = userList.size();
+        	   
+        	// 두 개의 서로 다른 램덤 인덱스 생성
+            int randomIndex1 = new java.util.Random().nextInt(userList.size());
+        	int randomIndex2;
+        	   
+       		do {
+              randomIndex2 = new java.util.Random().nextInt(userListSize);
+        	} while (randomIndex1 == randomIndex2); // 같은 인덱스가 나오지 않도록
+        	
+        	int randomIndex3;
+        	do {
+                randomIndex3 = new java.util.Random().nextInt(userListSize);
+        	} while (randomIndex3 == randomIndex1 || randomIndex3 == randomIndex2); // randomIndex1과 randomIndex2와 같지 않도록
+        	
+            UserInfo randomUser1 = userList.get(randomIndex1);
+            UserInfo randomUser2 = userList.get(randomIndex2);
+            UserInfo randomUser3 = userList.get(randomIndex3);
+               
+            String randomNick1 = randomUser1.getNick();
+            String randomNick2 = randomUser2.getNick();
+            String randomNick3 = randomUser3.getNick();
+          	   
+          	List<RevMvTitle> ReviewList1 = dao.followeeReviewList(randomUser1.getUser_email());
+          	 
+          	String mv_poster1 = "";
+          	String review_content1 = "";
+          	String mv_title1 = "";
+          	
+            	if (!ReviewList1.isEmpty()) {
+                	// 랜덤 유저의 첫 번째 리뷰에서 영화 포스터 가져오기 (여러 리뷰가 있을 경우)
+                	mv_poster1 = ReviewList1.get(0).getMv_poster(); // 리뷰에 포함된 포스터 URL
+                	review_content1 = ReviewList1.get(0).getReview_content(); // 리뷰내용
+   					mv_title1 = ReviewList1.get(0).getMv_title(); // 영화제목
+   					
+   			// 2번째 랜덤유저
+   			
+   			List<RevMvTitle> ReviewList2 = dao.followeeReviewList(randomUser2.getUser_email());
+          	 
+          	String mv_poster2 = "";
+          	String review_content2 = "";
+          	String mv_title2 = "";
+          	
+            	if (!ReviewList2.isEmpty()) {
+                	// 랜덤 유저의 첫 번째 리뷰에서 영화 포스터 가져오기 (여러 리뷰가 있을 경우)
+                	mv_poster2 = ReviewList2.get(0).getMv_poster(); // 리뷰에 포함된 포스터 URL
+                	review_content2 = ReviewList2.get(0).getReview_content(); // 리뷰내용
+   					mv_title2 = ReviewList2.get(0).getMv_title(); // 영화제목
+            
+   			// 3번째 랜덤유저
+   		   			
+   		   		List<RevMvTitle> ReviewList3 = dao.followeeReviewList(randomUser3.getUser_email());
+   		          	 
+   		        String mv_poster3 = "";
+   		        String review_content3 = "";
+   		        String mv_title3 = "";
+   		          	
+   		            if (!ReviewList3.isEmpty()) {
+   		                // 랜덤 유저의 첫 번째 리뷰에서 영화 포스터 가져오기 (여러 리뷰가 있을 경우)
+   		                mv_poster3 = ReviewList3.get(0).getMv_poster(); // 리뷰에 포함된 포스터 URL
+   		                review_content3 = ReviewList3.get(0).getReview_content(); // 리뷰내용
+   		   				mv_title3 = ReviewList3.get(0).getMv_title(); // 영화제목
+                
+            
+                
+                %>
+  		
  <div class="reviews-section">
                 <h4><%=member.getNick() %>님이 최근 본 영화들, 다른 사람들은 어떻게 봤을까요?</h4>
                  <div class="review-card">
                   <div class="review-header">
-                    <img src=<%=followeeList.get(3).getPf_img()%> alt="Profile Image">
-                    <span class="review-title"><%= followeeList.get(3).getNick()%></span>
+                    <img src="resources/images/청년경찰.jpg" alt="Profile Image">
+                    <span class="review-title"><%= randomNick1 %></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>
                     </div>
                   </div>
-                  <h5>아이덴티티</h5>
-                  <p>10년이 넘게(아마 15년)만에 이 영화를 다시 봤습니다</p>
-                    <img src="resources/images/아이덴티티.jpg"  alt="Movie Poster" style="width:100px;">
+                  <h5><%=mv_title1%></h5>
+                  <p><%=review_content1%></p>
+                    <img src="<%=mv_poster1%>"  alt="Movie Poster" style="width:100px;">
                 </div>
               <div class="review-card">
                   <div class="review-header">
                     <img src="resources/images/청년경찰.jpg" alt="Profile Image">
-                    <span class="review-title">00000</span>
+                    <span class="review-title"><%= randomNick2 %></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>
                     </div>
                   </div>
-                  <h5>대도시의사랑법</h5>
-                  <p> 청춘의 성장기에 집중해 누구나 부담 없이, 공감하며 볼 수 있다</p>
-                  <img src="resources/images/대도시의 사랑법.jpg" alt="Movie Poster" style="width:100px;">
+                  <h5><%=mv_title2%></h5>
+                  <p><%=review_content2%></p>
+                  <img src="<%=mv_poster2%>" alt="Movie Poster" style="width:100px;">
                 </div>
                <div class="review-card">
                   <div class="review-header">
                     <img src="resources/images/청년경찰.jpg" alt="Profile Image">
-                    <span class="review-title">00000</span>
+                    <span class="review-title"><%= randomNick3 %></span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>
                     </div>
                   </div>
-                  <h5>더플랫폼</h5>
-                  <p>고렝의 나이든 동반자는 복역하는 동안 감금되어야 하는 유일한 규정을 신속하게 설명합니다.</p>
-                  <img src="resources/images/더플랫폼.jpg" alt="Movie Poster" style="width:100px;">
+                  <h5><%=mv_title3%></h5>
+                  <p><%=review_content3%></p>
+                  <img src="<%=mv_poster3%>" alt="Movie Poster" style="width:100px;">
                 </div>
-              
+            <%} 
+          }
+      }
+  }%>
 
 
         
@@ -406,7 +488,7 @@ p {
                   <p> 7번방의 기적은 의심할 여지 없이 내가 본 최고의 영화</p>
                   <img src="resources/images/7번방의선물.jpg" alt="Movie Poster" style="width:100px;">
                 </div>
-              < <div class="review-card">
+              <div class="review-card">
                   <div class="review-header">
                     <img src="resources/images/faces/face1.jpg" alt="Profile Image">
                     <span class="review-title">아이바오</span>
@@ -451,105 +533,103 @@ p {
     <!-- 주간차트 js -->
     <script src="resources/js/weekChart.js"></script>
     <script>
-    let myChart;
-
-    // 페이지 로드 시 빈 차트 초기화
-    function initializeChart() {
-        const ctx = document.getElementById('myChart').getContext('2d');
-        myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['영화 1', '영화 2', '영화 3', '영화 4', '영화 5'], // 영화 제목
-                datasets: [{
-                    label: '투표 수',
-                    data: [0, 0, 0, 0, 0], // 초기에는 0으로 설정
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+    // 페이지 로딩 시 영화 목록 불러오기
+    // Chart.js 그래프 초기 설정
+    // Chart.js 초기 설정
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [],  // 영화 제목이 들어갈 자리
+        datasets: [{
+            label: '투표 수',
+            data: [],  // 투표 수 데이터가 들어갈 자리
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',  // 막대 1
+                'rgba(255, 99, 132, 0.2)',  // 막대 2
+                'rgba(75, 192, 192, 0.2)',  // 막대 3
+                'rgba(153, 102, 255, 0.2)', // 막대 4
+                'rgba(255, 159, 64, 0.2)'   // 막대 5
+                // 각 막대마다 색상 추가 가능
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)',  // 막대 1 테두리
+                'rgba(255, 99, 132, 1)',  // 막대 2 테두리
+                'rgba(75, 192, 192, 1)',  // 막대 3 테두리
+                'rgba(153, 102, 255, 1)', // 막대 4 테두리
+                'rgba(255, 159, 64, 1)'   // 막대 5 테두리
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
             }
-        });
-    }
-
-    // 차트 데이터 업데이트
-    function updateChart(data) {
-        const results = data.results;
-        myChart.data.datasets[0].data = [
-            results[1],
-            results[2],
-            results[3],
-            results[4],
-            results[5]
-        ];
-        myChart.update();
-    }
-
-    function submitVote() {
-        const selectedMovie = document.querySelector('input[name="movie"]:checked');
-        if (!selectedMovie) {
-            alert("영화를 선택하세요!");
-            return;
         }
+    }
+});
 
-        const movieId = selectedMovie.value;
+// 서버에서 투표 결과를 받아와서 그래프 갱신
+function fetchResults() {
+    fetch('/thegrace/vote')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // 영화 목록 추가
+            if (data.movieTitles && data.movieTitles.length > 0) {
+                var movieListHtml = '';
+                $.each(data.movieTitles, function(index, title) {
+                    movieListHtml += '<label>';
+                    movieListHtml += '<input type="radio" name="movieId" value="' + (index + 1) + '"> ' + title;
+                    movieListHtml += '</label><br>';
+                });
+                $('#movieList').html(movieListHtml);  // 영화 목록을 페이지에 추가
+            }
 
-        fetch('/vote', {
+            // 그래프 업데이트
+            myChart.data.labels = data.movieTitles; // 영화 제목으로 라벨 설정
+            myChart.data.datasets[0].data = data.results;  // 투표 수 데이터 설정
+            console.log(data.results)
+            myChart.update();  // 그래프 업데이트
+        })
+        .catch(error => console.error('Error fetching results:', error));
+}
+
+// 페이지 로딩 시 투표 결과 불러오기
+window.onload = fetchResults;
+
+// 투표 폼 제출 처리
+document.getElementById('voteForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // 폼 기본 제출 방지
+    const selectedMovie = document.querySelector('input[name="movieId"]:checked');
+    
+    if (selectedMovie) {
+        const formData = new FormData(this);  // 폼 데이터를 가져옴
+        console.log([...formData.entries()]);
+        fetch('/thegrace/vote', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `movieId=${movieId}`
+            body: formData
         })
         .then(response => response.json())
         .then(data => {
-            updateResults(data);
-            updateChart(data);
+            if (data.error) {
+                alert(data.error);  // 중복 투표 등의 에러 처리
+            } else {
+                fetchResults();  // 투표 후 최신 결과 불러오기
+                alert('투표가 성공적으로 완료되었습니다!');
+            }
         })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        .catch(error => console.error('Error during voting:', error));
+    } else {
+        alert('영화를 선택해주세요.');  // 영화 선택하지 않았을 경우
     }
-
-    // 페이지 로드 시 초기 결과 불러오기
-    window.onload = function() {
-        initializeChart(); // 차트 초기화
-        fetch('/results')
-            .then(response => response.json())
-            .then(data => {
-                updateResults(data);
-                updateChart(data); // 불러온 결과로 차트 업데이트
-            });
-
-    };   
-    
-    
-    
+});
     
     </script>       
 </body>
