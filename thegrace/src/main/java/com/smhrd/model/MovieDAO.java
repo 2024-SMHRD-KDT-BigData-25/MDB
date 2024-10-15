@@ -1,8 +1,6 @@
 package com.smhrd.model;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -242,4 +240,29 @@ public class MovieDAO {
 		return res;
 		   }
 	
+	// 2. 투표 수 확인
+	public List<Integer> getVoteCnt(int week_cd) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<Integer> voteCounts = null;
+		try {
+		    voteCounts = sqlSession.selectList("MovieMapper.getVoteCnt", week_cd);
+		} finally {
+		    sqlSession.close();
+		}
+		    return voteCounts;
+		}
+		
+		// 투표 기록을 데이터베이스에 삽입하는 메서드
+	    public int insertUserVote(UserVoteInfo voteInfo) {
+	        SqlSession session = sqlSessionFactory.openSession();
+	        int result = 0;
+	        try {
+	            result = session.insert("insertUserVote", voteInfo); // 매퍼의 id인 insertUserVote 호출
+	            session.commit();  // 데이터베이스에 반영
+	        } finally {
+	            session.close();  // 세션 종료
+	        }
+	        return result;  // 삽입된 행의 개수를 반환
+	    }
+
 }

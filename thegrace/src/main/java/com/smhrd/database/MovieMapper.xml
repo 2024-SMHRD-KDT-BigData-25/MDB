@@ -130,5 +130,15 @@
     	insert into chatroom_info(croom_cd, create_user, created_at, invited_user) values (#{croom_cd}, #{create_user}, current_timestamp, #{invited_user})
     </insert>
     
+    <insert id="insertUserVote" parameterType="com.smhrd.model.UserVoteInfo" >
+    	insert into user_vote_info(vote_cd, week_cd, mv_cd, vote_date, user_email) values (#{vote_cd}, #{week_cd}, #{mv_cd}, current_timestamp, #{user_email, jdbcType=VARCHAR})
+    </insert>
+    
+    <select id="getVoteCnt" resultType="int" parameterType="int">
+	    select count(*) as vote_count
+	    from user_vote_info
+	    where week_cd = #{week_cd}
+	    group by mv_cd
+	</select>
 	
 </mapper>

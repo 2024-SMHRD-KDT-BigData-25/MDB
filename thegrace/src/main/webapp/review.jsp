@@ -8,24 +8,36 @@
     <meta charset="UTF-8">
     <title>CINEM@GRAFO</title>
     <style>
-.comment-card {
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0;
-    transition: transform 0.2s ease;
-    margin: 20px 0; /* 카드 간격을 20px로 조정 */
-}
+        .comment-card {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            transition: transform 0.2s ease;
+            border-radius: 10px;
+        }
+
+        .positive-review {
+            background-color: #d4edda !important; /* Light green */
+        }
+
+        /* Negative review color */
+        .negative-review {
+            background-color: #f8d7da !important; /* Light red */
+        }
 
         .comment-body {
             display: flex;
         }
+
         .comment-poster {
             width: 100px;
             border-radius: 5px;
             margin-right: 15px;
         }
+
         .actions {
             margin-top: 10px;
         }
+
         .action-btn {
             background-color: #007bff;
             color: white;
@@ -34,15 +46,22 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         .animate {
             animation: heartBeat 0.3s;
         }
+
         @keyframes heartBeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
         }
     </style>
 </head>
+
 <body>
 
 <div class="container-scroller">
@@ -58,8 +77,8 @@
                 <br>
                 <h1>지금 뜨는 코멘트</h1>
                 
-                <!-- Comment Card 1 -->
-                <div class="comment-card">
+                <!-- Comment Card 1 (Positive) -->
+                <div class="comment-card positive-review">
                     <div class="comment-user">
                         <img src="resources/images/뚱냥이.png" alt="Profile Image">
                         <div class="user-info">
@@ -72,9 +91,8 @@
                         <img src="resources/images/너의이름은.jpg" alt="Movie Poster" class="comment-poster">
                         <div>
                             <h3>너의이름은</h3>
-                            <p>내용 입력란</p>
+                               <p>'너의 이름은'은 탄탄한 스토리와 눈부신 영상미, 감동적인 감결의 특별한 여정으로 안내합니다.</p>
                             
-                            <!-- 좋아요 버튼 (내용 밑에 출력) -->
                             <div class="actions">
                                 <button class="action-btn">
                                     좋아요 <span class="like-count">3</span> <i class="fas fa-heart"></i>
@@ -84,8 +102,8 @@
                     </div>
                 </div>
 
-                <!-- Comment Card 2 -->
-                <div class="comment-card">
+                <!-- Comment Card 2 (Positive) -->
+                <div class="comment-card positive-review">
                     <div class="comment-user">
                         <img src="resources/images/뚱냥이.png" alt="Profile Image">
                         <div class="user-info">
@@ -95,12 +113,11 @@
                     </div>
 
                     <div class="comment-body">
-                        <img src="resources/images/너의이름은.jpg" alt="Movie Poster" class="comment-poster">
+                        <img src="resources/images/인셉션.jpg" alt="Movie Poster" class="comment-poster">
                         <div>
-                            <h3>너의이름은</h3>
-                            <p>내용 입력란</p>
+                            <h3>인셉션</h3>
+                            <p>'내 인생에서 유일하게 다시 본 영화인데, 끝난 후 아이디어가 너무 좋고 기억에 남는다!!'</p>
                             
-                            <!-- 좋아요 버튼 (내용 밑에 출력) -->
                             <div class="actions">
                                 <button class="action-btn">
                                     좋아요 <span class="like-count">5</span> <i class="fas fa-heart"></i>
@@ -110,8 +127,8 @@
                     </div>
                 </div>
 
-                <!-- 추가적인 리뷰 카드 -->
-                <div class="comment-card">
+                <!-- Comment Card 3 (Negative) -->
+                <div class="comment-card negative-review">
                     <div class="comment-user">
                         <img src="resources/images/뚱냥이.png" alt="Profile Image">
                         <div class="user-info">
@@ -121,12 +138,11 @@
                     </div>
 
                     <div class="comment-body">
-                        <img src="resources/images/너의이름은.jpg" alt="Movie Poster" class="comment-poster">
+                        <img src="resources/images/파묘.jpg" alt="Movie Poster" class="comment-poster">
                         <div>
-                            <h3>너의이름은</h3>
-                            <p>'너의 이름은'은 탄탄한 스토리와 눈부신 영상미, 감동적인 감결의 특별한 여정으로 안내합니다.</p>
+                            <h3>파묘</h3>
+                            <p>'후반부에서 공포의 존재가 거구의 괴물로 실체화돼 전면에 드러나자 상대적으로 공포감이 약해졌다'</p>
                             
-                            <!-- 좋아요 버튼 (내용 밑에 출력) -->
                             <div class="actions">
                                 <button class="action-btn">
                                     좋아요 <span class="like-count">10</span> <i class="fas fa-heart"></i>

@@ -1,12 +1,18 @@
 package com.smhrd.controller;
 
 import java.io.IOException;
+import java.security.Principal;
+import java.util.Enumeration;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionContext;
 
 import com.smhrd.model.UserInfo;
 import com.smhrd.model.MovieDAO;
@@ -15,7 +21,9 @@ import com.smhrd.model.MovieDAO;
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(
+			HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
 		
@@ -31,9 +39,14 @@ public class LoginController extends HttpServlet {
 		if(res == null) {
 			response.sendRedirect("login.jsp");
 		} else {
-			HttpSession session = request.getSession();
-			session.setAttribute("member", res);
-			response.sendRedirect("main.jsp");
+			request.getSession().setAttribute("userEmail", user_email);
+			request.getSession().setAttribute("member", res);
+			
+			// 세션에 값이 제대로 저장되었는지 확인 (디버그용)
+//			System.out.println("세션에 저장된 userEmail: " + session.getAttribute("userEmail"));
+//			System.out.println("세션에 저장된 member: " + session.getAttribute("member"));
+			RequestDispatcher dispatcher = request.getRequestDispatcher("main.jsp");
+			dispatcher.forward(request, response);
 		}
 	
 	}
