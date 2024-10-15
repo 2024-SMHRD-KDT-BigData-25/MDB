@@ -204,16 +204,45 @@
     </div>
 </div>
 
+<%
+String user_email = (String)session.getAttribute("user_email");
+String followee = request.getParameter("followee");
+%>
+
 <script>
+	// 소켓서버에 연결 (WebSocket)
+    const userEmail = "<%=user_email%>"; // 세션에서 사용자 이메일 가져오기
+    const followee = "<%=followee%>"; // 버튼 클릭 시 전달된 대화 상대 이메일 가져오기
+    const webSocket = new WebSocket(`ws://localhost:8081/mavenboard/chat/\${userEmail}/\${followee}`);
+	
+	webSocket.onopen = onOpen;
+	webSocket.onclose = onClose;
+	webSocket.onmessage = onMessage;
+
     document.getElementById('sendButton').addEventListener('click', function() {
         const messageInput = document.getElementById('messageInput');
         const messageText = messageInput.value.trim();
         
         if (messageText) {
+        	webSocket.send(JSON.stringify({ user: userEmail, message: messageText })); // 메시지 전송
             addMessage('User', messageText); // 'User'는 현재 사용자
             messageInput.value = ''; // 입력 필드 초기화
         }
     });
+    
+	function onOpen() { //현재 클라이언트가 서버로 접속 시도할 때 호출
+		// 현재 로그인한 사용자의 닉네임값을 서버로 보내고 싶은 경우
+		// 서버 => "닉네임" 님이 접속했습니다!
+		//webSocket.send(보내고 싶은 값(json));
+		//webSocket.send(JSON.Stringify({"nick":"하츄핑"}));
+		//서버 => String(json) => JAVA Object (GSON 라이브러리 활용)
+		webSocket.send(JSON.Stringify({"user_email":user_email, "followee":followee}));
+	}
+	
+	function onClose() {
+		//webSocket.send(JSON.Stringify({"nick":"하츄핑"}));
+		//서버 => String(json) => JAVA Object (GSON 라이브러리 활용)
+	}
 
     function addMessage(user, message) {
         const chatBody = document.getElementById('chatBody');
