@@ -146,7 +146,7 @@
                   </button></a>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
-                  이미 회원이시라면  <a href="login.html" class="text-primary">LOGIN</a>
+                  이미 회원이시라면  <a href="login.jsp" class="text-primary">LOGIN</a>
                 </div>
               </form>
             </div>
