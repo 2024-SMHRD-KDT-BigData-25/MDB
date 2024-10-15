@@ -243,31 +243,31 @@ p {
                 </div>
                 
                 <script>
-				function recommendReview(reviewCd, userEmail, button) {
-    				// AJAX 요청 생성
-    				var xhr = new XMLHttpRequest();
-    				xhr.open("POST", "/thegrace/RecommendController", true);
-    				xhr.setRequestHeader("Content-Type", "application/json");
+            function recommendReview(reviewCd, userEmail, button) {
+                // AJAX 요청 생성
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/thegrace/RecommendController", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
 
-    				// 요청 데이터 생성
-    				var data = JSON.stringify({ reviewCd: reviewCd, userEmail: userEmail });
+                // 요청 데이터 생성
+                var data = JSON.stringify({ reviewCd: reviewCd, userEmail: userEmail });
 
-    				// 응답 처리
-    				xhr.onload = function () {
-        				if (xhr.status === 200) {
-            				// 추천 수 증가
-            				var countElement = document.getElementById(`recommend-count-${reviewCd}`);
-            				console.log(countElement.textContent);  // 추천 수 확인
-            				countElement.textContent = parseInt(countElement.textContent) + 1;
-        				} else {
-            				console.error('추천 실패');
-        				}
-    				};
+                // 응답 처리
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        // 추천 수 증가
+                        var countElement = document.getElementById(`recommend-count-${reviewCd}`);
+                        console.log(countElement.textContent);  // 추천 수 확인
+                        countElement.textContent = parseInt(countElement.textContent) + 1;
+                    } else {
+                        console.error('추천 실패');
+                    }
+                };
 
-    				// 요청 전송
-				}
-				console.log(countElement);
-				</script>
+                // 요청 전송
+            }
+            console.log(countElement);
+            </script>
                 
                 <div class="review-card">
                   <div class="review-header">
@@ -378,8 +378,8 @@ p {
                 </div>
               <div class="review-card">
                   <div class="review-header">
-                    <img src=<%=followeeList.get(4).getPf_img()%> alt="Profile Image">
-                    <span class="review-title"><%= followeeList.get(4).getNick()%></span>
+                    <img src="resources/images/청년경찰.jpg" alt="Profile Image">
+                    <span class="review-title">00000</span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>
@@ -391,8 +391,8 @@ p {
                 </div>
                <div class="review-card">
                   <div class="review-header">
-                    <img src=<%=followeeList.get(5).getPf_img()%> alt="Profile Image">
-                    <span class="review-title"><%= followeeList.get(5).getNick()%></span>
+                    <img src="resources/images/청년경찰.jpg" alt="Profile Image">
+                    <span class="review-title">00000</span>
                     <div class="buttons">
                       <button class="btn">추천</button>
                       <button class="btn follow">Follow</button>
