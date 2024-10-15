@@ -42,12 +42,7 @@
 	</span> like : <span id="like-count"><%= totalLikes %></span>
 </div>
     <script src="resources/js/like.js"></script>
-    <script>
-    const likeButton = document.querySelector('.like-btn');
-    const likeCountDisplay = document.getElementById('like-count');
 
-    
-    </script>
     
 </body>
 </html>

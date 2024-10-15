@@ -13,14 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/like")
 public class LikeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LikeDeleteController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
