@@ -1,3 +1,6 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
+<%@page import="com.smhrd.model.ReviewJoinMovie"%>
+<%@page import="com.smhrd.model.ReviewDAO"%>
 <%@page import="com.smhrd.model.ReviewInfo"%>
 <%@page import="java.util.List"%>
 <%@page import="com.smhrd.model.MovieDAO"%>
@@ -313,14 +316,25 @@
         	width:100%;
         }
         
+        .reviewContentInList {
+        	  max-width: 600px;
+			  display: inline-block;
+			  overflow: hidden;
+			  text-overflow: ellipsis;
+			  white-space: nowrap;
+			  width: 100%;
+
+        }
+        
     </style>
 </head>
 <body>
 
 	<%
-		String userEmail = (String) session.getAttribute("user_email");
-		MovieDAO dao = new MovieDAO();
-		List<ReviewInfo> list = dao.getReview(); // -> 여기서 getList()는 DAO의 메서드 이름이다
+		String user_email = (String) session.getAttribute("user_email");
+		ReviewDAO dao = new ReviewDAO();
+		user_email = "test2";
+		List<ReviewJoinMovie> list = dao.getUserReviewList(user_email); // -> 여기서 getList()는 DAO의 메서드 이름이다
 		System.out.println("리뷰 개수: " + list.size());
 	%>
 
@@ -349,7 +363,7 @@
                         <div class="form-group">
                             <label for="exampleInputName1"><i class="fas fa-film"></i> 영화코드</label>
                             <input type="text" class="form-control" id="exampleInputName1" readonly>
-                            <button type="button" class="btn inReviewMovieSearch"><i class="fas fa-search"></i>영화 찾기</button>
+                            <button type="button" class="btn" id="inReviewMovieSearch"><i class="fas fa-search"></i>영화 찾기</button>
                         </div>
 						<input type="text" name="mv_cd"  required hidden>
                         <!-- 영화 평점 입력 -->
@@ -427,18 +441,18 @@
             <thead>
                 <tr>
                     <th>번호</th>
-                    <th>작성자</th>
+                    <th>영화 제목</th>
                     <th>리뷰내용</th>                    
                     <th>작성일</th>
                 </tr>
             </thead>
             <tbody id="postBody">
                 <!-- 게시글이 여기 추가됩니다. -->
-                <% for (ReviewInfo rev : list) { %>
+                <% for (ReviewJoinMovie rev : list) { %>
 		      <tr>
 		        <td><%=rev.getReview_cd()%></td>		        
-		        <td><%=rev.getUser_email()%></td>
-		        <td><%=rev.getReview_content()%></td>		        		        
+		        <td><%=rev.getMv_title()%></td>		        
+		        <td class="reviewContentInList"><%=rev.getReview_content()%></td>		        		        
 		        <td><%= rev.getView_dt() %></td>
 		      </tr>
 		    <% } %>
@@ -448,8 +462,11 @@
         </table>
         <div class="pagination" id="pagination">
             <!-- 페이지 버튼이 여기 추가됩니다. -->
-        </div>
-    </div>
+		</div>
+      </div>
+  	</div>
+  </div>
+   
 
     <script>
         let posts = []; // 게시글 배열
@@ -566,10 +583,14 @@
             modal.style.display="none";
         });
         
-    </script>
-    </div>
-    
-  </div>
+        const inReviewMovieSearch = document.getElementById('inReviewMovieSearch');
 
+        inReviewMovieSearch.addEventListener('click', () => {
+          window.open('inReviewMovieSearch.jsp', '영화 코드 검색', 'width=600, height=500');
+        });
+
+
+        
+    </script>
 </body>
 </html>

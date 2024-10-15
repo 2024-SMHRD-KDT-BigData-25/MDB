@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewMapper">
+	<select id="userReviewList" parameterType="String" resultType="com.smhrd.model.ReviewJoinMovie">
+		select a.review_cd, a.mv_cd, a.user_email, a.mv_rating,
+		        a.review_content, a.view_dt, a.open_yn, a.review_img,
+		        a.pos_neg,b.mv_title, b.mv_poster
+		from review_info a, movie_info b
+		where a.mv_cd = b.mv_cd
+		    and a.user_email = #{user_email}
+	</select>
+	
+
+
+
+
+
+
+</mapper>
