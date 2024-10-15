@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Follow Button</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .follow-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .follow-button.following {
+            background-color: #28a745; /* Following 상태의 배경색 */
+        }
+
+        .follow-button:hover {
+            background-color: #0056b3; /* 일반 hover 상태 */
+        }
+
+        .follow-button.following:hover {
+            background-color: red; /* Following 상태의 hover 색상 */
+        }
+    </style>
+</head>
+<body>
+
+<button class="follow-button" id="followButton">Follow</button>
+
+<script>
+    const followButton = document.getElementById('followButton');
+
+    followButton.addEventListener('click', function() {
+        this.classList.toggle('following'); // Following 상태 토글
+        this.textContent = this.classList.contains('following') ? 'Following' : 'Follow';
+    });
+
+    followButton.addEventListener('mouseenter', function() {
+        if (this.classList.contains('following')) {
+            this.textContent = 'Unfollow'; // 마우스오버 시 텍스트 변경
+        }
+    });
+
+    followButton.addEventListener('mouseleave', function() {
+        if (this.classList.contains('following')) {
+            this.textContent = 'Following'; // 마우스가 나가면 원래 텍스트로 복원
+        }
+    });
+</script>
+
+</body>
+</html>

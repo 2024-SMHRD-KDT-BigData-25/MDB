@@ -30,10 +30,23 @@
             z-index: -1;
         }
 
+        /* 모달 스타일 */
+        .modal {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
         .chat-container {
             width: 90%;
             max-width: 600px;
-            margin: 20px auto;
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             box-shadow: 0 8px 35px rgba(0, 0, 0, 0.3);
@@ -100,14 +113,13 @@
             max-width: 70%;
             position: relative;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-left: 10px;
-            font-size: 1em;
+            margin-left: 10px !important; /* !important 추가 */
         }
 
         .message.receiver .message-content {
             background-color: #f1f1f1; /* 수신자 메시지의 배경색 */
-            margin-left: 0; /* 왼쪽 정렬로 인한 여백 제거 */
-            margin-right: 10px; /* 사용자 메시지와의 간격 */
+            margin-left: 0 !important; /* 왼쪽 정렬로 인한 여백 제거 */
+            margin-right: 10px !important; /* 사용자 메시지와의 간격 */
         }
 
         .message.user .message-content {
@@ -118,7 +130,7 @@
         .message-time {
             font-size: 0.75em;
             color: #888;
-            margin-right: 5px; /* 메시지와 시간 사이 간격 */
+            margin-right: 5px !important; /* 메시지와 시간 사이 간격 */
         }
 
         .read-receipt {
@@ -168,19 +180,13 @@
                 transform: translateY(0);
             }
         }
-        
-        .message .message-info {
+
+        .message-info {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* 시간과 숫자를 왼쪽 정렬 */
-            margin-right: 10px; /* 메시지 내용과의 간격 */
+            align-items: flex-end !important; /* 오른쪽 정렬 */
+            margin-left: 10px !important; /* 메시지 내용과의 간격 */
         }
-
-        /* 사용자 메시지에 대해 왼쪽 정렬 적용 */
-        .message.user .message-info {
-            align-items: flex-end; /* 시간과 숫자를 오른쪽 정렬 */
-        }
-
     </style>
 </head>
 <body>
@@ -190,21 +196,41 @@
     <source src="resources/videos/chat.mp4" type="video/mp4">
 </video>
 
-<div class="chat-container">
-    <div class="chat-header">
-        <img src="resources/images/프로필캐릭2.jpg" alt="Profile Image">
-        <h2>천지희</h2>
-    </div>
-    <div class="chat-body" id="chatBody">
-        <!-- 메시지 카드가 여기에 추가됩니다. -->
-    </div>
-    <div class="input-area">
-        <input type="text" id="messageInput" placeholder="메시지를 입력하세요...">
-        <button id="sendButton">전송</button>
+<!-- 모달 팝업 -->
+<div class="modal" id="chatModal">
+    <div class="chat-container">
+        <div class="chat-header">
+            <img src="resources/images/프로필캐릭2.jpg" alt="Profile Image">
+            <h2>천지희</h2>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <!-- 메시지 카드가 여기에 추가됩니다. -->
+        </div>
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="메시지를 입력하세요...">
+            <button id="sendButton">전송</button>
+        </div>
     </div>
 </div>
 
+<!-- 채팅 열기 버튼 -->
+<button id="openChat" style="position: absolute; top: 30px; left: 30px; padding: 10px; border: none; border-radius: 5px; background-color: #007bff; color: white; cursor: pointer;">
+    채팅 열기
+</button>
+
 <script>
+    // 채팅 열기 버튼 클릭 시 모달 열기
+    document.getElementById('openChat').addEventListener('click', function() {
+        document.getElementById('chatModal').style.display = 'flex'; // 모달 표시
+    });
+
+    // 모달 외부 클릭 시 모달 닫기
+    document.getElementById('chatModal').addEventListener('click', function(event) {
+        if (event.target === this) {
+            this.style.display = 'none'; // 모달 숨김
+        }
+    });
+
     document.getElementById('sendButton').addEventListener('click', function() {
         const messageInput = document.getElementById('messageInput');
         const messageText = messageInput.value.trim();
@@ -225,14 +251,14 @@
         messageContent.className = 'message-content';
         messageContent.textContent = message;
 
-        // Create a container for the time and read receipt
+        // 메시지 정보 추가
         const messageInfo = document.createElement('div');
         messageInfo.className = 'message-info';
 
         const messageTime = document.createElement('div');
         messageTime.className = 'message-time';
         messageTime.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        
+
         const readReceipt = document.createElement('div');
         readReceipt.className = 'read-receipt';
         readReceipt.textContent = '1'; // 읽음 표시 숫자
@@ -246,10 +272,9 @@
         // 시간과 읽음 표시 추가
         messageInfo.appendChild(messageTime);
         messageInfo.appendChild(readReceipt);
-
-        // 메시지 내용 및 읽음 표시 추가
-        messageElement.appendChild(messageInfo); // 시간과 읽음 표시 먼저 추가
-        messageElement.appendChild(messageContent); // 메시지 내용 추가
+        messageElement.appendChild(messageInfo); // 메시지 정보 추가
+     // 메시지 내용 추가
+        messageElement.appendChild(messageContent);
         
         chatBody.appendChild(messageElement);
         
@@ -263,5 +288,7 @@
     }
 </script>
 
+
 </body>
 </html>
+		
