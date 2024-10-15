@@ -38,7 +38,7 @@ public class ReviewWrite extends HttpServlet {
 
 	      
 	      String mv_cd = multi.getParameter("mv_cd");
-	      String user_email = member.getUser_email();
+	      String user_email = multi.getParameter("user_email");
 	      int mv_rating = Integer.parseInt(multi.getParameter("mv_rating"));
 	      String review_content = multi.getParameter("review_content");
 	      String view_dt =  multi.getParameter("view_dt");
@@ -56,6 +56,14 @@ public class ReviewWrite extends HttpServlet {
 	      } else {
 	         System.out.println("리뷰 업로드 실패");
 	      }
+	      
+	      
+	      
+	      
+	      
+	      
 	   }
+	
+		
 
 	}

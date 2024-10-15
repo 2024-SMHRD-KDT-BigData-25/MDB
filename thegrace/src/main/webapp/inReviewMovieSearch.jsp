@@ -91,10 +91,10 @@
 		html += "<tr><th>포스터</th><th>Code</th><th>영화 제목</th></tr>";
 		
 		for(var search of data) {
-	    	html += "<tr >"
+	    	html += "<tr onclick='send("+search.mv_cd+",\""+search.mv_title+"\")'>"
 	    	html += "<td> <img class='poster' src='" +search.mv_poster+"'></td>"	
-	    	html += "<td>" +search.mv_cd+"</td>"	
-	    	html += "<td>" +search.mv_title+"</td>"	
+	    	html += "<td class='mv_cd'>" +search.mv_cd+"</td>"	
+	    	html += "<td class='mv_title'>" +search.mv_title+"</td>"	
 	      	html += "</tr>"
 	    }
 	
@@ -106,19 +106,13 @@
 		
 	};
 	
+	function send(mv_cd,mv_title) {
+		console.log(mv_cd,mv_title);
+		opener.document.getElementById('mv_cd').value = mv_cd;
+		opener.document.getElementById('exampleInputName1').value = mv_title;
+		window.close();
+	}
 
-	// 부모창으로 값 전달하기
-	const childInput = document.getElementById('childInput');
-	const sendParent = document.getElementById('sendParent');
-
-	sendParent.addEventListener('click', () => {
-	// 부모창의 #result ( input 태그 )에
-	// #childInput에 작성된 값 대입
-	opener.document.getElementById('result').value = childInput.value;
-
-	window.close();
-
-});
 	
 	
 	</script>

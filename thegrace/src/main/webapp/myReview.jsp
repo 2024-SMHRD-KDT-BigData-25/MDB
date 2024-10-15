@@ -323,7 +323,6 @@
 			  text-overflow: ellipsis;
 			  white-space: nowrap;
 			  width: 100%;
-
         }
         
     </style>
@@ -331,9 +330,9 @@
 <body>
 
 	<%
-		String user_email = (String) session.getAttribute("user_email");
+		//String user_email = (String) session.getAttribute("user_email");
 		ReviewDAO dao = new ReviewDAO();
-		user_email = "test2";
+		String user_email = "test2";
 		List<ReviewJoinMovie> list = dao.getUserReviewList(user_email); // -> 여기서 getList()는 DAO의 메서드 이름이다
 		System.out.println("리뷰 개수: " + list.size());
 	%>
@@ -358,27 +357,28 @@
                 <div class="card-body">
                 	<div class="x-button"><img src="resources/images/x-button.png" class="modal-close"></div>
                     <p>영화 감상을 남기고 GRAFO에서 그 기록을 공유하세요.<br><br></p>
-                    <form class="forms-sample">
+                    <form class="forms-sample" action="write" method="post" enctype="multipart/form-data">
                         <!-- 영화 코드 입력 -->
                         <div class="form-group">
                             <label for="exampleInputName1"><i class="fas fa-film"></i> 영화코드</label>
-                            <input type="text" class="form-control" id="exampleInputName1" readonly>
+                            <input type="text" class="form-control" id="exampleInputName1" readonly required>
                             <button type="button" class="btn" id="inReviewMovieSearch"><i class="fas fa-search"></i>영화 찾기</button>
                         </div>
-						<input type="text" name="mv_cd"  required hidden>
+
+                            <input type="hidden" class="mv_cd" name="mv_cd" id="mv_cd" required>
                         <!-- 영화 평점 입력 -->
                         <div class="form-group">
                             <label for="exampleInputEmail3"><i class="fas fa-star"></i> 영화평점</label>
                             <div class="rating">
-                                <input type="radio" name="stars" id="star5" value="5">
+                                <input type="radio" name="mv_rating" id="star5" value="5">
                                 <label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
-                                <input type="radio" name="stars" id="star4" value="4">
+                                <input type="radio" name="mv_rating" id="star4" value="4">
                                 <label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
-                                <input type="radio" name="stars" id="star3" value="3">
+                                <input type="radio" name="mv_rating" id="star3" value="3">
                                 <label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
-                                <input type="radio" name="stars" id="star2" value="2">
+                                <input type="radio" name="mv_rating" id="star2" value="2">
                                 <label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
-                                <input type="radio" name="stars" id="star1" value="1">
+                                <input type="radio" name="mv_rating" id="star1" value="1">
                                 <label for="star1" title="1 star"><i class="fas fa-star"></i></label>
                             </div>
                         </div>
@@ -386,21 +386,21 @@
                         <!-- 리뷰 내용 입력 -->
                         <div class="form-group">
                             <label for="exampleTextarea1"><i class="fas fa-comment"></i> 리뷰내용</label>
-                            <textarea class="form-control" id="exampleTextarea1" rows="6" placeholder="리뷰를 작성하세요"></textarea>
+                            <textarea name="review_content" class="form-control" id="exampleTextarea1" rows="6" placeholder="리뷰를 작성하세요" required></textarea>
                         </div>
 
                         <!-- 관람일자 입력 -->
                         <div class="form-group">
                             <label for="watchDate"><i class="fas fa-calendar-alt"></i> 관람일자</label>
-                            <input type="date" class="form-control" id="watchDate">
+                            <input type="date" class="form-control" id="watchDate" name="view_dt">
                         </div>
 
                         <div class="form-group">
                             <label for="openStatus"><i class="fas fa-eye"></i> 공개 여부</label>
                             <div>
-                                <input type="radio" name="openStatus" id="open" value="공개">
+                                <input type="radio" id="open" name="open_yn" value="Y">
                                 <label for="open">공개</label>
-                                <input type="radio" name="openStatus" id="private" value="비공개">
+                                <input type="radio" id="private" name="open_yn" value="N">
                                 <label for="private">비공개</label>
                             </div>
                         </div>
@@ -410,23 +410,24 @@
 						<div class="form-group">
 							<label for="img"><i class="fas fa-upload"></i>이미지</label>
 							<div>
-						        <input type="file" name="img[]" id="fileUpload" class="form-control">
+						        <input type="file" name="review_img" accept="image/*" id="fileUpload" class="form-control">
 						    </div>
 						</div>
 
                         <div class="form-group">
                             <label for="reviewSentiment"><i class="fas fa-smile"></i> 리뷰 감정</label>
                             <div>
-                                <input type="radio" name="sentiment" id="positive" value="긍정">
+                                <input type="radio" id="positive" name="pos_neg" value="P">
                                 <label for="positive">긍정</label>
-                                <input type="radio" name="sentiment" id="negative" value="부정">
+                                <input type="radio" id="negative" name="pos_neg" value="N">
                                 <label for="negative">부정</label>
+                                <input type="hidden" name="user_email" value="<%= user_email %>"> 
                             </div>
                         </div>
 
                         <!-- 버튼 그룹 -->
                         <div class="button-group">
-                            <button type="submit" class="btn btn-primary mr-2"><i class="fas fa-paper-plane"></i>작성</button>
+                            <button type="submit" onclick="submitPost()" class="btn btn-primary mr-2"><i class="fas fa-paper-plane"></i>작성</button>
                             <button type="reset" class="btn btn-light"><i class="fas fa-undo"></i>리셋</button>
                         </div>
                     </form>
@@ -589,6 +590,22 @@
           window.open('inReviewMovieSearch.jsp', '영화 코드 검색', 'width=600, height=500');
         });
 
+        function submitPost() {
+            const title = document.getElementById('postTitle').value;
+            const author = document.getElementById('postAuthor').value;
+            const content = document.getElementById('postContent').value;
+            const image = document.getElementById('postImage').files[0]; // 이미지 파일
+
+            addPost(title, author, content, image);
+
+            // 입력 필드 초기화
+            document.getElementById('postTitle').value = '';
+            document.getElementById('postAuthor').value = '';
+            document.getElementById('postContent').value = '';
+            document.getElementById('postImage').value = ''; // 파일 초기화
+            document.getElementById('imagePreview').src = ''; // 미리보기 초기화
+            document.getElementById('imagePreview').style.display = 'none'; // 미리보기 숨김
+        }
 
         
     </script>
