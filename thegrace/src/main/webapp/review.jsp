@@ -8,13 +8,11 @@
     <meta charset="UTF-8">
     <title>CINEM@GRAFO</title>
     <style>
-.comment-card {
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0;
-    transition: transform 0.2s ease;
-    margin: 20px 0; /* 카드 간격을 20px로 조정 */
-}
-
+        .comment-card {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            transition: transform 0.2s ease;
+        }
         .comment-body {
             display: flex;
         }

@@ -44,5 +44,6 @@ public class RecommendController extends HttpServlet {
 
         // 응답 반환
         response.setStatus(HttpServletResponse.SC_OK);
+        System.out.println("ReviewCd: " + reviewCd + ", UserEmail: " + userEmail);
     }
 }
