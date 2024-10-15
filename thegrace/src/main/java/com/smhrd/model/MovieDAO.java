@@ -159,7 +159,7 @@ public class MovieDAO {
 		int res = sqlSession.insert("MovieMapper.reviewWrite", m);
 		sqlSession.close(); // session의 자원 반환
 		return res;
-		   }
+	}
 	
 	// 3. 리뷰 삭제하기
 	public int reviewDelete(int review_cd) {
@@ -232,6 +232,14 @@ public class MovieDAO {
 		    return movieTitles;
 	}
 	
+	public int chatRoom(ChatRoomInfo m) {
+		// openSession(true) -> 오토커밋 기능 on
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int res = sqlSession.insert("MovieMapper.chatroom", m);
+		sqlSession.close(); // session의 자원 반환
+		return res;
+		   }
+	
 	// 2. 투표 수 확인
 	public List<Integer> getVoteCnt(int week_cd) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -244,17 +252,18 @@ public class MovieDAO {
 		    return voteCounts;
 		}
 		
-		// 투표 기록을 데이터베이스에 삽입하는 메서드
-	    public int insertUserVote(UserVoteInfo voteInfo) {
-	        SqlSession session = sqlSessionFactory.openSession();
-	        int result = 0;
-	        try {
-	            result = session.insert("insertUserVote", voteInfo); // 매퍼의 id인 insertUserVote 호출
-	            session.commit();  // 데이터베이스에 반영
-	        } finally {
-	            session.close();  // 세션 종료
-	        }
-	        return result;  // 삽입된 행의 개수를 반환
+	// 투표 기록을 데이터베이스에 삽입하는 메서드
+	public int insertUserVote(UserVoteInfo voteInfo) {
+	    SqlSession session = sqlSessionFactory.openSession();
+	    int result = 0;
+	    try {
+	        result = session.insert("insertUserVote", voteInfo); // 매퍼의 id인 insertUserVote 호출
+	        session.commit();  // 데이터베이스에 반영
+	    } finally {
+	        session.close();  // 세션 종료
 	    }
+	    return result;  // 삽입된 행의 개수를 반환
+	}
+	    
 
 }
