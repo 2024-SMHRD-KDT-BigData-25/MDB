@@ -71,7 +71,7 @@
             border-radius: 8px; /* 모서리 둥글게 */
         }
         
-        		.like-btn {
+        .like-btn {
 			cursor: pointer;
 			margin-right: 10px;
 		}
@@ -118,7 +118,7 @@
                             	<span class = "like-btn <%= check > 0 ? "active" : "" %>" >
 								   <i class="fas fa-heart"></i>
 								</span> <span style="color:#ffffff;"> like : </span><span id="like-count" style="color:#ffffff;"><%= totalLikes %>  </span>
-                            <button>follow</button>
+                            <button class=""follow-button">follow</button>
                         </div>
                     </div>
                     
@@ -168,6 +168,7 @@
      xhr.send("user_email=" + encodeURIComponent("<%=user_email%>") + "&review_cd=" + encodeURIComponent("<%=review_cd%>") );
  });    
     </script>
+    <script link="resources/js/followbtn.js"></script>
 
 </body>
 </html>
