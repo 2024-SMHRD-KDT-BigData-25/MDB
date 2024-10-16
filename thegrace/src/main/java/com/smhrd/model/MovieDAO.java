@@ -1,5 +1,6 @@
 package com.smhrd.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -215,6 +216,29 @@ public class MovieDAO {
 		sqlSession.close();
 		return res;
 	}
+	
+	// 8. mv_rating 정보 가져오기
+	public int[] starsCount(String user_email) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int star5 = sqlSession.selectOne("MovieMapper.star5", user_email);
+		int star4 = sqlSession.selectOne("MovieMapper.star4", user_email);
+		int star3 = sqlSession.selectOne("MovieMapper.star3", user_email);
+		int star2 = sqlSession.selectOne("MovieMapper.star2", user_email);
+		int star1 = sqlSession.selectOne("MovieMapper.star1", user_email);
+		
+		int[] res = {star1,star2,star3,star4,star5};
+		
+		
+		return res;
+	}
+	
+	// 9. 총 play_time
+		public int myMovieTime(String user_email) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int res = sqlSession.selectOne("MovieMapper.movieTime", user_email);
+
+		return res;
+	}
 
 	// MovieInfo 관련 메서드
 	// 1. 영화 검색하기
@@ -317,6 +341,7 @@ public class MovieDAO {
 	        return (res != null) ? res : 0; // null 체크 후 반환
 	    } // try 블록이 끝나면 자동으로 sqlSession이 닫힘
 	}
-	    
+
+	
 
 }

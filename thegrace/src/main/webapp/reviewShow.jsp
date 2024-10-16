@@ -24,7 +24,7 @@
             border-radius: 8px; /* 모서리 둥글게 */
             padding: 20px; /* 여백 */
             width: 800px !important; /* 전체 너비 */
-            height: 500px !important;
+            height: auto !important;
             max-hight: auto !important;
             max-width: 800px !important; /* 최대 너비 */
             margin: 20px auto; /* 중앙 정렬 */
@@ -71,7 +71,7 @@
             border-radius: 8px; /* 모서리 둥글게 */
         }
         
-        		.like-btn {
+        .like-btn {
 			cursor: pointer;
 			margin-right: 10px;
 		}
@@ -103,7 +103,8 @@
         		 int totalLikes = dao.totallike(review_cd);
         		    ReviewRecmInfo res = new ReviewRecmInfo(review_cd, user_email);
         		    int check = dao.checklike(res);
-        	
+        		    
+        		String followee = review.getUser_email();
         	%>
         
             <div class="content-wrapper" style="padding:60px;">
@@ -111,15 +112,15 @@
                 <div class="container">
                     <div class="header">
                         <div class="profile-img">
-                            <img src="resources/images/<%=member.getPf_img() %>" alt="Profile Image" style="width: 100%; height: 100%; border-radius: 50%;" />
+                            <img src="resources/images/Pf.jpg" alt="Profile Image" style="width: 100%; height: 100%; border-radius: 50%;" />
                         </div>
                         <span class="nick"><%=review.getNick() %></span>
                         <div class="action-buttons">
                             	<span class = "like-btn <%= check > 0 ? "active" : "" %>" >
 								   <i class="fas fa-heart"></i>
 								</span> <span style="color:#ffffff;"> like : </span><span id="like-count" style="color:#ffffff;"><%= totalLikes %>  </span>
-                            <button class="follow-button followBtn" data-followee="\${follower.follower}">Follow</button>
-                            <button class="follow-button unfollowBtn" data-followee="\${follower.follower}" style="display: none;">Following</button>
+                            <button class="follow-button followBtn">Follow</button>
+                            <button class="follow-button unfollowBtn" style="display: none;">Following</button>
                         </div>
                     </div>
                     
@@ -169,6 +170,35 @@
      xhr.send("user_email=" + encodeURIComponent("<%=user_email%>") + "&review_cd=" + encodeURIComponent("<%=review_cd%>") );
  });    
     </script>
+    <script link="resources/js/followbtn.js"></script>
+        	<script>
+	document.addEventListener("DOMContentLoaded", function() {
+        const followBtn = document.querySelector('.followBtn');
+        const unfollowBtn = document.querySelector('.unfollowBtn');
+        const userId = '<%=followee%>'; // 세션에서 userID 가져오기
+
+        // 페이지 로드 시 팔로우 상태 확인 (userId와 각 followee(targetID)로 확인)
+        followBtns.forEach(button => {
+            const followee = button.getAttribute('data-followee');
+            checkFollowStatus(userId, followee, button);  // 팔로우 상태 확인
+        });
+        
+        followBtns.forEach(button => {
+            button.addEventListener('click', function() {
+                const followee = this.getAttribute('data-followee');
+                follow(followee, button);
+            });
+        });
+        
+        unfollowBtns.forEach(button => {
+            button.addEventListener('click', function() {
+                const followee = this.getAttribute('data-followee');
+                unfollow(followee, button);
+            });
+        });
+    });
+	</script>
+	<script src="resources/js/follow.js"></script>
 
 </body>
 </html>

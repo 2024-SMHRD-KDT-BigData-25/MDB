@@ -1,3 +1,5 @@
+<%@page import="com.smhrd.model.ReviewJoinMovie"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -55,6 +57,12 @@
     
       	<%@ include file="sidebar.jsp" %>
       
+      <% 
+      
+      List<ReviewJoinMovie> myReview = dao.getUserReviewList(user_email);
+      int reviewCnt = myReview.size();
+      int movieTime = dao.myMovieTime(user_email);
+      %>
       <!-- partial -->
       <div class="main-panel" >
         <div class="content-wrapper" style="padding:80px;">
@@ -71,8 +79,8 @@
                       <div class="card-body">
                       	<div class="inCardText">
                           	<h1 class="card-title">인생의 얼마만큼 영화를 봤나요?</h1>
-                          	<h3><p>그라포님은 GRAFO의 회원 중<br> 상위 12%에요</p></h3>
-                          	<h4 class="text-dark font-weight-bold mb-2">11,121 분</h4>
+                          	<h3><p><%=member.getNick() %>님은 GRAFO의 회원 중<br> 상위 12%에요</p></h3>
+                          	<h4 class="text-dark font-weight-bold mb-2"><%=movieTime %> 분</h4>
 				         </div>
 				         <div class="movie-graph-container">
 				            <div class="bar" style="height: 70%;"><span>70%</span></div> <!-- 예시 값 -->
@@ -87,8 +95,8 @@
                       <div class="card-body">
                       	<div class="inCardText">
                           <h4 class="card-title">얼마만큼의 감상을 표현했나요?</h4>
-                          <p>그라포 님은 GRAFO 회원 중<br>상위 31% 에요!</p>
-                          <h4 class="text-dark font-weight-bold mb-2">26 개</h4>
+                          <p><%=member.getNick() %> 님은 GRAFO 회원 중<br>상위 31% 에요!</p>
+                          <h4 class="text-dark font-weight-bold mb-2"><%=reviewCnt %> 개</h4>
 						</div>
                           <div class="movie-graph-container2">
 				            <div class="bar2" style="height: 70%;"><span>70%</span></div> <!-- 예시 값 -->
@@ -106,12 +114,12 @@
 			         <title>프로필</title>
 			         <div class="profile-header">
 			            <div class="profile-img">
-			             <img src="path/to/your/image.jpg" alt="프로필 이미지"> <!-- 이미지 경로 설정 -->
+			             <img src="resources/image/<%=member.getPf_img() %>" alt="프로필 이미지"> <!-- 이미지 경로 설정 -->
 			            </div>
 			            <div class="profile-info">
-			                <h4>그라포</h4>
-			                <p>grafo@naver.com</p>
-			                <p>가입일: 2024-05-20</p>
+			                <h4><%=member.getNick() %></h4>
+			                <p><%=user_email %></p>
+			                <p>가입일: <%=member.getJoin_date() %></p>
 			             </div>
 			    		<button class="edit-button">수정</button>
 					</div>
@@ -119,15 +127,15 @@
 			        <div class="profile-stats">
 			            <div class="stat">
 			                <h6>팔로잉</h4>
-			                <a href="following.jsp"><p>7</p></a>
+			                <a href="following.jsp"><p><%=dao.followerCnt(user_email)%></p></a>
 			            </div>
 			            <div class="stat">
 			                <h6>팔로워</h6>
-			                <a href="follower.jsp"><p>12</p></a>
+			                <a href="follower.jsp"><p><%=dao.followeeCnt(user_email) %></p></a>
 			            </div>
 			            <div class="stat">
 			                <h6>받은 추천 수</h6>
-			                <p>21</p>
+			                <p><%=dao.allReviewRecmCnt(user_email) %></p>
 			            </div>
 			        </div>
                   </div>
@@ -138,7 +146,8 @@
             <div class="col-xl-9 grid-margin-lg-0 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                    
+                	<h1 class="card-title text-center">회원님의 최애 장르는?</h1>
+                    <canvas id="myChart" width="100" height="10"></canvas>
                 </div>
               </div>
             </div>
@@ -149,17 +158,8 @@
                       <div>
                           <h4 class="text-dark font-weight-bold mb-2 mr-2">4.3</h4>
                       </div>
-                      <div>
-                        <select id="over-all-rating" name="rating" autocomplete="off">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                      </div>
                     </div>
-                    <p class="mb-4">Based on 186 reviews</p>
+                    <p class="mb-4">Based on <%=reviewCnt%> reviews</p>
                     <div class="row">
                       <div class="col-sm-2 pr-0">
                           <div class="d-flex">
@@ -280,29 +280,6 @@
                           </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <p class="mb-2 mt-3 mb-3 text-dark font-weight-bold">Rating by category</p>
-                        <div class="d-flex">
-                            <div>
-                                <div class="text-dark font-weight-bold mb-2 mr-2">4.3</div>
-                            </div>
-                            <div class="mr-2">
-                              <i class="fa fa-star text-warning"></i>
-                            </div>
-                            <div><p>Work/Management</p></div>
-                          </div>
-                          <div class="d-flex">
-                              <div>
-                                  <div class="text-dark font-weight-bold mb-2 mr-2">3.5</div>
-                              </div>
-                              <div class="mr-2">
-                                <i class="fa fa-star text-warning"></i>
-                              </div>
-                              <div><p>Salary/Culture</p></div>
-                            </div>
-                      </div>
-                    </div>
 
                 </div>
               </div>
@@ -311,6 +288,59 @@
         </div>
        </div>
       </div>
-      </div>  
+      </div>
+      <!-- base:js -->
+	    <script src="resources/vendors/base/vendor.bundle.base.js"></script>
+	    <!-- endinject -->
+	    <!-- Plugin js for this page-->
+	    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	    <!-- inject:js -->
+	    <script src="resources/js/off-canvas.js"></script>
+	    <script src="resources/js/hoverable-collapse.js"></script>
+	    <script src="resources/js/template.js"></script>
+	    <!-- endinject -->
+	    <!-- Custom js for this page-->
+	    <script src="resources/js/dashboard.js"></script>
+      <script>
+      const ctx = document.getElementById('myChart').getContext('2d');
+      const myChart = new Chart(ctx, {
+          type: 'pie', 
+          data: {
+              labels: ["공포(호러)", "멜로/로맨스", "스릴러", "애니메이션", "드라마"],  // 영화 장르 제목
+              datasets: [{
+                  label: '많이 본 장르',
+                  data: [12, 19, 3, 5, 2],  // 각 장르에 대한 투표 수 데이터
+                  backgroundColor: [
+                      'rgba(54, 162, 235, 0.2)',  // 색상 1
+                      'rgba(255, 99, 132, 0.2)',  // 색상 2
+                      'rgba(75, 192, 192, 0.2)',  // 색상 3
+                      'rgba(153, 102, 255, 0.2)', // 색상 4
+                      'rgba(255, 159, 64, 0.2)'   // 색상 5
+                  ],
+                  borderColor: [
+                      'rgba(54, 162, 235, 1)',  // 테두리 색상 1
+                      'rgba(255, 99, 132, 1)',  // 테두리 색상 2
+                      'rgba(75, 192, 192, 1)',  // 테두리 색상 3
+                      'rgba(153, 102, 255, 1)', // 테두리 색상 4
+                      'rgba(255, 159, 64, 1)'   // 테두리 색상 5
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                  legend: {
+                      position: 'top',  // 범례 위치 설정 ('top', 'left', 'right', 'bottom' 중 선택 가능)
+                  },
+                  tooltip: {
+                      enabled: true  // 툴팁을 활성화하여 마우스를 올릴 때 데이터 표시
+                  }
+              }
+          }
+      });
+
+      </script>  
 </body>
 </html>
