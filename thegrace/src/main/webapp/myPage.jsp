@@ -149,15 +149,6 @@
                       <div>
                           <h4 class="text-dark font-weight-bold mb-2 mr-2">4.3</h4>
                       </div>
-                      <div>
-                        <select id="over-all-rating" name="rating" autocomplete="off">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                      </div>
                     </div>
                     <p class="mb-4">Based on 186 reviews</p>
                     <div class="row">
@@ -278,29 +269,6 @@
                               1%
                             </div>
                           </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <p class="mb-2 mt-3 mb-3 text-dark font-weight-bold">Rating by category</p>
-                        <div class="d-flex">
-                            <div>
-                                <div class="text-dark font-weight-bold mb-2 mr-2">4.3</div>
-                            </div>
-                            <div class="mr-2">
-                              <i class="fa fa-star text-warning"></i>
-                            </div>
-                            <div><p>Work/Management</p></div>
-                          </div>
-                          <div class="d-flex">
-                              <div>
-                                  <div class="text-dark font-weight-bold mb-2 mr-2">3.5</div>
-                              </div>
-                              <div class="mr-2">
-                                <i class="fa fa-star text-warning"></i>
-                              </div>
-                              <div><p>Salary/Culture</p></div>
-                            </div>
                       </div>
                     </div>
 
