@@ -453,7 +453,7 @@
 		      <tr>
 		        <td><%=rev.getReview_cd()%></td>		        
 		        <td><%=rev.getMv_title()%></td>		        
-		        <td class="reviewContentInList"><%=rev.getReview_content()%></td>		        		        
+		        <td class="reviewContentInList"><a href="reviewShow.jsp"><%=rev.getReview_content()%></a></td>		        		        
 		        <td><%= rev.getView_dt() %></td>
 		      </tr>
 		    <% } %>
