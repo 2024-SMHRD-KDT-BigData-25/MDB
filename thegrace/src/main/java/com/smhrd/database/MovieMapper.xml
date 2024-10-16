@@ -151,6 +151,7 @@
 	    from user_vote_info
 	    where week_cd = #{week_cd}
 	    group by mv_cd
+	    order by mv_cd asc
 	</select>
 	
 	 <insert id="insertlike" parameterType="com.smhrd.model.ReviewRecmInfo">
