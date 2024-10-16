@@ -453,7 +453,12 @@
 		      <tr>
 		        <td><%=rev.getReview_cd()%></td>		        
 		        <td><%=rev.getMv_title()%></td>		        
-		        <td class="reviewContentInList"><a href="reviewShow.jsp"><%=rev.getReview_content()%></a></td>		        		        
+		        <td class="reviewContentInList">
+		        	<!-- 리뷰 코드(review_cd)를 URL 파라미터로 전달 -->
+			        <a href="reviewShow.jsp?review_cd=<%=rev.getReview_cd()%>">
+			            <%=rev.getReview_content()%>
+			        </a>
+		        </td>		        		        
 		        <td><%= rev.getView_dt() %></td>
 		      </tr>
 		    <% } %>
