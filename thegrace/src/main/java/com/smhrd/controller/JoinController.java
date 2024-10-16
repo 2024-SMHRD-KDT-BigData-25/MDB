@@ -40,10 +40,10 @@ public class JoinController extends HttpServlet {
 		// 회원가입 성공 (res>0) => index.jsp / 실패 => join.html
 		if(res>0) {
 			System.out.println("회원가입 성공");
-			response.sendRedirect("index.html");
+			response.sendRedirect("main.jsp");
 		} else {
 			System.out.println("회원가입 실패");
-			response.sendRedirect("join.html");
+			response.sendRedirect("join.jsp");
 		}
 	}
 }

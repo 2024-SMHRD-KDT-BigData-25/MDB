@@ -5,18 +5,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>CINEM@GRAFO</title>
+   <meta charset="UTF-8">
+   <title>CINEM@GRAFO</title>
 </head>
 <body>
-		<%
-	UserInfo member_side = (UserInfo)session.getAttribute("member");
-	
-	String user_email_side = member_side.getUser_email();
-	MovieDAO dao_side = new MovieDAO();
-	%>
+      <%
+   UserInfo member_side = (UserInfo)session.getAttribute("member");
+   
+   String user_email_side = member_side.getUser_email();
+   MovieDAO dao_side = new MovieDAO();
+   %>
 
-	<!-- partial:partials/_sidebar.html -->
+   <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar"> <!-- 사이드바 영역 -->
         <div class="user-profile">
           <div class="user-image">

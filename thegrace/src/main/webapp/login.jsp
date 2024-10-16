@@ -116,7 +116,7 @@
                 <img src="resources/images/logo_black.png" alt="logo">
               </div>
               <br><br><br><br><br>
-              <form class="pt-3" action="Login">
+              <form class="pt-3" action="Login" method="post">
                 <div class="form-group">
                   <label for="exampleInputEmail">USER EMAIL</label>
                   <div class="input-group">

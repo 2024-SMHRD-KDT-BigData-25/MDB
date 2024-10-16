@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CINEM@GRAFO</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -103,7 +104,8 @@
         		 int totalLikes = dao.totallike(review_cd);
         		    ReviewRecmInfo res = new ReviewRecmInfo(review_cd, user_email);
         		    int check = dao.checklike(res);
-        	
+        		
+        		    String followee = review.getUser_email();
         	%>
         
             <div class="content-wrapper" style="padding:60px;">
@@ -118,7 +120,8 @@
                             	<span class = "like-btn <%= check > 0 ? "active" : "" %>" >
 								   <i class="fas fa-heart"></i>
 								</span> <span style="color:#ffffff;"> like : </span><span id="like-count" style="color:#ffffff;"><%= totalLikes %>  </span>
-                            <button class=""follow-button">follow</button>
+                            <button class="follow-button followBtn">Follow</button>
+                            <button class="follow-button unfollowBtn" style="display: none;">Following</button>
                         </div>
                     </div>
                     
@@ -168,7 +171,32 @@
      xhr.send("user_email=" + encodeURIComponent("<%=user_email%>") + "&review_cd=" + encodeURIComponent("<%=review_cd%>") );
  });    
     </script>
-    <script link="resources/js/followbtn.js"></script>
+    <script>
+	document.addEventListener("DOMContentLoaded", function() {
+		const followBtn = document.querySelector('.followBtn'); // Follow 버튼 선택
+		const unfollowBtn = document.querySelector('.unfollowBtn'); // Unfollow 버튼 선택
+        const userId = '<%=user_email%>'; // 세션에서 userID 가져오기
+        const followee = '<%=followee%>'; // 세션에서 리뷰 쓴 사람 아이디 가져오기
+        
+        // 페이지 로드 시 팔로우 상태 확인 (userId와 각 followee(targetID)로 확인)
+        if (followBtn) {
+            checkFollowStatus(userId, followee, followBtn);  // 팔로우 상태 확인
+        }
+        
+        if (followBtn) {
+        	followBtn.addEventListener('click', function() {
+                follow(followee, followBtn); // Follow 함수 호출
+            });
+        }
+
+        if (unfollowBtn) {
+        	unfollowBtn.addEventListener('click', function() {
+                unfollow(followee, unfollowBtn); // Unfollow 함수 호출
+            });
+        }
+    });
+	</script>
+	<script src="resources/js/follow.js"></script>
 
 </body>
 </html>

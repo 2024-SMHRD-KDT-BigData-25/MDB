@@ -46,6 +46,8 @@ function handleError(jqXHR) {
 // 팔로우 상태를 확인하는 함수
 function checkFollowStatus(userId, targetId, button) {
     // AJAX 요청을 통해 서버에서 팔로우 상태를 받아옵니다.
+	console.log(userId)
+	console.log(targetId)
     $.ajax({
         url: '/thegrace/followStatus',  // 서버의 팔로우 상태 확인 API
         type: 'post',
@@ -66,26 +68,20 @@ function checkFollowStatus(userId, targetId, button) {
 
 // 팔로우 상태에 따른 처리 함수
 function handleFollowStatus(status, button) {
-	const followBtn = button;
-	const unfollowBtn = followBtn.nextElementSibling;
 	
     switch (status) {
         case 'following':
-			followBtn.style.display = 'none';
-			unfollowBtn.style.display = 'inline-block';
+			$(button).hide(); // follow 버튼 숨김
+			$(button).siblings('.unfollowBtn').show(); // unfollow 버튼 표시
             // 여기서 UI 업데이트 등을 처리
             break;
         case 'follower':
-			followBtn.style.display = 'inline-block';
-			unfollowBtn.style.display = 'none';
             break;
         case 'F4F':
-			followBtn.style.display = 'none';
-			unfollowBtn.style.display = 'inline-block';
+			$(button).hide(); // follow 버튼 숨김
+			$(button).siblings('.unfollowBtn').show(); // unfollow 버튼 표시
             break;
         case 'none':
-			followBtn.style.display = 'inline-block';
-			unfollowBtn.style.display = 'none';
             break;
         default:
             console.log("Unknown follow status.");

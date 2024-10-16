@@ -55,13 +55,37 @@
             height: 100%; /* 이미지 높이 100% */
             object-fit: cover; /* 이미지 비율 유지 */
         }
-        .follow-button {
+        .followBtn {
             margin-left: auto; /* 오른쪽으로 정렬 */
-            background-color: #4CAF50; /* 버튼 색상 */
-            color: white; /* 버튼 텍스트 색상 */
-            border: none; /* 테두리 제거 */
-            border-radius: 5px; /* 모서리 둥글게 */
-            padding: 6px 10px; /* 패딩 */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: #ffffff;
+            color: black;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+		}
+		.unfollowBtn {
+            margin-left: auto; /* 오른쪽으로 정렬 */
+		    padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: #2f2f2f; 
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+		}
+        .followBtn:hover {
+            background-color: #1f1f1f; /* 일반 hover 상태 */
+        }
+
+        .unfollowBtn:hover {
+            background-color: red; /* Following 상태의 hover 색상 */
+        }
+
+		
             
     </style>
 </head>
@@ -125,19 +149,21 @@
                 // follower 정보를 사용하여 HTML을 생성
                 let listHtml = `
                     <div class="profile-img">
-                        <img src="/resources/images/\${follower.pf_img}" alt="프로필 사진">
+                        <img src="resources/images/\${follower.pf_img}" alt="프로필 사진">
                     </div>
                     <div>
                         <strong>\${follower.nick}</strong><br>
                         <span>\${follower.follower}</span>
                     </div>
-                    <button class="follow-button followBtn" data-followee="\${follower.follower}" style="display:none;">Follow</button>
-        			<button class="follow-button unfollowBtn" data-followee="\${follower.follower}">Unfollow</button>
+                    <button class="follow-button followBtn" data-followee="\${follower.follower}">Follow</button>
+        			<button class="follow-button unfollowBtn" data-followee="\${follower.follower}" style="display: none;">Following</button>
                 `;
 	
                 followingItem.innerHTML = listHtml;
                 
                 followingList.appendChild(followingItem); // 항목 추가
+                
+             // 팔로우 상태를 확인하고 버튼 초기화
                 itemCount++; // 항목 수 증가
             }
          
@@ -164,7 +190,34 @@
         // 스크롤 이벤트 리스너 추가
         window.addEventListener('scroll', handleScroll);
     </script>
-    <script src="resources/js/follow.js"></script>
+    	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+        const followBtns = document.querySelectorAll('.followBtn');
+        const unfollowBtns = document.querySelectorAll('.unfollowBtn');
+        const userId = '<%=followee%>'; // 세션에서 userID 가져오기
+
+        // 페이지 로드 시 팔로우 상태 확인 (userId와 각 followee(targetID)로 확인)
+        followBtns.forEach(button => {
+            const followee = button.getAttribute('data-followee');
+            checkFollowStatus(userId, followee, button);  // 팔로우 상태 확인
+        });
+        
+        followBtns.forEach(button => {
+            button.addEventListener('click', function() {
+                const followee = this.getAttribute('data-followee');
+                follow(followee, button);
+            });
+        });
+        
+        unfollowBtns.forEach(button => {
+            button.addEventListener('click', function() {
+                const followee = this.getAttribute('data-followee');
+                unfollow(followee, button);
+            });
+        });
+    });
+	</script>
+	<script src="resources/js/follow.js"></script>
 
 
 </body>

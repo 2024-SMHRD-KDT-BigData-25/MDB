@@ -47,7 +47,7 @@
                 <td>
                     <button class="followBtn" data-followee="<%=u.getUser_email()%>">Follow</button>
                     <button class="unfollowBtn" data-followee="<%=u.getUser_email()%>" style="display:none;">Unfollow</button>
-                    <button class="chat" data-followee="<%=u.getUser_email()%>" onclick="window.open('chat.jsp/<%=u.getUser_email()%>', '채팅방')">채팅하기</button>
+                    <button class="chat" data-followee="<%=u.getUser_email()%>" onclick="window.open('chat3.jsp', '채팅방')">채팅하기</button>
                 </td>
             </tr>
         <% } %>
@@ -70,32 +70,6 @@
     </table>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="follow.js"></script>
-    <script>
-	    document.addEventListener("DOMContentLoaded", function() {
-	        const followBtns = document.querySelectorAll('.followBtn');
-	        const unfollowBtns = document.querySelectorAll('.unfollowBtn');
-            const userId = '<%= user_email %>'; // 세션에서 userID 가져오기
 
-            // 페이지 로드 시 팔로우 상태 확인 (userId와 각 followee(targetID)로 확인)
-            followBtns.forEach(button => {
-                const followee = button.getAttribute('data-followee');
-                checkFollowStatus(userId, followee, button);  // 팔로우 상태 확인
-            });
-	        
-	        followBtns.forEach(button => {
-	            button.addEventListener('click', function() {
-	                const followee = this.getAttribute('data-followee');
-	                follow(followee, button);
-	            });
-	        });
-	        
-	        unfollowBtns.forEach(button => {
-	            button.addEventListener('click', function() {
-	                const followee = this.getAttribute('data-followee');
-	                unfollow(followee, button);
-	            });
-	        });
-	    });
-    </script>
 </body>
 </html>

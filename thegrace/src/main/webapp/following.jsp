@@ -55,18 +55,45 @@
             height: 100%; /* 이미지 높이 100% */
             object-fit: cover; /* 이미지 비율 유지 */
         }
-        .follow-button {
+        .followBtn {
             margin-left: auto; /* 오른쪽으로 정렬 */
-            background-color: #4CAF50; /* 버튼 색상 */
-            color: white; /* 버튼 텍스트 색상 */
-            border: none; /* 테두리 제거 */
-            border-radius: 5px; /* 모서리 둥글게 */
-            padding: 6px 10px; /* 패딩 */
-            cursor: pointer; /* 커서 모양 변경 */
-            transition: background-color 0.3s; /* 부드러운 전환 */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: #ffffff;
+            color: black;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+		}
+        .followBtn {
+            margin-left: auto; /* 오른쪽으로 정렬 */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: #ffffff;
+            color: black;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+		}
+		.unfollowBtn {
+            margin-left: auto; /* 오른쪽으로 정렬 */
+		    padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: #2f2f2f; 
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+		}
+        .followBtn:hover {
+            background-color: #1f1f1f; /* 일반 hover 상태 */
         }
-        .follow-button:hover {
-            background-color: red; /* 호버 시 빨간색으로 변경 */
+
+        .unfollowBtn:hover {
+            background-color: red; /* Following 상태의 hover 색상 */
         }
     </style>
 </head>
@@ -100,7 +127,6 @@
 	List<FollowPf> followeeList = dao.getFollowee(follower);
 	
 	String jsonFolloweeList = new Gson().toJson(followeeList);
-	System.out.println(jsonFolloweeList);
 	%>
 
         
@@ -132,7 +158,7 @@
                 // follower 정보를 사용하여 HTML을 생성
                 let listHtml = `
                     <div class="profile-img">
-                        <img src="/resources/images/\${followee.pf_img}" alt="프로필 사진">
+                        <img src="resources/images/\${followee.pf_img}" alt="프로필 사진">
                     </div>
                     <div>
                         <strong>\${followee.nick}</strong><br>
@@ -170,7 +196,61 @@
         // 스크롤 이벤트 리스너 추가
         window.addEventListener('scroll', handleScroll);
     </script>
-    <script src="resources/js/follow.js"></script>
+    
+    	<script>
+	document.addEventListener("DOMContentLoaded", function() {
+        const followBtns = document.querySelectorAll('.followBtn');
+        const unfollowBtns = document.querySelectorAll('.unfollowBtn');
+        const userId = '<%=follower%>'; // 세션에서 userID 가져오기
 
+        // 페이지 로드 시 팔로우 상태 확인 (userId와 각 followee(targetID)로 확인)
+        followBtns.forEach(button => {
+            const followee = button.getAttribute('data-followee');
+            console.log(followee)
+            checkFollowStatus(userId, followee, button);  // 팔로우 상태 확인
+        });
+        
+        followBtns.forEach(button => {
+            button.addEventListener('click', function() {
+                const followee = this.getAttribute('data-followee');
+                follow(followee, button);
+            });
+        });
+        
+        unfollowBtns.forEach(button => {
+            button.addEventListener('click', function() {
+                const followee = this.getAttribute('data-followee');
+                unfollow(followee, button);
+            });
+        });
+    });
+	</script>
+		document.addEventListener("DOMContentLoaded", function() {
+        const followBtns = document.querySelectorAll('.followBtn');
+        const unfollowBtns = document.querySelectorAll('.unfollowBtn');
+        const userId = '<%=follower%>'; // 세션에서 userID 가져오기
+
+        // 페이지 로드 시 팔로우 상태 확인 (userId와 각 followee(targetID)로 확인)
+        followBtns.forEach(button => {
+            const followee = button.getAttribute('data-followee');
+            checkFollowStatus(userId, followee, button);  // 팔로우 상태 확인
+        });
+        
+        followBtns.forEach(button => {
+            button.addEventListener('click', function() {
+                const followee = this.getAttribute('data-followee');
+                follow(followee, button);
+            });
+        });
+        
+        unfollowBtns.forEach(button => {
+            button.addEventListener('click', function() {
+                const followee = this.getAttribute('data-followee');
+                unfollow(followee, button);
+            });
+        });
+    });
+	</script>
+	<script src="resources/js/follow.js"></script>
 </body>
 </html>

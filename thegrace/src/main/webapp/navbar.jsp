@@ -200,10 +200,11 @@
 	
 	<%
 	UserInfo member = (UserInfo)session.getAttribute("member");
-	session.setMaxInactiveInterval(60*60); 
 	String user_email = member.getUser_email();
 	MovieDAO dao = new MovieDAO();
 	member = dao.userLoad(user_email);
+	session.setAttribute("member", member);
+	session.setMaxInactiveInterval(60*60); 
 	%>
 	    <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"> <!-- 상단바 -->
