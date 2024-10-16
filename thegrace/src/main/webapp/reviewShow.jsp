@@ -157,9 +157,9 @@
 
  	            // 버튼 텍스트 변경
  	            if (isActive) {
- 	                this.classList.add('on'); // 좋아요 추가 시 'on' 클래스 추가
+ 	                this.classList.add('active'); // 좋아요 추가 시 'on' 클래스 추가
  	            } else {
- 	                this.classList.remove('on'); // 좋아요 제거 시 'on' 클래스 제거
+ 	                this.classList.remove('active'); // 좋아요 제거 시 'on' 클래스 제거
  	            } 
          } else {
              console.log("요청에 실패했습니다.");

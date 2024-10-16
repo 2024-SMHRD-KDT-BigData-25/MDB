@@ -341,6 +341,38 @@ public class MovieDAO {
 	        return (res != null) ? res : 0; // null 체크 후 반환
 	    } // try 블록이 끝나면 자동으로 sqlSession이 닫힘
 	}
+	
+	//시각화
+	
+	public List<ChartGenre> myGenreTop (String user_email) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		ChartGenre none = new ChartGenre("none", 0);
+		ChartGenre genre1 = sqlSession.selectOne("MovieMapper.genre1", user_email);
+			if (genre1 == null) {
+				genre1 = none;
+			}
+		ChartGenre genre2 = sqlSession.selectOne("MovieMapper.genre2", user_email);
+		if (genre2 == null) {
+			genre2 = none;
+		}
+		ChartGenre genre3 = sqlSession.selectOne("MovieMapper.genre3", user_email);
+		if (genre3 == null) {
+			genre3 = none;
+		}
+		ChartGenre genre4 = sqlSession.selectOne("MovieMapper.genre4", user_email);
+		if (genre4 == null) {
+			genre4 = none;
+		}
+		ChartGenre genre5= sqlSession.selectOne("MovieMapper.genre5", user_email);
+		if (genre5 == null) {
+			genre5 = none;
+		}
+		
+		
+		List<ChartGenre> res =  Arrays.asList(genre1,genre2,genre3,genre4,genre5);
+		
+		return res;
+	}
 
 	
 

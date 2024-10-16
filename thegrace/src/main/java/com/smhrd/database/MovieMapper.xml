@@ -198,4 +198,66 @@
  	</select>
 	
 	
+	 <select id="genre1" parameterType="String" resultType="com.smhrd.model.ChartGenre">
+ 		 		select mv_genre, cnt
+from (select mv_genre,cnt , rownum as rm
+        from(select mv_genre, count(*) as cnt
+                from review_info a, movie_info b
+                where (a.mv_cd = b.mv_cd)
+                and a.user_email=#{user_email}
+                group by mv_genre
+                order by count(*) desc))
+where rm=1
+ 	</select>
+ 	
+ 	<select id="genre2" parameterType="String" resultType="com.smhrd.model.ChartGenre">
+ 		select mv_genre, cnt
+from (select mv_genre,cnt , rownum as rm
+        from(select mv_genre, count(*) as cnt
+                from review_info a, movie_info b
+                where (a.mv_cd = b.mv_cd)
+                and a.user_email=#{user_email}
+                group by mv_genre
+                order by count(*) desc))
+where rm=2
+ 	</select>
+ 	
+ 	<select id="genre3" parameterType="String" resultType="com.smhrd.model.ChartGenre">
+ 		 		select mv_genre, cnt
+from (select mv_genre,cnt , rownum as rm
+        from(select mv_genre, count(*) as cnt
+                from review_info a, movie_info b
+                where (a.mv_cd = b.mv_cd)
+                and a.user_email=#{user_email}
+                group by mv_genre
+                order by count(*) desc))
+where rm=3
+ 	</select>
+ 	
+ 	<select id="genre4" parameterType="String" resultType="com.smhrd.model.ChartGenre">
+ 		 		select mv_genre, cnt
+from (select mv_genre,cnt , rownum as rm
+        from(select mv_genre, count(*) as cnt
+                from review_info a, movie_info b
+                where (a.mv_cd = b.mv_cd)
+                and a.user_email=#{user_email}
+                group by mv_genre
+                order by count(*) desc))
+where rm=4
+ 	</select>
+ 	
+ 	<select id="genre5" parameterType="String" resultType="com.smhrd.model.ChartGenre">
+ 		 		select mv_genre, cnt
+from (select mv_genre,cnt , rownum as rm
+        from(select mv_genre, count(*) as cnt
+                from review_info a, movie_info b
+                where (a.mv_cd = b.mv_cd)
+                and a.user_email=#{user_email}
+                group by mv_genre
+                order by count(*) desc))
+where rm=5
+ 	</select>
+	
+	
+	
 </mapper>
