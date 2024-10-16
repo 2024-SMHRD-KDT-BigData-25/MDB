@@ -296,10 +296,8 @@ p {
 			    <div class="review-header">
 			        <img src="resources/images/faces/face1.jpg" alt="Profile Image">
 			        <span class="review-title"><%=reviewbyMv_cd.getNick() %></span>
-			        <div class="buttons">
-			            <span style="color: black; cursor: pointer;" onclick="handleLike(<%=reviewbyMv_cd.getReview_cd()%>)">
-			                <i class="fas fa-heart"></i>
-			            </span>
+			        <div>
+			            
 			        </div>
 			    </div>
 			    <a href="reviewShow.jsp?review_cd=<%=reviewbyMv_cd.getReview_cd()%>"><p><%=reviewbyMv_cd.getReview_content() %></p></a>
@@ -315,14 +313,7 @@ p {
 			</div>
 	<% } %>
 </div>
-<script>
-    function handleLike(mv_cd) {
-        // 여기에서 좋아요 로직을 구현할 수 있습니다.
-        alert("You liked this review!");
-        // 예를 들어, 색상을 변경할 수도 있습니다.
-        element.querySelector('i').style.color = 'red'; // 하트를 빨간색으로 변경
-    }
-</script>
+
 
 
 </div>

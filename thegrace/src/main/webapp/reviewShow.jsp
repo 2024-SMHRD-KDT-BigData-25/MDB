@@ -71,7 +71,7 @@
             border-radius: 8px; /* 모서리 둥글게 */
         }
         
-        		.like-btn {
+        .like-btn {
 			cursor: pointer;
 			margin-right: 10px;
 		}
@@ -111,14 +111,14 @@
                 <div class="container">
                     <div class="header">
                         <div class="profile-img">
-                            <img src="resources/images/<%=member.getPf_img() %>" alt="Profile Image" style="width: 100%; height: 100%; border-radius: 50%;" />
+                            <img src="resources/images/Pf.jpg" alt="Profile Image" style="width: 100%; height: 100%; border-radius: 50%;" />
                         </div>
                         <span class="nick"><%=review.getNick() %></span>
                         <div class="action-buttons">
                             	<span class = "like-btn <%= check > 0 ? "active" : "" %>" >
 								   <i class="fas fa-heart"></i>
 								</span> <span style="color:#ffffff;"> like : </span><span id="like-count" style="color:#ffffff;"><%= totalLikes %>  </span>
-                            <button>follow</button>
+                            <button class=""follow-button">follow</button>
                         </div>
                     </div>
                     
@@ -168,6 +168,7 @@
      xhr.send("user_email=" + encodeURIComponent("<%=user_email%>") + "&review_cd=" + encodeURIComponent("<%=review_cd%>") );
  });    
     </script>
+    <script link="resources/js/followbtn.js"></script>
 
 </body>
 </html>

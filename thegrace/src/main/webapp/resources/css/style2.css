@@ -271,3 +271,32 @@
 			margin-bottom:10px;
 
 		}
+		
+		
+/* 추가 버튼 - 지원님 작업*/
+
+
+        .follow-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: #ffffff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .follow-button.following {
+            background-color: #2f2f2f; /* Following 상태의 배경색 */
+        }
+
+        .follow-button:hover {
+            background-color: #1f1f1f; /* 일반 hover 상태 */
+        }
+
+        .follow-button.following:hover {
+            background-color: red; /* Following 상태의 hover 색상 */
+        }
+	
+	
