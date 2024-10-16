@@ -1,3 +1,5 @@
+<%@page import="com.smhrd.model.ReviewJoinMovie"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -55,6 +57,11 @@
     
       	<%@ include file="sidebar.jsp" %>
       
+      <% 
+      
+      List<ReviewJoinMovie> myReview = dao.getUserReviewList(user_email);
+      int reviewCnt = myReview.size();
+      %>
       <!-- partial -->
       <div class="main-panel" >
         <div class="content-wrapper" style="padding:80px;">
@@ -71,7 +78,7 @@
                       <div class="card-body">
                       	<div class="inCardText">
                           	<h1 class="card-title">인생의 얼마만큼 영화를 봤나요?</h1>
-                          	<h3><p>그라포님은 GRAFO의 회원 중<br> 상위 12%에요</p></h3>
+                          	<h3><p><%=member.getNick() %>님은 GRAFO의 회원 중<br> 상위 12%에요</p></h3>
                           	<h4 class="text-dark font-weight-bold mb-2">11,121 분</h4>
 				         </div>
 				         <div class="movie-graph-container">
@@ -87,8 +94,8 @@
                       <div class="card-body">
                       	<div class="inCardText">
                           <h4 class="card-title">얼마만큼의 감상을 표현했나요?</h4>
-                          <p>그라포 님은 GRAFO 회원 중<br>상위 31% 에요!</p>
-                          <h4 class="text-dark font-weight-bold mb-2">26 개</h4>
+                          <p><%=member.getNick() %> 님은 GRAFO 회원 중<br>상위 31% 에요!</p>
+                          <h4 class="text-dark font-weight-bold mb-2"><%=reviewCnt %> 개</h4>
 						</div>
                           <div class="movie-graph-container2">
 				            <div class="bar2" style="height: 70%;"><span>70%</span></div> <!-- 예시 값 -->

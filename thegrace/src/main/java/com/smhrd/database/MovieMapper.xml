@@ -189,6 +189,13 @@
  	<select id="star1" parameterType="String" resultType="int">
  		select count(*) from review_info where user_email=#{user_email} and mv_rating=1;
  	</select>
+ 	
+ 	<select id="movieTime" parameterType="String" resultType="int">
+ 		select sum(b.play_time)
+			from review_info a, movie_info b
+			where (a.mv_cd = b.mv_cd)
+			and user_email=#{user_email};
+ 	</select>
 	
 	
 </mapper>

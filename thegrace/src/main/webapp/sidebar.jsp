@@ -20,7 +20,7 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar"> <!-- 사이드바 영역 -->
         <div class="user-profile">
           <div class="user-image">
-            <img src="resources/images/<%=member_side.getPf_img() %>">
+            <img src="<%=member_side.getPf_img() %>">
           </div>
           <div class="user-name">
               <%=member_side.getNick() %>
