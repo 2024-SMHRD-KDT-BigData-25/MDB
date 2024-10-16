@@ -170,7 +170,25 @@
  		select count(*) as review_cd from review_recm_info where review_cd=#{review_cd}
  	</select>	
  	
+ 	<select id="star5" parameterType="String" resultType="int">
+ 		select count(*) from review_info where user_email=#{user_email} and mv_rating=5;
+ 	</select>
  	
+ 	<select id="star4" parameterType="String" resultType="int">
+ 		select count(*) from review_info where user_email=#{user_email} and mv_rating=4;
+ 	</select>
+ 	
+ 	<select id="star3" parameterType="String" resultType="int">
+ 		select count(*) from review_info where user_email=#{user_email} and mv_rating=3;
+ 	</select>
+ 	
+ 	<select id="star2" parameterType="String" resultType="int">
+ 		select count(*) from review_info where user_email=#{user_email} and mv_rating=2;
+ 	</select>
+ 	
+ 	<select id="star1" parameterType="String" resultType="int">
+ 		select count(*) from review_info where user_email=#{user_email} and mv_rating=1;
+ 	</select>
 	
 	
 </mapper>

@@ -375,7 +375,9 @@ p {
             String randomNick1 = randomUser1.getNick();
             String randomNick2 = randomUser2.getNick();
             String randomNick3 = randomUser3.getNick();
-          	   
+          	
+            String memberNick = member.getNick(); // 현재 로그인한 사용자의 닉네임
+            
           	List<RevMvTitle> ReviewList1 = dao.followeeReviewList(randomUser1.getUser_email());
           	 
           	String mv_poster1 = "";
@@ -419,6 +421,7 @@ p {
                 %>
  			<div class="reviews-section">
                 <h4><%=member.getNick() %>님이 최근 본 영화들, 다른 사람들은 어떻게 봤을까요?</h4>
+                <% if (!randomNick1.equals(memberNick)) { %>
                  <div class="review-card">
                   <div class="review-header">
                     <img src="resources/images/청년경찰.jpg" alt="Profile Image">
@@ -430,6 +433,8 @@ p {
                     <img src="<%=mv_poster1%>"  alt="Movie Poster" style="width:100px;">
                   <a href="reviewShow.jsp?review_cd=<%=ReviewList1.get(0).getReview_cd()%>"><p><%=review_content1%></p></a>
                 </div>
+                <% } %>
+                <% if (!randomNick2.equals(memberNick)) { %>
               	<div class="review-card">
                   <div class="review-header">
                     <img src="resources/images/청년경찰.jpg" alt="Profile Image">
@@ -441,6 +446,8 @@ p {
                   <img src="<%=mv_poster2%>" alt="Movie Poster" style="width:100px;">
                   <a href="reviewShow.jsp?review_cd=<%=ReviewList2.get(0).getReview_cd()%>"><p><%=review_content2%></p></a>
                 </div>
+                <% } %>
+                <% if (!randomNick3.equals(memberNick)) { %>
                <div class="review-card">
                   <div class="review-header">
                     <img src="resources/images/청년경찰.jpg" alt="Profile Image">
@@ -452,6 +459,7 @@ p {
                   <img src="<%=mv_poster3%>" alt="Movie Poster" style="width:100px;">
                   <a href="reviewShow.jsp?review_cd=<%=ReviewList3.get(0).getReview_cd()%>"><p><%=review_content3%></p></a>
                 </div>
+                <% } %>
             <%} 
           }
       }

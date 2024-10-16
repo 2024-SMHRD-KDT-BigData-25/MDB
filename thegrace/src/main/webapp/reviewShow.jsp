@@ -24,7 +24,7 @@
             border-radius: 8px; /* 모서리 둥글게 */
             padding: 20px; /* 여백 */
             width: 800px !important; /* 전체 너비 */
-            height: 500px !important;
+            height: auto !important;
             max-hight: auto !important;
             max-width: 800px !important; /* 최대 너비 */
             margin: 20px auto; /* 중앙 정렬 */
