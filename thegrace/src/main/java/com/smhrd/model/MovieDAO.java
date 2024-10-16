@@ -231,6 +231,14 @@ public class MovieDAO {
 		
 		return res;
 	}
+	
+	// 9. 총 play_time
+		public int myMovieTime(String user_email) {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		int res = sqlSession.selectOne("MovieMapper.movieTime", user_email);
+
+		return res;
+	}
 
 	// MovieInfo 관련 메서드
 	// 1. 영화 검색하기
