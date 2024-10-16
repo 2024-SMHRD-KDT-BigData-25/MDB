@@ -194,7 +194,7 @@
  		select sum(b.play_time)
 			from review_info a, movie_info b
 			where (a.mv_cd = b.mv_cd)
-			and user_email=#{user_email};
+			and user_email=#{user_email}
  	</select>
 	
 	
