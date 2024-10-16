@@ -256,13 +256,12 @@ p {
 		                  <div class="review-header">
 		                    <img src=<%=followeeList.get(0).getPf_img()  %> alt="Profile Image">
 		                    <span class="review-title"><%=followeeList.get(0).getNick() %></span>
-		                    <div class="buttons">
-		                      <button class="btn">추천</button>
+		                    <div class="buttons"> 
 		                    </div>
 		                  </div>
 		                  <h5><%=reviewMvList.get(0).getMv_title() %></h5>
 		                   <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
-		                  <p><%=reviewMvList.get(0).getReview_content()%></p>
+		                  <a href="reviewShow.jsp?review_cd=<%=reviewMvList.get(0).getReview_cd()%>"><p><%=reviewMvList.get(0).getReview_content()%></p></a>
 	                </div>
                 </div>
                 <div class="review-card">
@@ -270,12 +269,11 @@ p {
 	                    <img src=<%=followeeList.get(1).getPf_img() %> alt="Profile Image">
 	                    <span class="review-title"><%=followeeList.get(1).getNick() %></span>
 	                    <div class="buttons">
-	                      <button class="btn">추천</button>
 	                    </div>
 	                  </div>
 	                  <h5><%=reviewMvList2.get(0).getMv_title() %></h5>
 	                   <img src=<%=reviewMvList2.get(0).getMv_poster() %> alt="Movie Poster" style="width:100px;">
-	                  <p><%=reviewMvList2.get(0).getReview_content()%></p>
+	                  <a href="reviewShow.jsp?review_cd=<%=reviewMvList2.get(0).getReview_cd()%>"><p><%=reviewMvList2.get(0).getReview_content()%></p></a>
                 </div>
                 
                 <div class="review-card">
@@ -283,12 +281,11 @@ p {
 	                    <img src=<%=followeeList.get(2).getPf_img() %> alt="Profile Image">
 	                    <span class="review-title"><%=followeeList.get(2).getNick() %></span>
 	                    <div class="buttons">
-	                      <button class="btn">추천</button>
 	                    </div>
 	                  </div>
 	                  <h5><%=reviewMvList3.get(0).getMv_title() %></h5>
 	                <img src=<%=reviewMvList3.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
-	                  <p><%=reviewMvList3.get(0).getReview_content()%></p>
+	                  <a href="reviewShow.jsp?review_cd=<%=reviewMvList3.get(0).getReview_cd()%>"><p><%=reviewMvList3.get(0).getReview_content()%></p></a>
 	                </div>
               </div>
               
@@ -304,7 +301,6 @@ p {
                     <img src=<%=followeeList.get(0).getPf_img()  %> alt="Profile Image">
                     <span class="review-title"><%=followeeList.get(0).getNick() %></span>
                     <div class="buttons">
-                      <button class="btn">추천</button>
                     </div>
                   </div>
                   <h5><%=reviewMvList.get(0).getMv_title() %></h5>
@@ -317,7 +313,6 @@ p {
                     <img src=<%=followeeList.get(1).getPf_img() %> alt="Profile Image">
                     <span class="review-title"><%=followeeList.get(1).getNick() %></span>
                     <div class="buttons">
-                      <button class="btn">추천</button>
                     </div>
                   </div>
                   <h5><%=reviewMvList2.get(0).getMv_title() %></h5>
@@ -336,7 +331,6 @@ p {
                     <img src=<%=followeeList.get(0).getPf_img()  %> alt="Profile Image">
                     <span class="review-title"><%=followeeList.get(0).getNick() %></span>
                     <div class="buttons">
-                      <button class="btn">추천</button>
                     </div>
                   </div>
                   <h5><%=reviewMvList.get(0).getMv_title() %></h5>
@@ -430,39 +424,33 @@ p {
                     <img src="resources/images/청년경찰.jpg" alt="Profile Image">
                     <span class="review-title"><%= randomNick1 %></span>
                     <div class="buttons">
-                      <button class="btn">추천</button>
-                      <button class="btn follow">Follow</button>
                     </div>
                   </div>
                   <h5><%=mv_title1%></h5>
                     <img src="<%=mv_poster1%>"  alt="Movie Poster" style="width:100px;">
-                  <p><%=review_content1%></p>
+                  <a href="reviewShow.jsp?review_cd=<%=ReviewList1.get(0).getReview_cd()%>"><p><%=review_content1%></p></a>
                 </div>
               	<div class="review-card">
                   <div class="review-header">
                     <img src="resources/images/청년경찰.jpg" alt="Profile Image">
                     <span class="review-title"><%= randomNick2 %></span>
                     <div class="buttons">
-                      <button class="btn">추천</button>
-                      <button class="btn follow">Follow</button>
                     </div>
                   </div>
                   <h5><%=mv_title2%></h5>
                   <img src="<%=mv_poster2%>" alt="Movie Poster" style="width:100px;">
-                  <p><%=review_content2%></p>
+                  <a href="reviewShow.jsp?review_cd=<%=ReviewList2.get(0).getReview_cd()%>"><p><%=review_content2%></p></a>
                 </div>
                <div class="review-card">
                   <div class="review-header">
                     <img src="resources/images/청년경찰.jpg" alt="Profile Image">
                     <span class="review-title"><%= randomNick3 %></span>
                     <div class="buttons">
-                      <button class="btn">추천</button>
-                      <button class="btn follow">Follow</button>
                     </div>
                   </div>
                   <h5><%=mv_title3%></h5>
                   <img src="<%=mv_poster3%>" alt="Movie Poster" style="width:100px;">
-                  <p><%=review_content3%></p>
+                  <a href="reviewShow.jsp?review_cd=<%=ReviewList3.get(0).getReview_cd()%>"><p><%=review_content3%></p></a>
                 </div>
             <%} 
           }

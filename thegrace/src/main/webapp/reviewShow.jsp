@@ -111,7 +111,7 @@
                 <div class="container">
                     <div class="header">
                         <div class="profile-img">
-                            <img src="resources/images/<%=member.getPf_img() %>" alt="Profile Image" style="width: 100%; height: 100%; border-radius: 50%;" />
+                            <img src="resources/images/Pf.jpg" alt="Profile Image" style="width: 100%; height: 100%; border-radius: 50%;" />
                         </div>
                         <span class="nick"><%=review.getNick() %></span>
                         <div class="action-buttons">
