@@ -61,6 +61,7 @@
       
       List<ReviewJoinMovie> myReview = dao.getUserReviewList(user_email);
       int reviewCnt = myReview.size();
+      int movieTime = dao.myMovieTime(user_email);
       %>
       <!-- partial -->
       <div class="main-panel" >
@@ -79,7 +80,7 @@
                       	<div class="inCardText">
                           	<h1 class="card-title">인생의 얼마만큼 영화를 봤나요?</h1>
                           	<h3><p><%=member.getNick() %>님은 GRAFO의 회원 중<br> 상위 12%에요</p></h3>
-                          	<h4 class="text-dark font-weight-bold mb-2">11,121 분</h4>
+                          	<h4 class="text-dark font-weight-bold mb-2"><%=movieTime %> 분</h4>
 				         </div>
 				         <div class="movie-graph-container">
 				            <div class="bar" style="height: 70%;"><span>70%</span></div> <!-- 예시 값 -->
@@ -157,7 +158,7 @@
                           <h4 class="text-dark font-weight-bold mb-2 mr-2">4.3</h4>
                       </div>
                     </div>
-                    <p class="mb-4">Based on 186 reviews</p>
+                    <p class="mb-4">Based on <%= %> reviews</p>
                     <div class="row">
                       <div class="col-sm-2 pr-0">
                           <div class="d-flex">
