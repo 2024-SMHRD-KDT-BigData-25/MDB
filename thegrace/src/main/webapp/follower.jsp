@@ -191,7 +191,7 @@
         window.addEventListener('scroll', handleScroll);
     </script>
     	<script>
-	document.addEventListener("DOMContentLoaded", function() {
+		document.addEventListener("DOMContentLoaded", function() {
         const followBtns = document.querySelectorAll('.followBtn');
         const unfollowBtns = document.querySelectorAll('.unfollowBtn');
         const userId = '<%=followee%>'; // 세션에서 userID 가져오기
