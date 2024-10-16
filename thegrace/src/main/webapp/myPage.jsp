@@ -106,12 +106,12 @@
 			         <title>프로필</title>
 			         <div class="profile-header">
 			            <div class="profile-img">
-			             <img src="path/to/your/image.jpg" alt="프로필 이미지"> <!-- 이미지 경로 설정 -->
+			             <img src="resources/image/<%=member.getPf_img() %>" alt="프로필 이미지"> <!-- 이미지 경로 설정 -->
 			            </div>
 			            <div class="profile-info">
-			                <h4>그라포</h4>
-			                <p>grafo@naver.com</p>
-			                <p>가입일: 2024-05-20</p>
+			                <h4><%=member.getNick() %></h4>
+			                <p><%=user_email %></p>
+			                <p>가입일: <%=member.getJoin_date() %></p>
 			             </div>
 			    		<button class="edit-button">수정</button>
 					</div>
@@ -119,15 +119,15 @@
 			        <div class="profile-stats">
 			            <div class="stat">
 			                <h6>팔로잉</h4>
-			                <a href="following.jsp"><p>7</p></a>
+			                <a href="following.jsp"><p><%=dao.followerCnt(user_email)%></p></a>
 			            </div>
 			            <div class="stat">
 			                <h6>팔로워</h6>
-			                <a href="follower.jsp"><p>12</p></a>
+			                <a href="follower.jsp"><p><%=dao.followeeCnt(user_email) %></p></a>
 			            </div>
 			            <div class="stat">
 			                <h6>받은 추천 수</h6>
-			                <p>21</p>
+			                <p><%=dao.allReviewRecmCnt(user_email) %></p>
 			            </div>
 			        </div>
                   </div>
