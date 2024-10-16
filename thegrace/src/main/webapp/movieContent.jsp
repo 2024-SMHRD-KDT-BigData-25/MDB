@@ -180,15 +180,20 @@ p {
 </head>
 <body>
 
+     
+<div class="container-scroller">
+  <!-- 상단바 불러오기 -->
+  <%@ include file="navbar.jsp" %>
+    
+  <div class="container-fluid page-body-wrapper">  
+  	<%@ include file="sidebar.jsp" %>
+
      <% 
      // 영화 내용 불러오기
      String mv_cd = request.getParameter("mv_cd"); 
-     MovieDAO dao = new MovieDAO();
      MovieInfo mvInfo = dao.mvInfo(mv_cd);
      
      // 로그인 유저 정보 -> 네이버 로그인 시 nick, Pf_img, email 정보만 담고 있음
-     UserInfo member = (UserInfo)session.getAttribute("member");
-     String user_email = member.getUser_email();
      
      // 위 영화에 대한 유저의 리뷰 정보 가져오기 
      // 리뷰 + 영화 타이틀 + 영화 포스터 = userReview
@@ -216,20 +221,13 @@ p {
          }
      }
      %>
-     
-<div class="container-scroller">
-  <!-- 상단바 불러오기 -->
-  <%@ include file="navbar.jsp" %>
-    
-  <div class="container-fluid page-body-wrapper">  
-  <%@ include file="sidebar.jsp" %>
       
   	<!-- partial -->
      <div class="main-panel">
 
       <div class="content-wrapper" style="margin-left: 20px; margin-right: 40px; float right;"><!-- 여백 추가 -->
         <div class="strong">
-            <p>장르 · 개봉년도 · 제작국가 · 상영시간</p>
+            <p><%=mvInfo.getMv_genre() %> · <%=mvInfo.getOpen_year() %> · <%=mvInfo.getMv_country() %> · <%=mvInfo.getPlay_time() %></p>
               <h2><%=mvInfo.getMv_title() %></h2>
           <h4><%=mvInfo.getMv_title_eng() %></h4>
       
@@ -254,27 +252,6 @@ p {
             <div class="col-sm-12 mb-4 mb-xl-0">
       
 
-    <!-- container-scroller -->
-
-    <!-- base:js -->
-    <script src="resources/vendors/base/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page-->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- inject:js -->
-    <script src="resources/js/off-canvas.js"></script>
-    <script src="resources/js/hoverable-collapse.js"></script>
-    <script src="resources/js/template.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="resources/js/dashboard.js"></script>
-    <!-- End custom js for this page-->
-
-    <script>
-
-
-    </script>
-    
     <br>
    
     

@@ -15,9 +15,6 @@
 <head>
 <meta charset="UTF-8">
 <title>CINEM@GRAFO</title>
-</head>
-<body>
-
 <style>
 .content img {
     width: 500px; /* 원하는 크기로 조정 */
@@ -41,7 +38,7 @@
             padding: 0;
         }
         .container {
-            width: 70%;
+            width: 80%;
             margin: 0 auto;
             background-color: #ffffff;
             padding: 110px;
@@ -78,19 +75,13 @@
     .review-card p {
     display:-webkit-box; 
     word-wrap:break-word; 
-    -webkit-line-clamp:3; 
+    -webkit-line-clamp:7; 
     -webkit-box-orient:vertical; 
     overflow:hidden; 
     text-overflow:ellipsis;
 }
     
-    .review-card {
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 10px;
-      margin: 10px 0;
-      background-color: #f9f9f9;
-    }
+
     .review-header {
       display: flex;
       align-items: center;
@@ -108,19 +99,21 @@
 .reviews-section {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; /* 왼쪽 정렬 */
     text-align: left; /* 텍스트 왼쪽 정렬 */
-    padding: 20px;
+    padding: 10px;
+    gap:10px;
+    
 }
 
 .review-card {
-    margin: 10px;
+    margin-right: 10px;
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #ffffff;
-    width: 280px;
+    width: 310px;
     padding: 15px;
+    height:250px;
 }
 
 .review-header {
@@ -159,9 +152,6 @@ h5 {
     font-size: 24px; /* 글씨 크기 설정 (필요시 변경 가능) */
 }
 
-태그 글씨 설정 css
-
-
 p {
     font-size: 10px;
     color: #555;
@@ -172,31 +162,46 @@ p {
     margin-top: 10px;
 }
 
-   
+.review-card img {
+	float:left;
+	margin-right:10px;
+}
+
+.reviews-area {
+	justify-content:space-between;
+}
+
+.review-head{
+	width:85%;
+	display:flex;
+	justify-content:space-between;
+}
+
+.review-head .title {
+
+  	font-size: 1.3em;
+
+	  margin-left: 0;
+
+	  margin-right: 0;
+
+	  font-weight: bold;
+}
+
+.content-wrapper {
+	padding:40px;
+
+}
+
+.movie-section {
+	width:80%;
+}
+
 </style>
 
-   <%   
+</head>
+<body>
 
-      // 타입이름 변수명 = dao.매개변수명
-      UserInfo member = (UserInfo)session.getAttribute("member");
-      String user_email = member.getUser_email(); 
-      MovieDAO dao = new MovieDAO();
-      List<FollowPf> followeeList = dao.getFollowee(user_email);
-      List<UserInfo> userList = dao.getUserList();
-      
-      if (!userList.isEmpty()) {
-          int randomIndex = new java.util.Random().nextInt(userList.size());
-          String randomNick = userList.get(randomIndex).getNick();
-  %>
-          <span class="review-title"><%= randomNick %></span>
-  <%
-      } else {
-  %>
-          <span class="review-title">등록된 유저가 없습니다.</span>
-  <%
-      }
-  %>
-  
   <div class="container-scroller">
      <!-- 상단바 불러오기 -->
        <%@ include file="navbar.jsp" %>
@@ -205,84 +210,93 @@ p {
     <div class="container-fluid page-body-wrapper">
     
          <%@ include file="sidebar.jsp" %>
-      
-      <!-- partial -->
+
+   <%   
+
+	   List<FollowPf> followeeList = dao.getFollowee(user_email);
+	   List<UserInfo> userList = dao.getUserList();
+	   
+	   if (!userList.isEmpty()) {
+	       int randomIndex = new java.util.Random().nextInt(userList.size());
+	       String randomNick = userList.get(randomIndex).getNick();
+	   }
+	%>
+ <!-- partial -->
       <div class="main-panel" >
-        <div class="content-wrapper" style="padding:80px;">
-             <h2 style="text-align: center;">이번 주의 영화</h2> <!-- 제목 중앙 정렬 -->
-              <div>
-                <canvas id="myChart" width="200" height="50"></canvas> <!-- 차트크기수정 -->
-              </div>
-              <div>
-                <p>투표 기간: #ST_DT ~ #ED_DT</p>
-                <form id="voteForm" method="post" action="vote">
-			        <div id="movieList"> <!-- 영화 목록이 동적으로 추가될 부분 -->
+        <div class="content-wrapper">
+          <div class="movie-section">
+            <h2 style="text-align: center;">이번 주의 영화</h2> <!-- 제목 중앙 정렬 -->
+            <div>
+              <canvas id="myChart" width="200" height="50"></canvas> <!-- 차트크기수정 -->
+            </div>
+            <div>
+              <form id="voteForm" method="post" action="vote">
+			    <div id="movieList"> <!-- 영화 목록이 동적으로 추가될 부분 -->
 			            <!-- JavaScript를 통해 영화 목록이 추가될 예정 -->
-			        </div>
-			        <br>
-			        <button type="submit">투표하기</button>
-			    </form>
-              </div>
-              <br>
-              <div class="chatgpt-activation" style="padding-left: 20px;">
-              <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
-                <span style="color: green;">ChatGPT 활성화 (팝업 창에서 열기)</span>
-              </div>
-           </div>
-             
+			    </div>
+			    <br>
+			    <button type="submit">투표하기</button>
+			  </form>
+             </div>
+             <br>
+           </div>    
         <!-- 영화 리뷰 섹션  -->
-              <br>
               <%if (followeeList.size() >= 3) {
                  List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(0).getFollowee() );
                  List<RevMvTitle> reviewMvList2 = dao.followeeReviewList( followeeList.get(1).getFollowee() );
                  List<RevMvTitle> reviewMvList3 = dao.followeeReviewList( followeeList.get(2).getFollowee() );
                  %>
+            <div class="reviews-area">
               <div class="reviews-section">
-                <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
+              	<div class="review-head">
+                <span class="title">팔로우 중인 사람들의 리뷰를 읽어보세요!</span><span class="plus-btn">더보기</span>
+                </div>
+                <div class="review-body">
+	                <div class="review-card">
+		                  <div class="review-header">
+		                    <img src=<%=followeeList.get(0).getPf_img()  %> alt="Profile Image">
+		                    <span class="review-title"><%=followeeList.get(0).getNick() %></span>
+		                    <div class="buttons">
+		                      <button class="btn">추천</button>
+		                    </div>
+		                  </div>
+		                  <h5><%=reviewMvList.get(0).getMv_title() %></h5>
+		                   <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
+		                  <p><%=reviewMvList.get(0).getReview_content()%></p>
+	                </div>
+                </div>
                 <div class="review-card">
-                  <div class="review-header">
-                    <img src=<%=followeeList.get(0).getPf_img()  %> alt="Profile Image">
-                    <span class="review-title"><%=followeeList.get(0).getNick() %></span>
-                    <div class="buttons">
-                      <button class="btn">추천</button>
-                    </div>
-                  </div>
-                  <h5><%=reviewMvList.get(0).getMv_title() %></h5>
-                  <p><%=reviewMvList.get(0).getReview_content()%></p>
-                   <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
+	                  <div class="review-header">
+	                    <img src=<%=followeeList.get(1).getPf_img() %> alt="Profile Image">
+	                    <span class="review-title"><%=followeeList.get(1).getNick() %></span>
+	                    <div class="buttons">
+	                      <button class="btn">추천</button>
+	                    </div>
+	                  </div>
+	                  <h5><%=reviewMvList2.get(0).getMv_title() %></h5>
+	                   <img src=<%=reviewMvList2.get(0).getMv_poster() %> alt="Movie Poster" style="width:100px;">
+	                  <p><%=reviewMvList2.get(0).getReview_content()%></p>
                 </div>
                 
                 <div class="review-card">
-                  <div class="review-header">
-                    <img src=<%=followeeList.get(1).getPf_img() %> alt="Profile Image">
-                    <span class="review-title"><%=followeeList.get(1).getNick() %></span>
-                    <div class="buttons">
-                      <button class="btn">추천</button>
-                    </div>
-                  </div>
-                  <h5><%=reviewMvList2.get(0).getMv_title() %></h5>
-                  <p><%=reviewMvList2.get(0).getReview_content()%></p>
-                   <img src=<%=reviewMvList2.get(0).getMv_poster() %> alt="Movie Poster" style="width:100px;">
-                </div>
-                
-                <div class="review-card">
-                  <div class="review-header">
-                    <img src=<%=followeeList.get(2).getPf_img() %> alt="Profile Image">
-                    <span class="review-title"><%=followeeList.get(2).getNick() %></span>
-                    <div class="buttons">
-                      <button class="btn">추천</button>
-                    </div>
-                  </div>
-                  <h5><%=reviewMvList3.get(0).getMv_title() %></h5>
-                  <p><%=reviewMvList3.get(0).getReview_content()%></p>
-                <img src=<%=reviewMvList3.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
-                </div>
+	                  <div class="review-header">
+	                    <img src=<%=followeeList.get(2).getPf_img() %> alt="Profile Image">
+	                    <span class="review-title"><%=followeeList.get(2).getNick() %></span>
+	                    <div class="buttons">
+	                      <button class="btn">추천</button>
+	                    </div>
+	                  </div>
+	                  <h5><%=reviewMvList3.get(0).getMv_title() %></h5>
+	                <img src=<%=reviewMvList3.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
+	                  <p><%=reviewMvList3.get(0).getReview_content()%></p>
+	                </div>
               </div>
               
               <%} else if (followeeList.size() == 2) { 
                  List<RevMvTitle> reviewMvList = dao.followeeReviewList( followeeList.get(0).getFollowee() );
                  List<RevMvTitle> reviewMvList2 = dao.followeeReviewList( followeeList.get(1).getFollowee() );
               %>
+              
               <div class="reviews-section">
                 <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
                 <div class="review-card">
@@ -294,8 +308,8 @@ p {
                     </div>
                   </div>
                   <h5><%=reviewMvList.get(0).getMv_title() %></h5>
-                  <p><%=reviewMvList.get(0).getReview_content()%></p>
                    <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
+                  <p><%=reviewMvList.get(0).getReview_content()%></p>
                 </div>
                 
                 <div class="review-card">
@@ -307,8 +321,8 @@ p {
                     </div>
                   </div>
                   <h5><%=reviewMvList2.get(0).getMv_title() %></h5>
-                  <p><%=reviewMvList2.get(0).getReview_content()%></p>
                    <img src=<%=reviewMvList2.get(0).getMv_poster() %> alt="Movie Poster" style="width:100px;">
+                  <p><%=reviewMvList2.get(0).getReview_content()%></p>
                 </div>
                </div>
                 
@@ -326,8 +340,8 @@ p {
                     </div>
                   </div>
                   <h5><%=reviewMvList.get(0).getMv_title() %></h5>
-                  <p><%=reviewMvList.get(0).getReview_content()%></p>
                    <img src=<%=reviewMvList.get(0).getMv_poster() %>  alt="Movie Poster" style="width:100px;">
+                  <p><%=reviewMvList.get(0).getReview_content()%></p>
                 </div>
                </div>
                 
@@ -336,7 +350,7 @@ p {
                 <h4>팔로우 중인 사람들의 리뷰를 읽어보세요!</h4>
                <div class="review-card">
                 <div class="review-header">
-                 팔로우가 없습니다!
+                 팔로우 중인 유저가 없습니다!
                 </div>
                </div>
               </div>
@@ -407,12 +421,9 @@ p {
    		                mv_poster3 = ReviewList3.get(0).getMv_poster(); // 리뷰에 포함된 포스터 URL
    		                review_content3 = ReviewList3.get(0).getReview_content(); // 리뷰내용
    		   				mv_title3 = ReviewList3.get(0).getMv_title(); // 영화제목
-                
-            
-                
+
                 %>
-  		
- <div class="reviews-section">
+ 			<div class="reviews-section">
                 <h4><%=member.getNick() %>님이 최근 본 영화들, 다른 사람들은 어떻게 봤을까요?</h4>
                  <div class="review-card">
                   <div class="review-header">
@@ -424,10 +435,10 @@ p {
                     </div>
                   </div>
                   <h5><%=mv_title1%></h5>
-                  <p><%=review_content1%></p>
                     <img src="<%=mv_poster1%>"  alt="Movie Poster" style="width:100px;">
+                  <p><%=review_content1%></p>
                 </div>
-              <div class="review-card">
+              	<div class="review-card">
                   <div class="review-header">
                     <img src="resources/images/청년경찰.jpg" alt="Profile Image">
                     <span class="review-title"><%= randomNick2 %></span>
@@ -437,8 +448,8 @@ p {
                     </div>
                   </div>
                   <h5><%=mv_title2%></h5>
-                  <p><%=review_content2%></p>
                   <img src="<%=mv_poster2%>" alt="Movie Poster" style="width:100px;">
+                  <p><%=review_content2%></p>
                 </div>
                <div class="review-card">
                   <div class="review-header">
@@ -450,69 +461,23 @@ p {
                     </div>
                   </div>
                   <h5><%=mv_title3%></h5>
-                  <p><%=review_content3%></p>
                   <img src="<%=mv_poster3%>" alt="Movie Poster" style="width:100px;">
+                  <p><%=review_content3%></p>
                 </div>
             <%} 
           }
       }
   }%>
+		</div>
 
 
-        
-               <br>
-                <h4>최근 인기있는 리뷰를 확인해보세요!</h4>
-                 <div class="review-card">
-                  <div class="review-header">
-                    <img src="resources/images/faces/face7.jpg" alt="Profile Image">
-                    <span class="review-title">푸바오</span>
-                    <div class="buttons">
-                      <button class="btn">추천</button>
-                      <button class="btn follow">Follow</button>
-                    </div>
-                  </div>
-                  <h5>청년경찰</h5>
-                  <p>이 영화를 보고 경찰의 꿈을 가지게되었습니다</p>
-                    <img src="resources/images/청년경찰.jpg"  alt="Movie Poster" style="width:100px;">
-                </div>
-              <div class="review-card">
-                  <div class="review-header">
-                    <img src="resources/images/faces/face4.jpg" alt="Profile Image">
-                    <span class="review-title">러바오</span>
-                    <div class="buttons">
-                      <button class="btn">추천</button>
-                      <button class="btn follow">Follow</button>
-                    </div>
-                  </div>
-                  <h5>7번방의 선물</h5>
-                  <p> 7번방의 기적은 의심할 여지 없이 내가 본 최고의 영화</p>
-                  <img src="resources/images/7번방의선물.jpg" alt="Movie Poster" style="width:100px;">
-                </div>
-              <div class="review-card">
-                  <div class="review-header">
-                    <img src="resources/images/faces/face1.jpg" alt="Profile Image">
-                    <span class="review-title">아이바오</span>
-                    <div class="buttons">
-                      <button class="btn">추천</button>
-                      <button class="btn follow">Follow</button>
-                    </div>
-                  </div>
-                  <h5>파묘</h5>
-                  <p>겁이 나기보다는 긴장감을 조성하기 위해 으스스한 분위기와 지식을 활용하는 다소 만족스러운 공포 영화</p>
-                  <img src="resources/images/파묘.jpg" alt="Movie Poster" style="width:100px;">
-                </div>
-              
-
-              
-              <!-- 세 번째 리뷰 섹션 ends -->  
+            </div><!-- review area --> 
          </div>
          <!-- contents-wrapper ends -->
         </div>
         <!-- main-panel ends -->
       </div>
       <!-- page-body-wrapper ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
 
@@ -531,7 +496,6 @@ p {
     <script src="resources/js/dashboard.js"></script>
     <!-- End custom js for this page-->
     <!-- 주간차트 js -->
-    <script src="resources/js/weekChart.js"></script>
     <script>
     // 페이지 로딩 시 영화 목록 불러오기
     // Chart.js 그래프 초기 설정

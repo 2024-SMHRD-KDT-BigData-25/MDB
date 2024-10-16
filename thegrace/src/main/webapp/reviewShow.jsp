@@ -1,3 +1,6 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
+<%@page import="com.smhrd.model.ReviewRecmInfo"%>
+<%@page import="com.smhrd.model.ReviewInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -67,13 +70,20 @@
             padding: 10px; /* 여백 */
             border-radius: 8px; /* 모서리 둥글게 */
         }
+        
+        		.like-btn {
+			cursor: pointer;
+			margin-right: 10px;
+		}
+		
+		.active {
+			color: red;
+			cursor: pointer;
+			margin-right: 10px;
+		}
+		
     </style>
-    <script>
-        function handleLike() {
-            alert("하트를 눌렀습니다!");
-            // 추가적인 로직을 여기에 구현할 수 있습니다.
-        }
-    </script>
+
 </head>
 <body>
 <div class="container-scroller">
@@ -86,32 +96,78 @@
       
         <!-- partial -->
         <div class="main-panel">
+        
+        	<% int review_cd = Integer.parseInt(request.getParameter("review_cd"));
+        		System.out.println(user_email);	
+        		ReviewInfo review = dao.reviewbyReview_cd(review_cd);
+        		 int totalLikes = dao.totallike(review_cd);
+        		    ReviewRecmInfo res = new ReviewRecmInfo(review_cd, user_email);
+        		    int check = dao.checklike(res);
+        	
+        	%>
+        
             <div class="content-wrapper" style="padding:60px;">
                 <!-- 작업공간입니다! -->
                 <div class="container">
                     <div class="header">
                         <div class="profile-img">
-                            <img src="resources/images/profile.jpg" alt="Profile Image" style="width: 100%; height: 100%; border-radius: 50%;" />
+                            <img src="resources/images/<%=member.getPf_img() %>" alt="Profile Image" style="width: 100%; height: 100%; border-radius: 50%;" />
                         </div>
-                        <span class="nick">#nick</span>
+                        <span class="nick"><%=review.getNick() %></span>
                         <div class="action-buttons">
-                            <span style="color: red; cursor: pointer; margin-right: 20px" onclick="handleLike()">
-                                <i class="fas fa-heart"></i>
-                            </span>
+                            	<span class = "like-btn <%= check > 0 ? "active" : "" %>" >
+								   <i class="fas fa-heart"></i>
+								</span> <span style="color:#ffffff;"> like : </span><span id="like-count" style="color:#ffffff;"><%= totalLikes %>  </span>
                             <button>follow</button>
                         </div>
                     </div>
                     
                     <div class="content">
-                        <div class="review-img">
-                            <img src="resources/images/sample.jpg" alt="Sample Image" style="width: 100%; height: auto;"/>
-                        </div>
-                        <div class="review-text">#reviewContent</div>
+
+                        <div class="review-text"><%=review.getReview_content() %></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+    <script>
+
+
+
+ // 좋아요 추가, 취소, 카운트
+ const likeButton = document.querySelector('.like-btn');
+ const likeCountDisplay = document.getElementById('like-count');
+
+ likeButton.addEventListener('click', function() {
+     const isActive = this.classList.toggle('active'); // 버튼의 상태 토글
+     const xhr = new XMLHttpRequest();
+     const url = isActive ? "LikeInsertController" : "LikeDeleteController";
+
+     xhr.open("POST", url, true);
+     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+     xhr.onload = function() {
+         if (xhr.status === 200) {
+             // 성공 시 총 좋아요 수 업데이트
+             const currentLikes = parseInt(likeCountDisplay.textContent);
+             likeCountDisplay.textContent = isActive ? currentLikes + 1 : currentLikes - 1; // 화면에 좋아요 수 업데이트
+
+ 	            // 버튼 텍스트 변경
+ 	            if (isActive) {
+ 	                this.classList.add('on'); // 좋아요 추가 시 'on' 클래스 추가
+ 	            } else {
+ 	                this.classList.remove('on'); // 좋아요 제거 시 'on' 클래스 제거
+ 	            } 
+         } else {
+             console.log("요청에 실패했습니다.");
+         }
+     };
+
+     // 서버로 보낼 데이터 설정
+     xhr.send("user_email=" + encodeURIComponent("<%=user_email%>") + "&review_cd=" + encodeURIComponent("<%=review_cd%>") );
+ });    
+    </script>
+
 </body>
 </html>

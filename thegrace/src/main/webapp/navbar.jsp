@@ -1,3 +1,5 @@
+<%@page import="com.smhrd.model.MovieDAO"%>
+<%@page import="com.smhrd.model.UserInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -35,6 +37,14 @@
   
 </head>
 <body>
+	
+	<%
+	UserInfo member = (UserInfo)session.getAttribute("member");
+	session.setMaxInactiveInterval(60*60); 
+	String user_email = member.getUser_email();
+	MovieDAO dao = new MovieDAO();
+	member = dao.userLoad(user_email);
+	%>
 	    <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"> <!-- 상단바 -->
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
