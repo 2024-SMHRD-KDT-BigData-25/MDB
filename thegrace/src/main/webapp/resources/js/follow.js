@@ -1,28 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
-	        const followBtns = document.querySelectorAll('.followBtn');
-	        const unfollowBtns = document.querySelectorAll('.unfollowBtn');
-            const userId = '<%= user_email %>'; // 세션에서 userID 가져오기
 
-            // 페이지 로드 시 팔로우 상태 확인 (userId와 각 followee(targetID)로 확인)
-            followBtns.forEach(button => {
-                const followee = button.getAttribute('data-followee');
-                checkFollowStatus(userId, followee, button);  // 팔로우 상태 확인
-            });
-	        
-	        followBtns.forEach(button => {
-	            button.addEventListener('click', function() {
-	                const followee = this.getAttribute('data-followee');
-	                follow(followee, button);
-	            });
-	        });
-	        
-	        unfollowBtns.forEach(button => {
-	            button.addEventListener('click', function() {
-	                const followee = this.getAttribute('data-followee');
-	                unfollow(followee, button);
-	            });
-	        });
-	    });
 
 // 팔로우 기능 구현
 function follow(followee, button) {
@@ -70,6 +46,8 @@ function handleError(jqXHR) {
 // 팔로우 상태를 확인하는 함수
 function checkFollowStatus(userId, targetId, button) {
     // AJAX 요청을 통해 서버에서 팔로우 상태를 받아옵니다.
+	console.log(userId)
+	console.log(targetId)
     $.ajax({
         url: '/thegrace/followStatus',  // 서버의 팔로우 상태 확인 API
         type: 'post',
@@ -90,26 +68,20 @@ function checkFollowStatus(userId, targetId, button) {
 
 // 팔로우 상태에 따른 처리 함수
 function handleFollowStatus(status, button) {
-	const followBtn = button;
-	const unfollowBtn = followBtn.nextElementSibling;
 	
     switch (status) {
         case 'following':
-			followBtn.style.display = 'none';
-			unfollowBtn.style.display = 'inline-block';
+			$(button).hide(); // follow 버튼 숨김
+			$(button).siblings('.unfollowBtn').show(); // unfollow 버튼 표시
             // 여기서 UI 업데이트 등을 처리
             break;
         case 'follower':
-			followBtn.style.display = 'inline-block';
-			unfollowBtn.style.display = 'none';
             break;
         case 'F4F':
-			followBtn.style.display = 'none';
-			unfollowBtn.style.display = 'inline-block';
+			$(button).hide(); // follow 버튼 숨김
+			$(button).siblings('.unfollowBtn').show(); // unfollow 버튼 표시
             break;
         case 'none':
-			followBtn.style.display = 'inline-block';
-			unfollowBtn.style.display = 'none';
             break;
         default:
             console.log("Unknown follow status.");

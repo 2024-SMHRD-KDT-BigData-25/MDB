@@ -118,7 +118,8 @@
                             	<span class = "like-btn <%= check > 0 ? "active" : "" %>" >
 								   <i class="fas fa-heart"></i>
 								</span> <span style="color:#ffffff;"> like : </span><span id="like-count" style="color:#ffffff;"><%= totalLikes %>  </span>
-                            <button>follow</button>
+                            <button class="follow-button followBtn" data-followee="\${follower.follower}">Follow</button>
+                            <button class="follow-button unfollowBtn" data-followee="\${follower.follower}" style="display: none;">Following</button>
                         </div>
                     </div>
                     

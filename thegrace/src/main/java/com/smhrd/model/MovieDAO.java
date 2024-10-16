@@ -134,9 +134,9 @@ public class MovieDAO {
 	public boolean F4F(FollowingInfo m) {
 		// openSession(true) -> 오토커밋 기능 on
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
-		FollowingInfo res = sqlSession.selectOne("MovieMapper.F4F", m);
+		int res = sqlSession.selectOne("MovieMapper.F4F", m);
 		sqlSession.close(); // session의 자원 반환
-		if ( res != null ) {
+		if ( res >0 ) {
 			return true;
 		} else {
 			return false;

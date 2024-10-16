@@ -23,14 +23,12 @@ public class followStatus extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		String targetId = request.getParameter("targetId");
-		
 		FollowingInfo f4fu = new FollowingInfo(userId, targetId);
 		FollowingInfo f4ft = new FollowingInfo(targetId, userId);
 		
 		MovieDAO dao = new MovieDAO();
 		boolean userFollow = dao.F4F(f4fu);
 		boolean targetFollow = dao.F4F(f4ft);
-		
 		
 		// F4F - 맞팔 / following - 팔로우 하고 있는 상태 / follower - 팔로우 당한 상태 / 0 - 아무 관계도 없는 상태
 		String followStatus;
@@ -47,7 +45,7 @@ public class followStatus extends HttpServlet {
 		// 응답 준비
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"followStatus\":" + followStatus + "}");
+        response.getWriter().write("{\"followStatus\":\"" + followStatus + "\"}");
 		
 	}
 
