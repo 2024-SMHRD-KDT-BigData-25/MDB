@@ -24,6 +24,3 @@ ex2. 팀장) (생성) com.smhrd.controller.loginController : login 기능 추가
 
 <br>
 사용 중에 불편함 있으면 말해주세요~~ 수정하면서 더 나은 표기법/협업 방식 찾아봅시다 
- 
-## 중제목
-### 소제목
