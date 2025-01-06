@@ -12,11 +12,10 @@
 <br>
 
 ## ⭐ 주요 기능
-* 기능1
-* 기능2
-* 기능3
-* 기능4
-* 기능5
+* chart.js를 통한 영화감상정보 시각화
+* 투표를 통한 주간차트 시스템
+* 회원팔로우, 리뷰추천
+* TMDB를 이용한 영화 정보 제공 
 <br>
 
 ## ⛏ 기술스택
@@ -38,7 +37,7 @@
         <td>라이브러리</td>
         <td>
             <img src="https://img.shields.io/badge/BootStrap-7952B3?style=for-the-badge&logo=BootStrap&logoColor=white"/>
-            <img src="https://img.shields.io/badge/KakaoMap-FFCD00?style=for-the-badge&logo=Kakao&logoColor=white"/>
+            <img src="https://img.shields.io/badge/NaverLogin-03c75?style=for-the-badge&logo=&logoColor=white"/>
         </td>
     </tr>
     <tr>
@@ -59,7 +58,6 @@
     <tr>
         <td>데이터베이스</td>
         <td>
-            <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"/>
             <img src="https://img.shields.io/badge/Oracle 11g-F80000?style=for-the-badge&logo=Oracle&logoColor=white"/>
         </td>
     </tr>
@@ -75,7 +73,7 @@
 
 <br>
 
-## ⚙ 시스템 아키텍처(구조) 예시 
+## ⚙ 시스템 아키텍처(구조)
 
 <br>
 
@@ -84,10 +82,12 @@
 <br>
 
 ## 📌 서비스 흐름도
+![image](https://github.com/user-attachments/assets/76261587-532b-4772-8b18-bd96513077ce)
 
 <br>
 
 ## 📌 ER다이어그램
+![image](https://github.com/user-attachments/assets/28707066-6946-4257-a237-6095a68e5045)
 
 <br>
 
