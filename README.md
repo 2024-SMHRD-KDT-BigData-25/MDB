@@ -27,7 +27,8 @@
     <tr>
         <td>사용언어</td>
         <td>
-            <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=white"/>
+            <img src="https://img.shields.io/badge/python-646464?style=for-the-badge&logo=python&logoColor=white"/>
             <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/>
             <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/>
             <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/>
@@ -36,16 +37,15 @@
     <tr>
         <td>라이브러리</td>
         <td>
-            <img src="https://img.shields.io/badge/BootStrap-7952B3?style=for-the-badge&logo=BootStrap&logoColor=white"/>
-            <img src="https://img.shields.io/badge/NaverLogin-03c75?style=for-the-badge&logo=&logoColor=white"/>
+            <img src="https://img.shields.io/badge/chart.js-7952B3?style=for-the-badge&logo=chart.js&logoColor=white"/>
+            <img src="https://img.shields.io/badge/NaverLogin-03c75?style=for-the-badge&logo=naver&logoColor=white"/>
         </td>
     </tr>
     <tr>
         <td>개발도구</td>
         <td>
             <img src="https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=Eclipse&logoColor=white"/>
-            <img src="https://img.shields.io/badge/RaskpberryPi-A22846?style=for-the-badge&logo=RaskpberryPi&logoColor=white"/>
-            <img src="https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white"/>
+            <img src="https://img.shields.io/badge/jupyter-F37726?style=for-the-badge&logo=jupyter&logoColor=white"/>
             <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white"/>
         </td>
     </tr>
@@ -70,14 +70,6 @@
     </tr>
 </table>
 
-
-<br>
-
-## ⚙ 시스템 아키텍처(구조)
-
-<br>
-
-## 📌 SW유스케이스
 
 <br>
 
