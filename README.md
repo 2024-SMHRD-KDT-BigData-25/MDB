@@ -85,42 +85,42 @@
 
 ## 🖥 화면 구성
 
-### 로그인/회원가입/회원괸리/회원수정/회원탈퇴
+### 메인페이지
+![image](https://github.com/user-attachments/assets/78257566-6021-4548-b01f-4ba15732e43e)
 
 <br>
 
-### 옷 정보/코디 추천(날씨, 팁, 오늘의 코디, 참고할 수 있는 코디)
+### 리뷰 작성
+![image](https://github.com/user-attachments/assets/98e5cabd-a90a-42b8-8ebf-e4cc64d19ce1)
 
 <br>
 
-### 일정/고객센터
+### 마이페이지 (영화 감상 기록 시각화) 
+![image](https://github.com/user-attachments/assets/a0904d7a-ad67-4c99-a323-06b7b0b1ce85)
+
 
 <br>
 
 ## 👨‍👩‍👦‍👦 팀원 역할
 <table>
   <tr>
-    <td align="center"><img src="https://item.kakaocdn.net/do/fd49574de6581aa2a91d82ff6adb6c0115b3f4e3c2033bfd702a321ec6eda72c" width="100" height="100"/></td>
-    <td align="center"><img src="https://mb.ntdtv.kr/assets/uploads/2019/01/Screen-Shot-2019-01-08-at-4.31.55-PM-e1546932545978.png" width="100" height="100"/></td>
-    <td align="center"><img src="https://mblogthumb-phinf.pstatic.net/20160127_177/krazymouse_1453865104404DjQIi_PNG/%C4%AB%C4%AB%BF%C0%C7%C1%B7%BB%C1%EE_%B6%F3%C0%CC%BE%F0.png?type=w2" width="100" height="100"/></td>
-    <td align="center"><img src="https://i.pinimg.com/236x/ed/bb/53/edbb53d4f6dd710431c1140551404af9.jpg" width="100" height="100"/></td>
-    <td align="center"><img src="https://pbs.twimg.com/media/B-n6uPYUUAAZSUx.png" width="100" height="100"/></td>
+    <td align="center"><strong>천지희</strong></td>
+    <td align="center"><strong>김선우</strong></td>
+    <td align="center"><strong>전정현</strong></td>
+    <td align="center"><strong>유초원</strong></td>
+    <td align="center"><strong>김민규</strong></td>
+    <td align="center"><strong>서지원</strong></td>
   </tr>
   <tr>
-    <td align="center"><strong>홍O동</strong></td>
-    <td align="center"><strong>홍O동</strong></td>
-    <td align="center"><strong>홍O동</strong></td>
-    <td align="center"><strong>홍O동</strong></td>
-    <td align="center"><strong>홍O동</strong></td>
-  </tr>
-  <tr>
-    <td align="center"><b>Frontend</b></td>
+    <td align="center"><b>PM</b></td>
     <td align="center"><b>Frontend</b></td>
     <td align="center"><b>Backend</b></td>
     <td align="center"><b>Backend</b></td>
-    <td align="center"><b>Deep Learning</b></td>
+    <td align="center"><b>DB, Backend</b></td>
+    <td align="center"><b>Frontend</b></td>
   </tr>
   <tr>
+    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
     <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
     <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
     <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
@@ -129,15 +129,18 @@
   </tr>
 </table>
 
+
 ## 🤾‍♂️ 트러블슈팅
 개념: 문제 해결을 위해 문제의 원인을 논리적이고 체계적으로 찾는 일이며 제품이나 프로세스의 운영을 재개
 프로젝트 진행하는 동안 발생했던 이슈 중 가장 기억에 남았던 문제와 해결 프로세스 나열(2~5가지 정도)
   
 * 문제1<br>
- 문제점 설명 및 해결방안
+ ![화이트 네온 핑크 깔끔한 프로젝트 제안서 프레젠테이션 (3)](https://github.com/user-attachments/assets/da32298e-7ff6-4c6e-b742-fbc39337e64f)
+
  
 * 문제2<br>
- 문제점 설명 및 해결방안
+ ![화이트 네온 핑크 깔끔한 프로젝트 제안서 프레젠테이션 (4)](https://github.com/user-attachments/assets/2dbcd492-4f0f-4c22-9964-269176f21cf3)
+
 
 
 
